@@ -1,0 +1,3256 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dibi8 开发者资源导航黄页 | Dibi8 Developer Resource Hub Yellow Pages</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Dibi8 开发者资源导航黄页，收录整理了 dibi8.com 全站大模型框架、AI 工具、数据科学、开发辅助及在线工具。支持多语言链接切换（中英韩越）、即时模糊搜索及本地化常用收藏。">
+    <meta name="keywords" content="dibi8, AI Agent, LLM, 大模型框架, AI 交易, 数据科学, 开发者工具, 导航黄页, GitHub Pages">
+    <meta name="author" content="Dibi8 Community">
+    
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Modern Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* CSS RESET & CUSTOM PROPERTIES */
+        :root {
+            --bg-base: #07080d;
+            --bg-surface: rgba(14, 16, 27, 0.7);
+            --bg-card: rgba(22, 25, 43, 0.6);
+            --bg-card-hover: rgba(28, 32, 56, 0.85);
+            
+            --border-glow: rgba(0, 242, 254, 0.15);
+            --border-glow-hover: rgba(127, 0, 255, 0.35);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            
+            --color-cyan: #00f2fe;
+            --color-violet: #7f00ff;
+            --color-pink: #e100ff;
+            --color-amber: #ff9900;
+            --color-success: #10b981;
+            
+            --gradient-primary: linear-gradient(135deg, var(--color-cyan) 0%, #4facfe 100%);
+            --gradient-glow: linear-gradient(135deg, var(--color-cyan) 0%, var(--color-violet) 50%, var(--color-pink) 100%);
+            
+            --font-display: 'Outfit', 'Inter', sans-serif;
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --shadow-neon: 0 0 25px rgba(0, 242, 254, 0.15);
+            --shadow-neon-hover: 0 0 35px rgba(127, 0, 255, 0.25);
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            letter-spacing: -0.01em;
+        }
+
+        /* FUTURISTIC NEON STARFIELD BACKGROUND */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(rgba(0, 242, 254, 0.05), transparent 400px);
+            background-size: 550px 550px, 350px 350px, 100% 100%;
+            background-position: 0 0, 40px 60px, center;
+            opacity: 0.25;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* APP LAYOUT */
+        .app-container {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            padding: 2rem;
+            flex-grow: 1;
+        }
+
+        /* FLOATING SIDEBAR NAVIGATION */
+        aside.sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 2rem;
+            height: calc(100vh - 4rem);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            z-index: 10;
+        }
+
+        .glass-panel {
+            background: var(--bg-surface);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        /* BRANDING */
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .brand-logo {
+            width: 2.25rem;
+            height: 2.25rem;
+            background: var(--gradient-primary);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+            color: #07080d;
+        }
+
+        .brand h1 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.05em;
+        }
+
+        .brand-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* NAV MENU */
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            overflow-y: auto;
+            flex-grow: 1;
+            padding-right: 0.25rem;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            border: 1px solid transparent;
+        }
+
+        .nav-item a:hover, .nav-item.active a {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .nav-item.active a {
+            background: rgba(0, 242, 254, 0.06);
+            border-color: rgba(0, 242, 254, 0.25);
+            box-shadow: inset 0 0 10px rgba(0, 242, 254, 0.05);
+        }
+
+        .nav-icon-text {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-badge {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 2rem;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+        }
+
+        .nav-item.active .nav-badge {
+            background: rgba(0, 242, 254, 0.15);
+            color: var(--color-cyan);
+        }
+
+        /* STATS COMPONENT */
+        .sidebar-stats {
+            margin-top: auto;
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .stat-box {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 0.6rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .stat-val {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--color-cyan);
+        }
+
+        .stat-lbl {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
+        }
+
+        /* MAIN CONTENT AREA */
+        main.main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            min-width: 0; /* Prevents flex box overflow */
+        }
+
+        /* HEADER AREA */
+        header.dashboard-header {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .header-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* SEARCH ENGINE BAR */
+        .search-engine-container {
+            position: relative;
+            flex-grow: 1;
+            max-width: 650px;
+            min-width: 280px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 1rem;
+            outline: none;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: var(--transition-smooth);
+        }
+
+        .search-input:focus {
+            border-color: var(--color-cyan);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);
+            background: rgba(14, 16, 27, 0.95);
+        }
+
+        .search-icon-left {
+            position: absolute;
+            left: 1.15rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+
+        .search-input:focus + .search-icon-left {
+            color: var(--color-cyan);
+        }
+
+        .search-hotkey-hint {
+            position: absolute;
+            right: 1.15rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.15rem 0.4rem;
+            border-radius: 0.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+        }
+
+        /* DYNAMIC LANGUAGE TOGGLE */
+        .language-switcher {
+            display: flex;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            padding: 0.25rem;
+            border-radius: 0.75rem;
+            gap: 0.15rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .lang-btn {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            padding: 0.45rem 0.9rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .lang-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .lang-btn.active {
+            color: #07080d;
+            background: var(--gradient-primary);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+        }
+
+        /* HEADER ANNOUNCEMENT BOARD */
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(14, 16, 27, 0.8) 0%, rgba(22, 25, 43, 0.4) 100%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 1.25rem;
+            padding: 1.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: var(--color-cyan);
+            filter: blur(120px);
+            border-radius: 50%;
+            top: -50px;
+            right: -50px;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: var(--color-violet);
+            filter: blur(120px);
+            border-radius: 50%;
+            bottom: -80px;
+            left: 50px;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .hero-content h2 {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-content p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            max-width: 750px;
+        }
+
+        .hero-badge-link {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--color-cyan);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            background: rgba(0, 242, 254, 0.05);
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            transition: var(--transition-smooth);
+            flex-shrink: 0;
+        }
+
+        .hero-badge-link:hover {
+            background: rgba(0, 242, 254, 0.15);
+            border-color: var(--color-cyan);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+            color: #fff;
+        }
+
+        /* FAVORITES SECTION (COLLAPSED IF EMPTY) */
+        .favorites-section {
+            display: none; /* Controlled dynamically by JS */
+            flex-direction: column;
+            gap: 1rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title-icon {
+            color: var(--color-amber);
+            fill: var(--color-amber);
+            filter: drop-shadow(0 0 5px rgba(255, 153, 0, 0.4));
+        }
+
+        .section-tag-counter {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            padding: 0.15rem 0.45rem;
+            border-radius: 0.5rem;
+        }
+
+        /* MASONRY DIRECTORY CATALOG GRID */
+        .directory-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+            scroll-margin-top: 2.5rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.25rem;
+        }
+
+        /* FUTURISTIC PREMIUM DIRECTORY CARD */
+        .resource-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 1.15rem;
+            padding: 1.25rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(255, 255, 255, 0.04), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .resource-card:hover::before {
+            opacity: 1;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-4px);
+            background-color: var(--bg-card-hover);
+            border-color: rgba(0, 242, 254, 0.25);
+            box-shadow: 0 8px 30px rgba(0, 242, 254, 0.06);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            z-index: 2;
+        }
+
+        .card-title-area {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: var(--transition-smooth);
+            text-decoration: none;
+        }
+
+        .card-title:hover {
+            color: var(--color-cyan);
+        }
+
+        .card-subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .card-favorite-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.35rem;
+            border-radius: 0.5rem;
+            border: 1px solid transparent;
+        }
+
+        .card-favorite-btn:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.06);
+            color: var(--color-amber);
+        }
+
+        .card-favorite-btn.active {
+            color: var(--color-amber);
+            fill: var(--color-amber);
+            filter: drop-shadow(0 0 5px rgba(255, 153, 0, 0.4));
+        }
+
+        .card-description {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            flex-grow: 1;
+            z-index: 2;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            z-index: 2;
+        }
+
+        .card-tag {
+            font-family: var(--font-sans);
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            padding: 0.15rem 0.5rem;
+            border-radius: 0.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .card-tag:hover {
+            background: rgba(0, 242, 254, 0.08);
+            border-color: rgba(0, 242, 254, 0.2);
+            color: var(--color-cyan);
+        }
+
+        /* CARD ACTION LINKS */
+        .card-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 0.75rem;
+            margin-top: 0.25rem;
+            z-index: 2;
+        }
+
+        .card-action-btn {
+            font-family: var(--font-display);
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.75rem;
+            border-radius: 0.5rem;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .btn-visit {
+            color: #07080d;
+            background: var(--gradient-primary);
+        }
+
+        .btn-visit:hover {
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .btn-copy {
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-copy:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.12);
+            color: var(--text-primary);
+        }
+
+        /* NO SEARCH RESULTS PANEL */
+        .no-results-panel {
+            display: none; /* Triggered by JS */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            text-align: center;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 1.25rem;
+            gap: 1rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .no-results-icon {
+            color: var(--text-muted);
+            width: 3.5rem;
+            height: 3.5rem;
+        }
+
+        .no-results-panel h3 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .no-results-panel p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            max-width: 400px;
+        }
+
+        /* DYNAMIC COSMIC TOAST ALERTS */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .toast-alert {
+            background: rgba(14, 16, 27, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--color-cyan);
+            box-shadow: 0 8px 30px rgba(0, 242, 254, 0.2);
+            padding: 0.9rem 1.25rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-primary);
+            font-size: 0.82rem;
+            font-weight: 500;
+            animation: slideInRight 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: auto;
+        }
+
+        .toast-alert.amber {
+            border-color: var(--color-amber);
+            box-shadow: 0 8px 30px rgba(255, 153, 0, 0.2);
+        }
+
+        /* BACK TO TOP BUTTON */
+        .back-to-top-btn {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 50%;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .back-to-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top-btn:hover {
+            border-color: var(--color-cyan);
+            color: var(--color-cyan);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* SEO & PREMIUM FOOTER */
+        footer.dashboard-footer {
+            border-top: 1px solid var(--border-subtle);
+            background: rgba(7, 8, 13, 0.9);
+            padding: 2rem;
+            text-align: center;
+            margin-top: auto;
+            z-index: 10;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .footer-tagline {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.4;
+        }
+
+        .footer-copyright {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* RESPONSIVE MEDIA QUERIES */
+        @media (max-width: 1024px) {
+            .app-container {
+                flex-direction: column;
+                padding: 1.25rem;
+            }
+
+            aside.sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+            }
+
+            .sidebar-stats {
+                display: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-banner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.25rem;
+                padding: 1.25rem;
+            }
+
+            .search-engine-container {
+                max-width: 100%;
+            }
+
+            .header-top-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        /* ANIMATION DEFINITIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOAST ALERTS -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button class="back-to-top-btn" id="backToTopBtn" aria-label="返回顶部">
+        <i data-lucide="arrow-up" style="width: 1.2rem; height: 1.2rem;"></i>
+    </button>
+
+    <div class="app-container">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar glass-panel">
+            <div>
+                <div class="brand">
+                    <div class="brand-logo">
+                        <i data-lucide="compass" style="width: 1.25rem; height: 1.25rem;"></i>
+                    </div>
+                    <h1>DIBI8 NAV</h1>
+                </div>
+                <div class="brand-subtitle">全站资源分类索引黄页</div>
+            </div>
+            
+            <nav style="flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; margin-top: 1rem;">
+                <ul class="nav-menu" id="navMenu">
+                    <!-- Nav items injected dynamically by JS -->
+                </ul>
+            </nav>
+            
+            <div class="sidebar-stats">
+                <div class="stat-box">
+                    <div class="stat-val" id="statTotalCount">0</div>
+                    <div class="stat-lbl">全站条目</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val" id="statBookmarksCount">0</div>
+                    <div class="stat-lbl">常用收藏</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN LAYOUT -->
+        <main class="main-content">
+            
+            <!-- HEADER -->
+            <header class="dashboard-header">
+                <div class="header-top-row">
+                    <div class="search-engine-container">
+                        <input type="text" class="search-input" id="searchInput" placeholder="搜索大模型、AI工具、开发库、快捷指令..." aria-label="搜索框">
+                        <i data-lucide="search" class="search-icon-left" style="width: 1.15rem; height: 1.15rem;"></i>
+                        <span class="search-hotkey-hint">/</span>
+                    </div>
+                    
+                    <div class="language-switcher">
+                        <button class="lang-btn active" data-lang="zh" onclick="setLanguage('zh')">中文</button>
+                        <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+                        <button class="lang-btn" data-lang="kr" onclick="setLanguage('kr')">KR</button>
+                        <button class="lang-btn" data-lang="vi" onclick="setLanguage('vi')">VI</button>
+                    </div>
+                </div>
+
+                <div class="hero-banner">
+                    <div class="hero-content">
+                        <h2 id="heroTitle">Dibi8 极客黄页目录</h2>
+                        <p id="heroDescription">本站将 <b>dibi8.com</b> 官方资源进行了整理，按照技术合集、大模型框架、AI生图音视工具、量化交易、数据科学与底层开发设施等核心领域做了清晰分类。你可以在这里快捷搜索，收藏常用项目，并一键跳转。</p>
+                    </div>
+                    <a href="https://dibi8.com" target="_blank" class="hero-badge-link" id="heroBtn">
+                        <span id="heroBtnTxt">访问 Dibi8 官网</span>
+                        <i data-lucide="external-link" style="width: 0.9rem; height: 0.9rem;"></i>
+                    </a>
+                </div>
+            </header>
+
+            <!-- FAVORITES (COLLAPSIBLE) -->
+            <section class="favorites-section" id="favoritesSection">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="star" class="section-title-icon" style="width: 1.15rem; height: 1.15rem;"></i>
+                        <span id="favTitleText">常用推荐 & 收藏夹</span>
+                    </div>
+                    <span class="section-tag-counter" id="favoritesCount">0</span>
+                </div>
+                <div class="cards-grid" id="favoritesGrid"></div>
+            </section>
+
+            <!-- DIRECTORY LIST CONTAINER -->
+            <div id="directoryCatalog" style="display: flex; flex-direction: column; gap: 2.5rem;">
+                <!-- Category Sections Injected dynamically by JS -->
+            </div>
+
+            <!-- NO RESULTS PANEL -->
+            <div class="no-results-panel" id="noResultsPanel">
+                <i data-lucide="compass" class="no-results-icon"></i>
+                <h3 id="noResultsTitle">未找到匹配的极客资源</h3>
+                <p id="noResultsDesc">请尝试使用其他关键词，或在上方切换不同的目录进行手动筛选。</p>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- SEO FOOTER -->
+    <footer class="dashboard-footer">
+        <div class="footer-content">
+            <div class="footer-logo">Dibi8 Resource Indexer</div>
+            <div class="footer-tagline" id="footerText">极客黄页导航系统已对 Dibi8 官网所有目录完成语义映射，本页支持快速过滤与多语言路由适配，专为技术发烧友及 AI 开发者量身打造。</div>
+            <div class="footer-copyright">© 2026 Dibi8 极客社区 & 开发者导航站. Powered by GitHub Pages.</div>
+        </div>
+    </footer>
+
+    <!-- INTERACTION LOGIC -->
+    <script>
+        // MULTI-LINGUAL UI DICTIONARIES
+        const TRANSLATIONS = {
+            zh: {
+                searchPlaceholder: "搜索大模型、AI工具、开发库、快捷指令...",
+                heroTitle: "Dibi8 极客黄页目录",
+                heroDescription: "本站将 <b>dibi8.com</b> 官方资源进行了整理，按照技术合集、大模型框架、AI生图音视工具、量化交易、数据科学与底层开发设施等核心领域做了清晰分类。你可以在这里快捷搜索，收藏常用项目，并一键跳转。",
+                heroBtnTxt: "访问 Dibi8 官网",
+                favTitleText: "常用推荐 & 收藏夹",
+                noResultsTitle: "未找到匹配的极客资源",
+                noResultsDesc: "请尝试使用其他关键词，或在上方切换不同的目录进行手动筛选。",
+                footerText: "极客黄页导航系统已对 Dibi8 官网所有目录完成语义映射，本页支持快速过滤与多语言路由适配，专为技术发烧友及 AI 开发者量身打造。",
+                btnVisit: "直达官网",
+                btnCopy: "复制链接",
+                copiedToast: "链接已成功复制到剪贴板！",
+                bookmarkAdded: "已加入您的常用收藏夹！",
+                bookmarkRemoved: "已从您的收藏夹中移除！",
+                categories: {
+                    collections: "合集专题",
+                    frameworks: "大模型框架",
+                    ai_tools: "AI 工具箱",
+                    ai_trading: "AI 智能量化",
+                    data_science: "数据科学",
+                    dev_utils: "开发辅助设施",
+                    online_tools: "极客在线工具"
+                }
+            },
+            en: {
+                searchPlaceholder: "Search LLMs, AI Tools, Developer Kits, Prompt shortcuts...",
+                heroTitle: "Dibi8 Geek Yellow Pages",
+                heroDescription: "All high-value resources and guides from <b>dibi8.com</b> have been meticulously compiled here. Easily browse through LLM frameworks, AI creative stacks, quant trading frameworks, data science workflows, and dev tools. Type to search, save favorites, and jump instantly.",
+                heroBtnTxt: "Visit Dibi8 Official",
+                favTitleText: "My Bookmark Toolbox",
+                noResultsTitle: "No Geek Resources Found",
+                noResultsDesc: "Try adjusting your search terms or filter directories manually using the categories sidebar.",
+                footerText: "The developer yellow page directory successfully maps the content architecture of Dibi8. Equipped with instant fuzzy filtering and multi-lingual path routing (EN/ZH/KR/VI).",
+                btnVisit: "Visit Site",
+                btnCopy: "Copy URL",
+                copiedToast: "Link copied to clipboard successfully!",
+                bookmarkAdded: "Added to your favorite shelf!",
+                bookmarkRemoved: "Removed from your bookmarks!",
+                categories: {
+                    collections: "Special Series",
+                    frameworks: "LLM Frameworks",
+                    ai_tools: "AI Creative Suite",
+                    ai_trading: "AI Quant Trading",
+                    data_science: "Data Science",
+                    dev_utils: "Developer Facilities",
+                    online_tools: "Geek Tools Online"
+                }
+            },
+            kr: {
+                searchPlaceholder: "대규모 언어 모델, AI 도구, 개발자 유틸리티 검색...",
+                heroTitle: "Dibi8 개발자 옐로우 페이지",
+                heroDescription: "<b>dibi8.com</b>의 모든 고가치 리소스가 깔끔하게 분류되어 있습니다. LLM 프레임워크, AI 이미지/음성 생성기, 퀀트 투자 봇, 데이터 과학 아키텍처 및 개발용 툴킷을 검색하고 나만의 대시보드에 즐겨찾기 해보세요.",
+                heroBtnTxt: "Dibi8 사이트 방문",
+                favTitleText: "즐겨찾기 보관함",
+                noResultsTitle: "리소스 매칭 실패",
+                noResultsDesc: "검색어를 수정하시거나 왼쪽의 카테고리 탭을 통해 수동으로 찾아보세요.",
+                footerText: "Dibi8 웹사이트의 모든 디렉토리가 완벽히 분석되어 다국어(한/중/영/베) 라우팅을 제공하며 빠른 인덱싱 검색을 제공합니다.",
+                btnVisit: "사이트 이동",
+                btnCopy: "링크 복사",
+                copiedToast: "클립보드에 링크가 복사되었습니다!",
+                bookmarkAdded: "즐겨찾기에 등록되었습니다!",
+                bookmarkRemoved: "즐겨찾기에서 해제되었습니다!",
+                categories: {
+                    collections: "스페셜 토픽",
+                    frameworks: "LLM 프레임워크",
+                    ai_tools: "AI 도구 모음",
+                    ai_trading: "AI 퀀트 투자",
+                    data_science: "데이터 과학",
+                    dev_utils: "개발 보조 도구",
+                    online_tools: "온라인 도구"
+                }
+            },
+            vi: {
+                searchPlaceholder: "Tìm kiếm LLM, công cụ AI, bộ thư viện lập trình...",
+                heroTitle: "Dibi8 Danh Bạ Geek Chuyên Sâu",
+                heroDescription: "Tất cả tài liệu hướng dẫn và liên kết giá trị cao từ <b>dibi8.com</b> đã được chọn lọc và phân loại khoa học. Hỗ trợ tìm kiếm nhanh, lưu trữ liên kết thường dùng và chuyển đổi đa ngôn ngữ (ZH, EN, KR, VI).",
+                heroBtnTxt: "Truy cập Dibi8",
+                favTitleText: "Hộp Công Cụ Cá Nhân",
+                noResultsTitle: "Không tìm thấy kết quả phù hợp",
+                noResultsDesc: "Vui lòng thay đổi từ khóa hoặc tìm kiếm thủ công trong danh sách phân loại.",
+                footerText: "Hệ thống danh bạ lập trình viên ánh xạ toàn bộ kiến trúc tài nguyên của Dibi8, tối ưu hóa công nghệ tìm kiếm tức thời và tương thích địa chỉ đa ngôn ngữ.",
+                btnVisit: "Truy cập",
+                btnCopy: "Sao chép",
+                copiedToast: "Đã sao chép liên kết vào bộ nhớ tạm!",
+                bookmarkAdded: "Đã thêm vào hộp công cụ yêu thích!",
+                bookmarkRemoved: "Đã gỡ khỏi hộp công cụ yêu thích!",
+                categories: {
+                    collections: "Chuyên Đề Đặc Biệt",
+                    frameworks: "Khung LLM",
+                    ai_tools: "Công Cụ AI",
+                    ai_trading: "AI Định Lượng",
+                    data_science: "Khoa Học Dữ Liệu",
+                    dev_utils: "Cơ Sở Lập Trình",
+                    online_tools: "Công Cụ Online"
+                }
+            }
+        };
+
+        // CORE 110+ RESOURCE DATA STRUCT
+        const RESOURCES = [
+            // ================== COLLECTIONS ==================
+            {
+                id: "coll-agent",
+                category: "collections",
+                path: "collections/ai-agent-tool-chain/",
+                title: "AI Agent 工具链",
+                subtitle: "AI Agent Tool Chain",
+                desc: "整理汇总了当前主流的 AI Agent 多智能体开发工具、编排系统与核心依赖项，帮助你快速构建自主运行的智能体工作流。",
+                tags: ["Agent", "Multi-Agent", "Orchestration"]
+            },
+            {
+                id: "coll-trading",
+                category: "collections",
+                path: "collections/ai-trading-stack/",
+                title: "AI 交易技术栈",
+                subtitle: "AI Trading Stack",
+                desc: "围绕数字货币及去中心化合约（Perp DEX）开发的智能量化交易技术栈，整合回测、风控及 API 执行组件。",
+                tags: ["Quant", "Trading", "DeFi", "Perp"]
+            },
+            {
+                id: "coll-finetuning",
+                category: "collections",
+                path: "collections/fine-tuning-stack/",
+                title: "大模型微调技术栈",
+                subtitle: "Fine-tuning Stack",
+                desc: "汇总了前沿的开源 LLM 高速微调、LoRA/QLoRA 配备及数据清洗技术栈，助您在有限算力下定制私有大模型。",
+                tags: ["LLM", "Fine-Tuning", "LoRA", "PyTorch"]
+            },
+            {
+                id: "coll-cheap-llm",
+                category: "collections",
+                path: "collections/cheap-llm-stack/",
+                title: "廉价大模型技术栈",
+                subtitle: "Cheap LLM Stack",
+                desc: "探讨如何在生产环境中使用高性价比的大模型 API 组合、轻量级本地网关与请求缓存技术消减大模型计算开销。",
+                tags: ["LLM Gateway", "Cost Control", "API Optimization"]
+            },
+            {
+                id: "coll-multimodal",
+                category: "collections",
+                path: "collections/multi-modal-content-pipeline/",
+                title: "多模态内容流水线",
+                subtitle: "Multi-modal Content Pipeline",
+                desc: "构建音视生成、TTS 转换、文本对口型以及多语种自动翻译的内容矩阵，支持自动化多模态视频生产流程。",
+                tags: ["Multi-Modal", "TTS", "Video Gen", "Workflow"]
+            },
+            {
+                id: "coll-marketing",
+                category: "collections",
+                path: "collections/cross-border-ai-marketing-stack/",
+                title: "跨境 AI 营销技术栈",
+                subtitle: "Cross-border AI Marketing Stack",
+                desc: "整合多语言文案生成、SEO/AEO 评估、引流转化和海外全媒体分发工具，为出海业务量身定做的营销自动化链条。",
+                tags: ["Marketing", "SEO/AEO", "Growth", "SaaS"]
+            },
+            {
+                id: "coll-knowledge",
+                category: "collections",
+                path: "collections/knowledge-base-stack/",
+                title: "知识库构建技术栈",
+                subtitle: "Knowledge Base Stack",
+                desc: "专注于企业级私有知识库建立，精选高效的数据提取预处理、语义切片嵌入、向量存储以及精准的 RAG 召回。 ",
+                tags: ["RAG", "Knowledge Base", "Vector DB", "Embeddings"]
+            },
+            {
+                id: "coll-coding",
+                category: "collections",
+                path: "collections/self-hosted-ai-coding-workflow/",
+                title: "自托管 AI 编程工作流",
+                subtitle: "Self-hosted AI Coding Workflow",
+                desc: "面向开发者打造的独立 AI 编码矩阵，集成开源编程助手、私有终端助理及本地代码检索机制，保障数据私密性。",
+                tags: ["AI Coding", "Self-Hosted", "Git Integration"]
+            },
+
+            // ================== LLM FRAMEWORKS ==================
+            {
+                id: "llm-langgraph",
+                category: "frameworks",
+                path: "resources/llm-frameworks/langgraph-stateful-agent-orchestration-2026/",
+                title: "LangGraph",
+                subtitle: "Stateful Agent Orchestration",
+                desc: "由 LangChain 团队打造的图结构多智能体编排框架，支持复杂的循环结构、状态保持和精细的工作流控制机制。",
+                tags: ["LangChain", "Agent", "Orchestration", "Stateful"]
+            },
+            {
+                id: "llm-axolotl",
+                category: "frameworks",
+                path: "resources/llm-frameworks/axolotl-llm-fine-tuning-framework-2026/",
+                title: "Axolotl",
+                subtitle: "LLM Fine-Tuning Framework",
+                desc: "一站式大模型微调加速框架，配置简单，广泛支持多种注意力机制优化，在开源微调社区广受极客推崇。",
+                tags: ["Fine-Tuning", "PyTorch", "LLaMA", "Huggingface"]
+            },
+            {
+                id: "llm-unsloth",
+                category: "frameworks",
+                path: "resources/llm-frameworks/unsloth-fast-llm-fine-tuning-2026/",
+                title: "Unsloth",
+                subtitle: "Ultra-Fast LLM Fine-Tuning",
+                desc: "极速且极省显存的 LLM 微调优化库，通过自定义 Triton 内核，可实现高达数倍的微调加速并大幅降低硬件门槛。",
+                tags: ["Fine-Tuning", "LoRA", "Triton", "Speedup"]
+            },
+            {
+                id: "llm-mcp",
+                category: "frameworks",
+                path: "resources/llm-frameworks/mcp-server-registry-comprehensive-guide-2026/",
+                title: "MCP Server Registry",
+                subtitle: "Model Context Protocol Server List",
+                desc: "汇聚支持 Model Context Protocol（大模型上下文协议）的服务端仓库集合，极大拓宽了大模型的系统访问与工具调用边界。",
+                tags: ["MCP", "API Protocol", "AI Tooling"]
+            },
+            {
+                id: "llm-litellm",
+                category: "frameworks",
+                path: "resources/llm-frameworks/litellm/",
+                title: "LiteLLM",
+                subtitle: "Unified LLM API Gateway",
+                desc: "用统一的 OpenAI 格式调用 100+ 模型 API 的轻量网关，原生支持负载均衡、速率限制以及多层级监控指标导出。",
+                tags: ["LLM Gateway", "OpenAI Format", "API Proxy"]
+            },
+            {
+                id: "llm-portkey",
+                category: "frameworks",
+                path: "resources/llm-frameworks/portkey-ai-gateway-production/",
+                title: "Portkey AI Gateway",
+                subtitle: "Production LLM Gateway",
+                desc: "面向生产环境的企业级大模型控制台与网关，支持请求缓存、自动熔断降级、请求重试以及全链路审计日志。",
+                tags: ["Enterprise Gateway", "Caching", "Observability"]
+            },
+            {
+                id: "llm-openrouter",
+                category: "frameworks",
+                path: "resources/llm-frameworks/openrouter-unified-llm-api-gateway/",
+                title: "OpenRouter",
+                subtitle: "Unified LLM Access Hub",
+                desc: "全球顶尖模型集成平台，提供统一的按需付费大模型 API 网关服务，支持以透明价格测试各种开源与商用模型性能。",
+                tags: ["SaaS Gateway", "Model Hub", "Cost Optimization"]
+            },
+            {
+                id: "llm-agno",
+                category: "frameworks",
+                path: "resources/llm-frameworks/agno/",
+                title: "agno (Phidata)",
+                subtitle: "Agentic Framework",
+                desc: "前身为 Phidata 的新型轻量 AI Agent 开发库，致力于用极简配置在大模型中集成持久化记忆和工具调用。",
+                tags: ["AI Agent", "Memory", "Vector DB"]
+            },
+            {
+                id: "llm-aider",
+                category: "frameworks",
+                path: "resources/llm-frameworks/aider/",
+                title: "Aider",
+                subtitle: "AI Coding Assistant in Terminal",
+                desc: "终端命令行中极具生产力的大模型编程助手，完美兼容 Git，可智能解析代码库结构并执行复杂的自动重构与修改。",
+                tags: ["CLI Tool", "AI Coding", "Git Helper"]
+            },
+            {
+                id: "llm-autogpt",
+                category: "frameworks",
+                path: "resources/llm-frameworks/auto-gpt-autonomous-agent-2026/",
+                title: "Auto-GPT",
+                subtitle: "Autonomous AI Agent",
+                desc: "老牌开源自主智能体代名词，在 2026 演进出了更稳定的推理循环与执行插件体系，具备强大的任务分解和网络探索能力。",
+                tags: ["Autonomous Agent", "Web Browsing", "Legacy"]
+            },
+            {
+                id: "llm-autogen",
+                category: "frameworks",
+                path: "resources/llm-frameworks/autogen/",
+                title: "AutoGen",
+                subtitle: "Multi-Agent Conversation",
+                desc: "微软出品的经典多智能体对话框架，倡导通过配置多个具有特定能力和人格的角色以对话协同解决高度复杂的任务。",
+                tags: ["Microsoft", "Multi-Agent", "Framework"]
+            },
+            {
+                id: "llm-browseruse",
+                category: "frameworks",
+                path: "resources/llm-frameworks/browser-use/",
+                title: "Browser-use",
+                subtitle: "AI Browser Agent Library",
+                desc: "允许 AI Agent 驱动 Chromium 浏览器执行高度拟人化网页交互的开源框架，大幅降低了网页自动化与数据抓取门槛。",
+                tags: ["Browser Automation", "Puppeteer", "AI Execution"]
+            },
+            {
+                id: "llm-crewai",
+                category: "frameworks",
+                path: "resources/llm-frameworks/crewai/",
+                title: "CrewAI",
+                subtitle: "Role-Based Multi-Agent System",
+                desc: "主打角色扮演的高效多智能体团队编排框架，支持层次化团队协作与工具自主指派，语法干净简练。",
+                tags: ["Role-Based", "Multi-Agent", "Easy Integration"]
+            },
+            {
+                id: "llm-dify",
+                category: "frameworks",
+                path: "resources/llm-frameworks/dify/",
+                title: "Dify",
+                subtitle: "Enterprise LLM Application Platform",
+                desc: "全球炙手可热的开源 LLM 应用开发平台，集成了可视化 Workflow、RAG 引擎、提示词排版与 Agent 托管发布服务。",
+                tags: ["Low-Code", "RAG Engine", "Workflow Studio", "Enterprise"]
+            },
+            {
+                id: "llm-flowise",
+                category: "frameworks",
+                path: "resources/llm-frameworks/flowise/",
+                title: "Flowise",
+                subtitle: "No-Code Drag & Drop LLM Builder",
+                desc: "基于 Node.js 开发的可视化低代码拖拽式 LLM 应用构建平台，让非开发人员也能通过连线秒速搭建 Agent 与 RAG 管道。",
+                tags: ["No-Code", "GUI", "NodeJS", "LangChain"]
+            },
+            {
+                id: "llm-langchain",
+                category: "frameworks",
+                path: "resources/llm-frameworks/langchain/",
+                title: "LangChain",
+                subtitle: "De Facto standard LLM Application Kit",
+                desc: "大模型应用开发领域事实上的奠基框架，提供了无以伦比的模型包装组件、链条抽象、外部系统集成插件和提示词管理库。",
+                tags: ["Standard Kit", "Chains", "Integrations", "Heavyweight"]
+            },
+            {
+                id: "llm-llamaindex",
+                category: "frameworks",
+                path: "resources/llm-frameworks/llamaindex/",
+                title: "LlamaIndex",
+                subtitle: "RAG & Data Connection Engine",
+                desc: "大模型外挂私有数据场景的绝对王者，专门优化了多维索引结构、检索增强生成（RAG）管道以及复杂语料文档解析机制。",
+                tags: ["RAG Specialist", "Data Connect", "Vector Index"]
+            },
+            {
+                id: "llm-mastra",
+                category: "frameworks",
+                path: "resources/llm-frameworks/mastra/",
+                title: "Mastra",
+                subtitle: "NextJS AI Agent Framework",
+                desc: "紧跟 Web 前端生态的高级 TypeScript AI 编排库，赋能 Next.js 极客在零痛感下打造服务端轻量 Agent 应用。",
+                tags: ["TypeScript", "NextJS", "Modern TS"]
+            },
+            {
+                id: "llm-mem0",
+                category: "frameworks",
+                path: "resources/llm-frameworks/mem0/",
+                title: "Mem0",
+                subtitle: "Persistent Memory Layer for AI",
+                desc: "致力于为大模型与 Agent 应用添加跨会话持久记忆的创新机制，提供个性化的关联知识回溯与用户画像记录功能。",
+                tags: ["AI Memory", "Long-Term Storage", "Personalization"]
+            },
+            {
+                id: "llm-ollama",
+                category: "frameworks",
+                path: "resources/llm-frameworks/ollama/",
+                title: "Ollama",
+                subtitle: "Local LLM Runner Engine",
+                desc: "本地大模型运行的绝对主宰，精简且极为易用，提供了一键拉取打包、硬件调用加速和标准 REST API 接入。",
+                tags: ["Local Runner", "CPU/GPU", "REST API", "Must-Have"]
+            },
+            {
+                id: "llm-openhands",
+                category: "frameworks",
+                path: "resources/llm-frameworks/openhands/",
+                title: "OpenHands (Devin Alternative)",
+                subtitle: "Autonomous AI Software Engineer",
+                desc: "前身为 OpenDevin 的世界级开源 AI 软件工程师框架，支持在沙箱环境中自动编写、修复、测试并上线真实应用程序。",
+                tags: ["Autonomous Coder", "Sandbox", "Devin Alternative"]
+            },
+            {
+                id: "llm-openclaw",
+                category: "frameworks",
+                path: "resources/llm-frameworks/openclaw-self-hosted-ai-assistant-setup-guide-2026/",
+                title: "OpenClaw",
+                subtitle: "Self-Hosted Claude UI Alternative",
+                desc: "面向极客的自托管多模态对话前端，设计高端纯粹，支持集成多个本地/云端 LLM，旨在作为官方 Claude 的私有替代。",
+                tags: ["Self-Hosted UI", "Claude UI", "Privacy First"]
+            },
+            {
+                id: "llm-tabby",
+                category: "frameworks",
+                path: "resources/llm-frameworks/tabby/",
+                title: "Tabby",
+                subtitle: "Self-Hosted Github Copilot",
+                desc: "自托管代码补全服务引擎的卓越之作，支持私有化部署并接入 VS Code 等 IDE，保障企业核心代码资产隐私安全。",
+                tags: ["Code Auto-complete", "Self-Hosted Copilot", "IDE Plugin"]
+            },
+            {
+                id: "llm-agentmemory",
+                category: "frameworks",
+                path: "resources/llm-frameworks/agentmemory-mcp-persistent-memory-2026/",
+                title: "AgentMemory",
+                subtitle: "MCP Persistent Memory Engine",
+                desc: "将长效的向量嵌入记忆注入支持 MCP 协议的大模型中，辅助 Agent 在漫长的推理对话中稳定追溯上下文意图。",
+                tags: ["MCP Server", "Long-Term Memory", "Context"]
+            },
+            {
+                id: "llm-codex",
+                category: "frameworks",
+                path: "resources/llm-frameworks/openai-codex-cli-terminal-ai-coding-agent-2026/",
+                title: "Codex CLI",
+                subtitle: "Terminal AI Coding Agent",
+                desc: "利用大语言模型将自然语言转换成确切的终端命令并智能自动执行的极客 CLI 助手，提供防破坏的安全审计防线。",
+                tags: ["CLI Helper", "Automation", "Developer Utility"]
+            },
+            {
+                id: "llm-crawl4ai",
+                category: "frameworks",
+                path: "resources/llm-frameworks/crawl4ai-tutorial-llm-ready-web-scraping-2026/",
+                title: "Crawl4AI",
+                subtitle: "LLM-Ready Web Scraping Framework",
+                desc: "为大语言模型量身配置的网页数据抓取预处理利器，能自动剥离无关 HTML 代码，输出结构化的纯净 Markdown 信息。",
+                tags: ["Web Scraper", "Markdown Output", "Data Preprocessing"]
+            },
+            {
+                id: "llm-opencode",
+                category: "frameworks",
+                path: "resources/llm-frameworks/opencode-open-source-claude-code-alternative-2026/",
+                title: "Opencode",
+                subtitle: "Open Source Claude Code Alternative",
+                desc: "为应对闭源 AI Coder 推出的完全开源、面向本地代码库解析与自动维护的终端智能体架构，极具未来潜力。",
+                tags: ["Open Source Coder", "CLI Agent", "Code Agent"]
+            },
+            {
+                id: "llm-superagent",
+                category: "frameworks",
+                path: "resources/llm-frameworks/superagent-ai-agent-framework/",
+                title: "Superagent",
+                subtitle: "Simplest AI Agent SDK",
+                desc: "以极简化 API 接口著称的开源 Agent 生产就绪 SDK，轻松帮助移动及 Web 应用在一行代码内启用 AI 主动查询服务。",
+                tags: ["Agent SDK", "Mobile Integration", "Fast API"]
+            },
+            {
+                id: "llm-vs",
+                category: "frameworks",
+                path: "resources/llm-frameworks/llamaindex-vs-langchain/",
+                title: "LlamaIndex vs LangChain",
+                subtitle: "Framework Deep Dive Comparison",
+                desc: "全方位深入剖析对比两大 AI 时代底层基石框架在架构设计哲学、数据结构支持及具体应用场景中的利弊与抉择路线。",
+                tags: ["Architecture", "Comparison", "Guide"]
+            },
+            {
+                id: "llm-finetuning-guide",
+                category: "frameworks",
+                path: "resources/llm-frameworks/llm-fine-tuning-frameworks-comparison/",
+                title: "LLM 微调框架大比拼",
+                subtitle: "Fine-Tuning Frameworks Benchmarked",
+                desc: "涵盖 Unsloth、Axolotl、LLaMA-Factory 等主流微调机制在显存占用率、吞吐量和使用曲线维度的详细评测对比报告。",
+                tags: ["Benchmark", "Fine-Tuning", "Report"]
+            },
+            {
+                id: "llm-transformers",
+                category: "frameworks",
+                path: "resources/llm-frameworks/huggingface-transformers-guide/",
+                title: "HuggingFace Transformers 指南",
+                subtitle: "Transformers Library Deep Dive",
+                desc: "系统级掌握万物起源的 Transformers 库必备参考指南，涵盖微调、量化部署及 pipeline 流水线搭建。",
+                tags: ["Huggingface", "PyTorch", "Model Inference"]
+            },
+            {
+                id: "llm-prompt-framework",
+                category: "frameworks",
+                path: "resources/llm-frameworks/prompt-engineering-frameworks-tools/",
+                title: "提示词工程框架与工具集",
+                subtitle: "Prompt Engineering Frameworks & Tools",
+                desc: "归纳总结业界主流的提示词版本控制、DSPy 自动权重调优器、指令注入防护框架以及测试沙箱平台。",
+                tags: ["Prompt Engineering", "DSPy", "Security"]
+            },
+            {
+                id: "llm-coding-agent-landscape",
+                category: "frameworks",
+                path: "resources/llm-frameworks/ai-coding-agent-landscape-2026-skills-mcp-opensource/",
+                title: "AI 编码智能体技术图谱",
+                subtitle: "AI Coding Agent Landscape 2026",
+                desc: "聚焦 2026 开源 AI 辅助编程领域前沿进展，涵盖自托管 Coder 平台、MCP 通讯栈和终端协作流程图谱。",
+                tags: ["AI Coding", "Tech Map", "MCP Stack"]
+            },
+            {
+                id: "llm-vectordb-vs",
+                category: "frameworks",
+                path: "resources/llm-frameworks/vector-database-comparison/",
+                title: "向量数据库终极评测",
+                subtitle: "Vector Database Comparison Guide",
+                desc: "对比 Chroma、Milvus、Qdrant、PGVector 在高并发检索延时、百万级向量扩容性能、数据召回率维度的真实表现。",
+                tags: ["Vector DB", "Benchmark", "Guide"]
+            },
+            {
+                id: "llm-ranking",
+                category: "frameworks",
+                path: "resources/llm-frameworks/open-source-llm-ranking-guide/",
+                title: "开源大模型排行与选型指南",
+                subtitle: "Open Source LLM Ranking & Evaluation",
+                desc: "指导初创团队如何在 Llama-3、Mistral、DeepSeek-V3 等一众顶级开源大模型中做出硬件友好且低成本的选型抉择。",
+                tags: ["Model Evaluation", "Mistral", "Llama", "DeepSeek"]
+            },
+            {
+                id: "llm-eval",
+                category: "frameworks",
+                path: "resources/llm-frameworks/llm-evaluation-benchmarking-frameworks/",
+                title: "大模型评估与基准框架",
+                subtitle: "LLM Evaluation & Benchmarking Frameworks",
+                desc: "解构主流大模型自动评测工具、人类对齐评估（RLHF/DPO 基准）与特定行业知识盲区测试工作流的建立要点。",
+                tags: ["Evaluation", "RLHF/DPO", "Benchmarking"]
+            },
+
+            // ================== AI TOOLS ==================
+            {
+                id: "tool-chattts-guide",
+                category: "ai_tools",
+                path: "resources/ai-tools/chattts-dialogue-tts-2026/",
+                title: "ChatTTS 实践指南",
+                subtitle: "Dialogue TTS Best Practices",
+                desc: "专门针对日常对话风格优化的极客语音合成引擎 ChatTTS 的系统整合指南，深入分析了笑声及语气词注入技巧。",
+                tags: ["TTS", "Speech Synthesis", "Audio Gen"]
+            },
+            {
+                id: "tool-comfyui-guide",
+                category: "ai_tools",
+                path: "resources/ai-tools/comfyui-node-based-ai-image-2026/",
+                title: "ComfyUI 节点式生图流",
+                subtitle: "Node-Based AI Image Pipeline",
+                desc: "基于图形节点连线的顶级 AI 生图配置工作流，剖析如何构建极致精细的 SDXL/Flux 精确像素级图像重绘方案。",
+                tags: ["Image Gen", "Workflow", "SDXL/Flux", "ComfyUI"]
+            },
+            {
+                id: "tool-sdwebui-guide",
+                category: "ai_tools",
+                path: "resources/ai-tools/stable-diffusion-webui-2026/",
+                title: "Stable Diffusion WebUI 指南",
+                subtitle: "SD WebUI Setup & Optimizations",
+                desc: "秋叶 WebUI 整合包与官方原版环境搭建优化集锦，附带最新 Lora、ControlNet 及超分辨率高清修复部署方法。",
+                tags: ["Stable Diffusion", "Image Gen", "WebUI"]
+            },
+            {
+                id: "tool-mistral-local",
+                category: "ai_tools",
+                path: "resources/ai-tools/mistral-ai-local-llm-deployment/",
+                title: "Mistral AI 本地化部署",
+                subtitle: "Local Mistral Deployment",
+                desc: "如何通过 Ollama、llama.cpp 在本地中端显卡或 CPU 环境下量化部署并满速运行 Mistral/Mixtral 开源混合专家模型。",
+                tags: ["Mistral", "MoE", "Local Quantization"]
+            },
+            {
+                id: "tool-baetyl",
+                category: "ai_tools",
+                path: "resources/ai-tools/baetyl-edge-ai-computing-platform/",
+                title: "Baetyl 边缘 AI 计算平台",
+                subtitle: "Edge AI Computing Platform",
+                desc: "由 Linux 基金会支持的边缘计算框架，赋能开发者在树莓派及各类工业嵌入式端侧无痛运行 AI 边缘计算负载。",
+                tags: ["Edge AI", "IoT", "Linux Foundation"]
+            },
+            {
+                id: "tool-demucs",
+                category: "ai_tools",
+                path: "resources/ai-tools/demucs/",
+                title: "Demucs (人声伴奏分离)",
+                subtitle: "Music Source Separation Engine",
+                desc: "由 Meta 开发的业界金标准级高保真音频分离器，能将多轨道混合的音频一键无损拆解为纯人声、鼓点、贝斯和钢琴轨。",
+                tags: ["Audio Separation", "Vocal Extraction", "Meta AI"]
+            },
+            {
+                id: "tool-cogvideo",
+                category: "ai_tools",
+                path: "resources/ai-tools/cogvideo/",
+                title: "CogVideo (开源视频生成)",
+                subtitle: "Text-to-Video Model",
+                desc: "清华开源的高性能文本-视频生成预训练模型，在动作连贯性与物理规律真实感上表现优异。",
+                tags: ["Video Gen", "CogVideo", "Text-to-Video"]
+            },
+            {
+                id: "tool-coqui",
+                category: "ai_tools",
+                path: "resources/ai-tools/coqui-tts/",
+                title: "Coqui TTS",
+                subtitle: "Deep Learning Speech Synthesis",
+                desc: "支持超高还原度声音克隆和多国语言生成的强大开源神经网络语音合成引擎，提供精细控制曲线。",
+                tags: ["Speech Synthesis", "Voice Cloning", "Python Lib"]
+            },
+            {
+                id: "tool-faster-whisper",
+                category: "ai_tools",
+                path: "resources/ai-tools/faster-whisper/",
+                title: "Faster Whisper",
+                subtitle: "Fast Speech-to-Text Transcription",
+                desc: "通过 CTranslate2 框架对 OpenAI Whisper 结构进行极致加速后的极速版，可榨干硬件并提高数倍转写效能。",
+                tags: ["ASR", "Whisper", "CTranslate2", "Speedup"]
+            },
+            {
+                id: "tool-gptsovits",
+                category: "ai_tools",
+                path: "resources/ai-tools/gpt-sovits/",
+                title: "GPT-SoVITS",
+                subtitle: "Few-shot Voice Cloning Engine",
+                desc: "在极客圈极负盛名的开源小样本声音克隆克星，只需输入短短 5 秒的音频样本，即可极为拟真地克隆说话者声音特点。",
+                tags: ["Voice Cloning", "TTS", "Speech Synthesis"]
+            },
+            {
+                id: "tool-hunyuan-video",
+                category: "ai_tools",
+                path: "resources/ai-tools/hunyuan-video/",
+                title: "Hunyuan Video (腾讯混元视频)",
+                subtitle: "High-Fidelity Text-to-Video Model",
+                desc: "腾讯最新开源的大维度物理感知视频生成大模型，其卓越的多物理规律演绎及超清分辨率输出在海内外广受瞩目。",
+                tags: ["Video Gen", "Tencent", "Hunyuan"]
+            },
+            {
+                id: "tool-invokeai",
+                category: "ai_tools",
+                path: "resources/ai-tools/invokeai/",
+                title: "InvokeAI",
+                subtitle: "Creative SD UI Studio",
+                desc: "专为专业创意人员打造的 SD/生图工作站，其极具革命性的 Canvas 模式赋能用户完美自如地在图上执行精准向外延展生图。",
+                tags: ["Image Gen", "Canvas Editor", "Studio UI"]
+            },
+            {
+                id: "tool-libretranslate",
+                category: "ai_tools",
+                path: "resources/ai-tools/libretranslate/",
+                title: "LibreTranslate (开源翻译网关)",
+                subtitle: "Self-Hosted Machine Translation",
+                desc: "完全开源、自托管且完全离线运行的机器翻译引擎 API 解决方案，坚决杜绝任何第三方商业翻译接口的隐私隐患。",
+                tags: ["Machine Translation", "Self-Hosted API", "Privacy"]
+            },
+            {
+                id: "tool-lobechat",
+                category: "ai_tools",
+                path: "resources/ai-tools/lobe-chat-openai-alternative-ui/",
+                title: "Lobe Chat",
+                subtitle: "Modern Multimodal UI Chat",
+                desc: "UI 设计极其优雅前卫的多模态大模型对话前端，原生集成强大的多语言插件、音色合成以及完美的本地数据库支持。",
+                tags: ["Chat UI", "Multimodal", "Plugin System", "Gorgeous"]
+            },
+            {
+                id: "tool-melotts",
+                category: "ai_tools",
+                path: "resources/ai-tools/melotts/",
+                title: "MeloTTS",
+                subtitle: "Instant Multi-lingual TTS Engine",
+                desc: "专为轻量计算平台甚至 CPU 级别设备优化的超极速语音合成系统，无痛提供拟真悦耳的中英双语转写。",
+                tags: ["TTS", "Fast Speed", "CPU Optimised"]
+            },
+            {
+                id: "tool-opensora",
+                category: "ai_tools",
+                path: "resources/ai-tools/open-sora/",
+                title: "Open-Sora",
+                subtitle: "Open Source Sora Project",
+                desc: "致力于向世界级视频生成技术 Sora 靠齐的开源研究项目，提供完整的数据处理工作流和大规模训练架构细节。",
+                tags: ["Video Gen", "Sora Alt", "Distributed Training"]
+            },
+            {
+                id: "tool-whisper",
+                category: "ai_tools",
+                path: "resources/ai-tools/openai-whisper/",
+                title: "OpenAI Whisper",
+                subtitle: "The gold standard Speech-to-Text Model",
+                desc: "定义了现代多语言自动语音识别（ASR）的里程碑式大模型，具备恐怖的极端噪声环境抗干扰能力及超高准确度。",
+                tags: ["ASR", "OpenAI", "Standard Model", "Speech-to-Text"]
+            },
+            {
+                id: "tool-rvc",
+                category: "ai_tools",
+                path: "resources/ai-tools/rvc/",
+                title: "RVC (声音转换技术)",
+                subtitle: "Retrieval-based Voice Conversion",
+                desc: "基于检索的高速音频转换神经引擎，能在超低硬件延时下将您的原始声线实时且完美地转换成预训练目标音色特点。",
+                tags: ["Voice Conversion", "Real-Time AI", "Music AI"]
+            },
+            {
+                id: "tool-uvr",
+                category: "ai_tools",
+                path: "resources/ai-tools/ultimate-vocal-remover/",
+                title: "Ultimate Vocal Remover",
+                subtitle: "Best Audio Vocal Remover GUI",
+                desc: "基于深度学习的人声分离神器，也是目前业内公认效果最好的提取伴奏、剥离伴唱人声的开源独立客户端应用。",
+                tags: ["Audio Tool", "Vocal Removal", "Audio GUI", "Outstanding"]
+            },
+            {
+                id: "tool-retalking",
+                category: "ai_tools",
+                path: "resources/ai-tools/video-retalking/",
+                title: "Video Retalking (视频对口型)",
+                subtitle: "Video Lip Sync Engine",
+                desc: "自动合成高保真面部动作的 AI 引擎，能让原始人脸视频表情根据输入的任意配音文件进行高物理契合度的嘴型配对。",
+                tags: ["Video Synthesis", "Lip Sync", "AI Face"]
+            },
+            {
+                id: "tool-voicecraft",
+                category: "ai_tools",
+                path: "resources/ai-tools/voicecraft/",
+                title: "VoiceCraft",
+                subtitle: "Zero-Shot Text-to-Speech & Edit",
+                desc: "具备强大泛化性能的零样本语音合成与编辑大模型，允许您像在文档中修字一样直接修改原语音中的词句音频特征。",
+                tags: ["Speech Editing", "TTS", "Zero-Shot Cloning"]
+            },
+            {
+                id: "tool-wan",
+                category: "ai_tools",
+                path: "resources/ai-tools/wan-2-1/",
+                title: "Wan 2.1 (开源混元视频克星)",
+                subtitle: "Cutting-edge Open Video Model",
+                desc: "引领 2026 开源世界级视频生成的代表大模型，支持逼真的三维物理拟真运动和高级文本解析叙事生成能力。",
+                tags: ["Video Gen", "Wan2.1", "High-Definition"]
+            },
+            {
+                id: "tool-whisperx",
+                category: "ai_tools",
+                path: "resources/ai-tools/whisperx/",
+                title: "WhisperX",
+                subtitle: "Speech Transcription with Word-Level Sync",
+                desc: "在标准 ASR 转写基础上，利用 Phoneme 强行对齐技术实现高达单词级别、带音轨断点精确的时间轴字幕生成组件。",
+                tags: ["Subtitle Sync", "Speech-to-Text", "Word-Level Alignment"]
+            },
+            {
+                id: "tool-best-coder",
+                category: "ai_tools",
+                path: "resources/ai-tools/best-ai-code-generators-2025/",
+                title: "年度最佳 AI 编程生成器排行",
+                subtitle: "Best AI Code Generators Reviewed",
+                desc: "盘点与真实横向对比多款主流大模型编程助手在代码自动编写、复杂 debug 和高阶工程化调试过程中的综合评分排行。",
+                tags: ["AI Coding", "Benchmark", "Review"]
+            },
+            {
+                id: "tool-translation-vs",
+                category: "ai_tools",
+                path: "resources/ai-tools/ai-translation-tools-compared-2025/",
+                title: "AI 翻译工具深度横评",
+                subtitle: "AI Translation Tools Compared",
+                desc: "详细比对 DeepL、GPT-4o 翻译引擎、LibreTranslate 以及各垂直机器翻译工具在专业术语保真度上的综合测试结论。",
+                tags: ["Translation", "DeepL", "Evaluations"]
+            },
+            {
+                id: "tool-meeting",
+                category: "ai_tools",
+                path: "resources/ai-tools/ai-meeting-assistant-tools/",
+                title: "智能会议纪要工具推荐",
+                subtitle: "Top AI Meeting Assistants",
+                desc: "探讨如何在飞书、钉钉之外基于开源 ASR 与大语言模型，快捷地自建完全数据私密性、带发言人分离的智能纪要生成流水线。",
+                tags: ["Meeting Assistant", "ASR", "Workflow"]
+            },
+            {
+                id: "tool-plugins",
+                category: "ai_tools",
+                path: "resources/ai-tools/ai-developer-tools-ide-plugins-2025/",
+                title: "最能提效的 IDE AI 插件大全",
+                subtitle: "AI IDE Plugins Complete Directory",
+                desc: "全面收录适配 Cursor、VS Code、JetBrains 的人工智能插件，重点梳理本地离线补全方案以杜绝隐私泄露风险。",
+                tags: ["IDE Plugins", "VSCode", "JetBrains", "Cursor"]
+            },
+            {
+                id: "tool-customer-service",
+                category: "ai_tools",
+                path: "resources/ai-tools/ai-customer-service-chatbot-tools/",
+                title: "智能客服机器人搭建工具",
+                subtitle: "AI Customer Chatbot Guide",
+                desc: "手把手教您使用 Dify 及 Flowise 连线企业私有文档及 IM 工具，秒速制作带有知识库支持的智能客户接待矩阵。",
+                tags: ["Chatbot", "Dify", "Integrations"]
+            },
+            {
+                id: "tool-detector",
+                category: "ai_tools",
+                path: "resources/ai-tools/ai-content-detector-tools/",
+                title: "AI 文本生成痕迹检测器",
+                subtitle: "AI Content Detector Tools Reviewed",
+                desc: "对比分析多款学术级别及商业级文本特征检测器对大模型写作风格的敏感度和假阳性误判控制曲线。",
+                tags: ["AI Detection", "Academic Utility", "Plagiarism"]
+            },
+            {
+                id: "tool-video-gen-vs",
+                category: "ai_tools",
+                path: "resources/ai-tools/best-ai-video-generation-tools-2025/",
+                title: "顶级 AI 视频生成大模型横评",
+                subtitle: "AI Video Generators Compared",
+                desc: "针对 Luma、Runway-Gen3、Sora 与开源混元视频、Wan2.1 在多物理体交互、镜头顺滑度维度的详细性能报告。",
+                tags: ["Video Gen", "Luma/Runway", "Benchmark"]
+            },
+            {
+                id: "tool-writer",
+                category: "ai_tools",
+                path: "resources/ai-tools/best-ai-writing-assistants-2025/",
+                title: "好用的 AI 智能写作助理盘点",
+                subtitle: "Best AI Writing Assistants Reviewed",
+                desc: "围绕学术论述润色、创意写作辅助及SEO营销文案生成三种场景下的顶级人工智能写作副驾驶测评集锦。",
+                tags: ["Writing", "SEO Copywriting", "SaaS Review"]
+            },
+            {
+                id: "tool-presentation",
+                category: "ai_tools",
+                path: "resources/ai-tools/ai-presentation-tools/",
+                title: "AI 生成 PPT 与汇报演示工具",
+                subtitle: "Top AI Presentation Tools",
+                desc: "收录根据思维导图及纯文本输入，能一键自动排版、自动插图并生成专业商务/学术风格 PPT 的人工智能服务。",
+                tags: ["PPT Generation", "Office Productivity", "Design Automation"]
+            },
+            {
+                id: "tool-audio-stack",
+                category: "ai_tools",
+                path: "resources/ai-tools/ai-voice-tools-text-to-speech-transcription/",
+                title: "智能语音合成与音频处理大全",
+                subtitle: "AI Voice & Audio Tools Directory",
+                desc: "集合中英高质量 TTS 工具、声音克隆神器、声学降噪预处理插件和精准字幕转写工具的一站式极客选型库。",
+                tags: ["Audio", "TTS", "Speech Synthesis", "Subtitles"]
+            },
+            {
+                id: "tool-search",
+                category: "ai_tools",
+                path: "resources/ai-tools/ai-search-tools-perplexity-gemini-chatgpt/",
+                title: "AI 搜索引擎演进与优化",
+                subtitle: "AI Search Tools & Optimization Guide",
+                desc: "分析 Perplexity、Gemini Search 对传统 SEO 带来的降维冲击，指导站长如何针对 AI 提取算法优化内容结构（AEO）。",
+                tags: ["AI Search", "Perplexity", "AEO/SEO"]
+            },
+            {
+                id: "tool-image-stack",
+                category: "ai_tools",
+                path: "resources/ai-tools/ai-image-generation-tools-complete-guide/",
+                title: "AI 图像生成终极工具指南",
+                subtitle: "AI Image Generation Tech Stack",
+                desc: "涵盖 Midjourney 进阶提示词技巧、Stable Diffusion 本地调优模型及开源生图模型全链条搭建的图学级参考宝典。",
+                tags: ["Image Gen", "Midjourney", "SDXL", "Design Stack"]
+            },
+
+            // ================== AI TRADING ==================
+            {
+                id: "trade-cow",
+                category: "ai_trading",
+                path: "resources/ai-trading/cow-protocol-mev-protection/",
+                title: "Cow Protocol",
+                subtitle: "MEV Protection Smart Routing",
+                desc: "融合反跑保护（Anti-MEV）与独创需求匹配（Coincidence of Wants）的去中心化抗滑点防夹交易底层协议解析。",
+                tags: ["MEV Protection", "DeFi", "Smart Routing", "Anti-MEV"]
+            },
+            {
+                id: "trade-hyperliquid",
+                category: "ai_trading",
+                path: "resources/ai-trading/hyperliquid-perp-dex-trading/",
+                title: "Hyperliquid perp dex 交易",
+                subtitle: "Hyperliquid Perpetual DEX SDK Integration",
+                desc: "深入梳理在 L1 高速去中心化合约交易平台 Hyperliquid 上搭建全自动 API 高频网格与做市量化策略的完整 Python 实战步骤。",
+                tags: ["Perp DEX", "Hyperliquid", "Python API", "Grid Strategy"]
+            },
+            {
+                id: "trade-minara",
+                category: "ai_trading",
+                path: "resources/ai-trading/minara-ai-trading-hyperliquid-review-2026/",
+                title: "Minara AI",
+                subtitle: "Minara Hyperliquid Execution Review",
+                desc: "针对 Minara AI 自动代理机制执行链上订单套利、高精度滑点控制及资金费率套利表现的真实收益回溯分析。",
+                tags: ["AI Execution", "Arbitrage", "Yield Analysis"]
+            },
+            {
+                id: "trade-backtrader",
+                category: "ai_trading",
+                path: "resources/ai-trading/backtrader-python-backtesting/",
+                title: "Backtrader (Python 量化回测)",
+                subtitle: "Python Quantitative Backtesting Framework",
+                desc: "基于 Python 的经典且高度可定制的单机量化回测基石框架，支持输入多维 K 线及精细的仓位交易信号跟踪。",
+                tags: ["Backtest Engine", "Python", "Local Storage", "Legacy"]
+            },
+            {
+                id: "trade-freqtrade",
+                category: "ai_trading",
+                path: "resources/ai-trading/freqtrade-ai-trading-strategies/",
+                title: "Freqtrade",
+                subtitle: "Open Source AI Crypto Trading Bot",
+                desc: "极为优秀的开源高频加密货币量化交易机器人，内置丰富的 AI 机器学习决策引擎及强大的多因子回测控制台。",
+                tags: ["Quant Bot", "Machine Learning", "Backtest", "Highly Recommended"]
+            },
+            {
+                id: "trade-hummingbot",
+                category: "ai_trading",
+                path: "resources/ai-trading/hummingbot-crypto-trading-bot/",
+                title: "Hummingbot",
+                subtitle: "High-Frequency Market Making Engine",
+                desc: "去中心化及中心化平台通用的工业级高频做市商套利交易引擎，支持精细的订单薄控制与做市商差价套利策略编写。",
+                tags: ["Market Making", "CLI Bot", "Arbitrage", "C++/Python"]
+            },
+            {
+                id: "trade-jesse",
+                category: "ai_trading",
+                path: "resources/ai-trading/jesse-ai-trading-framework/",
+                title: "Jesse",
+                subtitle: "Advanced AI Trading Framework",
+                desc: "专为加密货币打造的极速优雅量化回测与实盘交易框架，拥有严格的进出场信号风控指标控制逻辑。",
+                tags: ["Crypto Quant", "Advanced Framework", "Risk Control"]
+            },
+            {
+                id: "trade-lean",
+                category: "ai_trading",
+                path: "resources/ai-trading/lean-quantconnect-trading-engine/",
+                title: "Lean (QuantConnect 交易引擎)",
+                subtitle: "C# & Python Multilateral Trading Engine",
+                desc: "由 QuantConnect 强力支持的工业级、多资产、高并发级回测与交易执行引擎，适用于全球证券及数字资产托管。",
+                tags: ["Industrial Engine", "C#", "QuantConnect", "Multi-Asset"]
+            },
+            {
+                id: "trade-pancake",
+                category: "ai_trading",
+                path: "resources/ai-trading/pancake-trading-bot-defi-bsc/",
+                title: "Pancake Trading Bot",
+                subtitle: "DeFi BSC Yield Farm Bot",
+                desc: "在 BSC 等 EVM 链上去中心化流动性池中执行闪电贷套利、自动化三币轮动以及自动化限价滑点抢跑的底层脚本方案。",
+                tags: ["EVM", "BSC", "DeFi Bot", "Arb Script"]
+            },
+            {
+                id: "trade-talib",
+                category: "ai_trading",
+                path: "resources/ai-trading/ta-lib-technical-analysis-trading/",
+                title: "TA-Lib (技术指标计算库)",
+                subtitle: "Technical Analysis Library API",
+                desc: "包含 MACD、RSI、布林带等上百种经典技术分析指标高效率计算的底层数学库，几乎是所有量化交易策略系统的标配。",
+                tags: ["Technical Indicators", "C Library", "Math Engine", "Standard"]
+            },
+            {
+                id: "trade-tensortrade",
+                category: "ai_trading",
+                path: "resources/ai-trading/tensortrade-rl-trading/",
+                title: "TensorTrade",
+                subtitle: "Reinforcement Learning Trading Library",
+                desc: "基于深度强化学习（DRL）的量化策略生成库，支持自定义环境与奖励激励机制，帮助大模型自主训练最优操盘决策。",
+                tags: ["Reinforcement Learning", "Gym environment", "AI Trading"]
+            },
+            {
+                id: "trade-vectorbt",
+                category: "ai_trading",
+                path: "resources/ai-trading/vectorbt-quantitative-backtesting/",
+                title: "VectorBT",
+                subtitle: "Ultra-Fast Vectorized Backtesting",
+                desc: "基于 Pandas 与 Numba 进行向量化加速的高速度回测库，支持并行扫描数万组网格参数，计算耗时仅为传统框架数十分之一。",
+                tags: ["Vectorized", "Numba Speedup", "Fast Hyperparameter", "Impressive"]
+            },
+
+            // ================== DATA SCIENCE ==================
+            {
+                id: "data-superset",
+                category: "data_science",
+                path: "resources/data-science/preset-superset-data-exploration/",
+                title: "Preset Superset (可视化数据探索)",
+                subtitle: "Preset Metabase alternative Studio",
+                desc: "基于 Apache Superset 的现代企业级云数据探索平台，提供近百种丰富动态的图表组件和极速 SQL 探索控制台。",
+                tags: ["BI Analytics", "Superset", "SQL IDE"]
+            },
+            {
+                id: "data-metabase",
+                category: "data_science",
+                path: "resources/data-science/metabase-business-intelligence-open/",
+                title: "Metabase BI",
+                subtitle: "Open Source Metabase BI",
+                desc: "被极客广泛采用的轻量化开源商业智能探索工具，非开发人员也能通过极简的可视化问题搭建精美的看板系统。",
+                tags: ["BI Analytics", "Open Source", "Dashboard Builder"]
+            },
+            {
+                id: "data-arize",
+                category: "data_science",
+                path: "resources/data-science/arize-ai-observability-llm/",
+                title: "Arize AI",
+                subtitle: "LLM Observability & Guardrails",
+                desc: "专注于大模型微调、RAG 向量特征漂移及请求拦截的高阶 AI 可观测性平台，实时告警检索召回准确率下跌状态。",
+                tags: ["Observability", "RAG Monitoring", "Embeddings Audit"]
+            },
+            {
+                id: "data-chroma",
+                category: "data_science",
+                path: "resources/data-science/chroma-vector-database-python/",
+                title: "Chroma",
+                subtitle: "Python-Native Vector Database",
+                desc: "专为 Python/JS 开发者度量设计的、极致简单好用的轻量嵌入式向量数据库，支持一键在内存或本地持久化运行。",
+                tags: ["Vector DB", "Embed-in-Code", "Python Native", "Easy"]
+            },
+            {
+                id: "data-dagster",
+                category: "data_science",
+                path: "resources/data-science/dagster-data-pipeline-orchestrator/",
+                title: "Dagster (现代数据流编排)",
+                subtitle: "Data Pipeline Orchestrator",
+                desc: "超越 Airflow 的新一代软件定义资产数据资产编排引擎，支持精细化的数据输入输出强类型校验及丰富的可视化视图。",
+                tags: ["Data Pipeline", "Orchestrator", "Data Asset"]
+            },
+            {
+                id: "data-dvc",
+                category: "data_science",
+                path: "resources/data-science/dvc-data-version-control-ml/",
+                title: "DVC (数据版本控制)",
+                subtitle: "Data Version Control",
+                desc: "将数据科学资产与 Git 结合的底层控制工具，它能像追踪代码一样版本化追踪数十 GB 的大规模模型参数与原始语料数据。",
+                tags: ["Data Git", "MLOps", "Model Tracking"]
+            },
+            {
+                id: "data-feast",
+                category: "data_science",
+                path: "resources/data-science/feast-feature-store-ml/",
+                title: "Feast (特征存储)",
+                subtitle: "Feature Store for Machine Learning",
+                desc: "打通离线模型训练与在线高并发推理决策系统的数据特征鸿沟，提供高一致性、低延时的端到端数据管理方案。",
+                tags: ["Feature Store", "Data Ops", "Low Latency"]
+            },
+            {
+                id: "data-haystack",
+                category: "data_science",
+                path: "resources/data-science/haystack-rag-pipeline-framework/",
+                title: "Haystack RAG",
+                subtitle: "Advanced RAG Pipeline Framework",
+                desc: "专为企业级高性能 RAG 架构设计的高级框架，倡导高弹性、模块化组合式网络拓扑节点管道建立思想。",
+                tags: ["RAG Engine", "Modularity", "Enterprise RAG"]
+            },
+            {
+                id: "data-hayhooks",
+                category: "data_science",
+                path: "resources/data-science/hayhooks-api-deployment-llm/",
+                title: "Hayhooks",
+                subtitle: "Haystack REST API Deployer",
+                desc: "支持将 Haystack 语义编排网络拓扑一键自动包装并部署发布为标准高性能 REST API 网关的极速辅助工具。",
+                tags: ["API Server", "Haystack Deployer", "Microservices"]
+            },
+            {
+                id: "data-kubeflow",
+                category: "data_science",
+                path: "resources/data-science/kubeflow-ml-pipeline-kubernetes/",
+                title: "Kubeflow Pipeline",
+                subtitle: "ML Workflows on Kubernetes",
+                desc: "构建在 Kubernetes 之上的大型机器学习管道生命周期管理框架，让复杂模型的大规模训练、部署及扩展完全云原生化。",
+                tags: ["Kubernetes", "MLOps Platform", "Cloud Native"]
+            },
+            {
+                id: "data-milvus",
+                category: "data_science",
+                path: "resources/data-science/zilliz-milvus-vector-database-scale/",
+                title: "Zilliz Milvus",
+                subtitle: "Million-Scale Vector DB System",
+                desc: "国内顶级的海量级高并发向量数据库王者，支持极为弹性的读写分离水平扩展策略，主要解决企业级十亿级高召回检索难题。",
+                tags: ["Vector DB", "Distributed", "Big Data", "Million Scale"]
+            },
+            {
+                id: "data-mlflow",
+                category: "data_science",
+                path: "resources/data-science/mlflow-experiment-tracking-production/",
+                title: "MLflow (模型跟踪管理)",
+                subtitle: "ML Experiment Tracking Studio",
+                desc: "包含实验参数自动记录日志、模型制品集中仓库和标准端点模型发布服务的生产环境全生命周期 MLOps 中台。",
+                tags: ["Experiment Registry", "Model Server", "MLOps Hub"]
+            },
+            {
+                id: "data-pgvector",
+                category: "data_science",
+                path: "resources/data-science/pgvector-postgres-vector-extension/",
+                title: "pgvector (Postgres 向量扩展)",
+                subtitle: "Postgres Vector Extension API",
+                desc: "使经典关系型数据库 PostgreSQL 进化为高性能向量召回数据库的重量级开源插件，在应用架构上避免引入复杂的第二数据库。",
+                tags: ["Postgres", "Vector Search", "SQL Integration"]
+            },
+            {
+                id: "data-prefect",
+                category: "data_science",
+                path: "resources/data-science/prefect-workflow-orchestration/",
+                title: "Prefect Workflow",
+                subtitle: "Modern Workflow Orchestration",
+                desc: "倡导“代码即配置”的极简现代化分布式流水线编排系统，自动跟踪任务失败状态重试机制及精美监控面板。",
+                tags: ["Orchestrator", "Python Pipeline", "Auto-Retry"]
+            },
+            {
+                id: "data-qdrant",
+                category: "data_science",
+                path: "resources/data-science/qdrant-vector-database-rust/",
+                title: "Qdrant",
+                subtitle: "Rust-Powered Vector DB",
+                desc: "由 Rust 强力驱动的高速且强类型安全的向量搜索引擎，自带原生 Payload 强索引规则过滤功能，性能极其恐怖。",
+                tags: ["Vector DB", "Rust Engine", "High Throughput", "Amazing"]
+            },
+            {
+                id: "data-trino",
+                category: "data_science",
+                path: "resources/data-science/trino-distributed-sql-query/",
+                title: "Trino SQL (分布式 SQL 查询)",
+                subtitle: "Distributed SQL Query Engine",
+                desc: "前身为 PrestoSQL 的海量级分布式交互式分析引擎，能以标准 SQL 同时关联查询并聚合分析位于多地的数据湖语料。",
+                tags: ["SQL Engine", "Distributed Query", "Big Data Analytics"]
+            },
+            {
+                id: "data-unstructured",
+                category: "data_science",
+                path: "resources/data-science/unstructured-data-preprocessing-llm/",
+                title: "Unstructured Data",
+                subtitle: "LLM Data Processing Library",
+                desc: "解决从杂乱无章的 PDF、Word 甚至是扫描图片中自动解析语义，将其整齐划一输出为可外挂大模型 RAG 标准段落的利器。",
+                tags: ["PDF Parser", "Data Processing", "RAG Prep"]
+            },
+            {
+                id: "data-vectara",
+                category: "data_science",
+                path: "resources/data-science/vectara-rag-as-service-platform/",
+                title: "Vectara",
+                subtitle: "Out-of-box RAG SaaS Platform",
+                desc: "开箱即用的企业级安全 RAG 云服务，只需几分钟将文档上传即可通过安全防篡改过滤接口得到带引用信源的高准确度答复。",
+                tags: ["RAG SaaS", "Instant Search", "Out-of-box"]
+            },
+            {
+                id: "data-weaviate",
+                category: "data_science",
+                path: "resources/data-science/weaviate-vector-search-enterprise/",
+                title: "Weaviate",
+                subtitle: "Enterprise Vector Search GraphQL",
+                desc: "支持 GraphQL 查询接口的高性能向量数据库，原生集成各大模型嵌入转换 pipeline 及面向大模型的语义混查策略。",
+                tags: ["Vector DB", "GraphQL API", "Hybrid Search"]
+            },
+            {
+                id: "data-zenml",
+                category: "data_science",
+                path: "resources/data-science/zenml-mlops-pipeline-framework/",
+                title: "ZenML MLOps",
+                subtitle: "Framework-agnostic MLOps",
+                desc: "解耦具体底层计算资源的敏捷 MLOps 管道粘合框架，让您的训练流水线能无痛从单机过度切换至大型云端集群中。",
+                tags: ["MLOps Framework", "Decoupled Data", "Cloud Platform"]
+            },
+            {
+                id: "data-streaming",
+                category: "data_science",
+                path: "resources/data-science/real-time-data-streaming-tools/",
+                title: "实时数据流吞吐处理工具集",
+                subtitle: "Real-Time Streaming Systems Compared",
+                desc: "系统对比 Kafka、Flink、Spark Streaming 在应对超高通量大模型在线推流、特征实时提取场景下的架构设计要点。",
+                tags: ["Kafka/Flink", "Real-Time Data", "Streaming"]
+            },
+            {
+                id: "data-graph",
+                category: "data_science",
+                path: "resources/data-science/knowledge-graph-tools-frameworks/",
+                title: "知识图谱构建工具指南",
+                subtitle: "Knowledge Graph Tools & Systems",
+                desc: "讲解如何利用 Neo4j 结合大模型信息抽提器建立 GraphRAG（图结构外挂知识库），解决超长关系链下的推理缺失问题。",
+                tags: ["GraphRAG", "Neo4j", "Knowledge Graph"]
+            },
+            {
+                id: "data-jupyter",
+                category: "data_science",
+                path: "resources/data-science/jupyter-notebook-alternatives-comparison/",
+                title: "Jupyter Notebook 替代品横评",
+                subtitle: "Jupyter Notebook Alternatives",
+                desc: "对比 Marimo、Hex、VS Code Interactive Window 在大模型工程开发及多维图表联动分享过程中的可用度比对报告。",
+                tags: ["Jupyter Alternatives", "Hex/Marimo", "IDE Studio"]
+            },
+            {
+                id: "data-automl",
+                category: "data_science",
+                path: "resources/data-science/automl-tools-comparison-guide/",
+                title: "AutoML 自动化机器学习工具指南",
+                subtitle: "AutoML Tools & Systems Guide",
+                desc: "盘点开源自动化调参框架在特征工厂自动建立、模型选型对比和超参数迭代计算方面的最佳实践。",
+                tags: ["AutoML", "Automation", "Model Training"]
+            },
+            {
+                id: "data-version-vs",
+                category: "data_science",
+                path: "resources/data-science/data-version-control-dvc-lakefs-delta-lake/",
+                title: "大规模数据版本控制终极对比",
+                subtitle: "Data Version Control Comparison",
+                desc: "系统比对 DVC、LakeFS、Delta Lake 在支撑上百 TB 级别大语言模型原始多源训练数据集治理方面的技术抉择。",
+                tags: ["Data Engineering", "LakeFS", "Delta Lake", "Governance"]
+            },
+            {
+                id: "data-viz",
+                category: "data_science",
+                path: "resources/data-science/data-visualization-tools-python-comparison/",
+                title: "Python 数据可视化图表库对比",
+                subtitle: "Python Visualization Library Comparison",
+                desc: "横评 Plotly、Altair、Matplotlib 及 Seaborn 在高维语义空间嵌入映射（t-SNE/UMAP）三维交互场景下的综合效能。",
+                tags: ["Data Viz", "Plotly", "t-SNE/UMAP", "Python Lib"]
+            },
+            {
+                id: "data-mlops-stack",
+                category: "data_science",
+                path: "resources/data-science/mlops-platform-comparison-mlflow-wandb-neptune/",
+                title: "主流 MLOps 平台终极横评",
+                subtitle: "MLOps Platform Comparison",
+                desc: "详尽评测 MLflow、Wandb、Neptune.ai 在训练日志实时推流看板、多卡分布式计算资源耗损捕获维度的表现。",
+                tags: ["MLOps", "Wandb/MLflow", "Training Monitor"]
+            },
+            {
+                id: "data-pandas",
+                category: "data_science",
+                path: "resources/data-science/pandas-performance-optimization-alternatives/",
+                title: "Pandas 内存调优与极速替代方案",
+                subtitle: "Pandas Performance Optimization & Polars",
+                desc: "指导数据科学家如何优化 Pandas 大数据集吞吐内存占比，并全景展现高速 Rust 代替方案 Polars 的性能奇迹。",
+                tags: ["Pandas", "Polars", "Rust Speedup", "Memory Tuning"]
+            },
+            {
+                id: "data-timeseries",
+                category: "data_science",
+                path: "resources/data-science/time-series-analysis-tools-python-libraries/",
+                title: "Python 时序分析与预测库大全",
+                subtitle: "Python Time-Series Libraries",
+                desc: "汇总 Prophet、Darts 以及深度时序预测模型在大宗商品价格套利及链上气体价格费率波动预测中的实践经验。",
+                tags: ["Time-Series", "Prophet", "Python Lib", "Quant Model"]
+            },
+            {
+                id: "data-rag-architecture",
+                category: "data_science",
+                path: "resources/data-science/rag-architecture-implementation-guide/",
+                title: "企业级生产 RAG 架构设计指南",
+                subtitle: "Enterprise RAG Architecture Guide",
+                desc: "面向生产场景解构混合检索（Keyword+Vector）、重排模型（Reranker）、重构查询机制（Query Rewriting）等尖端 RAG 组件部署。",
+                tags: ["RAG Engine", "Reranker", "Hybrid Search", "Best Practice"]
+            },
+            {
+                id: "data-llm-analysis",
+                category: "data_science",
+                path: "resources/data-science/llm-data-analysis-workflow-complete-guide/",
+                title: "大模型数据科学分析全流程",
+                subtitle: "LLM Data Analysis Workflow Guide",
+                desc: "研究如何运用 Advanced Data Analysis 大脑实现端到端的数据文件清洗、数学假设检验与自动分析报告呈现。",
+                tags: ["LLM Analytics", "Workflow", "Data Cleaning", "Data Agent"]
+            },
+            {
+                id: "data-cleaning",
+                category: "data_science",
+                path: "resources/data-science/data-cleaning-tools-best-practices/",
+                title: "脏数据清洗预处理工具指南",
+                subtitle: "Data Cleaning Tools & Practices",
+                desc: "归纳提取文本解析、异常离群值自动化诊断、格式规范化处理的最佳开源依赖项及快速过滤正则函数。",
+                tags: ["Data Cleaning", "Regex Engine", "Python Library"]
+            },
+            {
+                id: "data-feature",
+                category: "data_science",
+                path: "resources/data-science/feature-engineering-tools-automation/",
+                title: "自动化特征工程工具大全",
+                subtitle: "Feature Engineering Automation Tools",
+                desc: "解构 Featuretools 等自动化特征衍生依赖库的最佳调优思路，极大节约传统人工手工衍生构造海量算子因子的冗长时间。",
+                tags: ["Feature Engineering", "Automation", "Data Ops"]
+            },
+
+            // ================== DEV UTILS ==================
+            {
+                id: "dev-compose",
+                category: "dev_utils",
+                path: "resources/dev-utils/docker-compose/",
+                title: "Docker Compose",
+                subtitle: "Multi-Container Docker Studio",
+                desc: "本地极客一键配置、启动复杂多容器容器架构的绝对核心依赖，支持动态网络划分、挂载盘绑定以及环境依赖隔离。",
+                tags: ["Docker", "Compose", "Orchestration", "Must-Have"]
+            },
+            {
+                id: "dev-outline",
+                category: "dev_utils",
+                path: "resources/dev-utils/outline-wiki-knowledge-base/",
+                title: "Outline Wiki",
+                subtitle: "Stunning Team Wiki Studio",
+                desc: "UI 美学设计的巅峰之作，极度精美的协作知识库 Wiki 系统，内置无与伦比的多模态文档 Markdown 协同编辑器。",
+                tags: ["Team Wiki", "Gorgeous UI", "Editor", "Highly Rated"]
+            },
+            {
+                id: "dev-affine",
+                category: "dev_utils",
+                path: "resources/dev-utils/affine-knowledge-base-whiteboard/",
+                title: "AFFiNE (协作知识库与无限白板)",
+                subtitle: "Collaborative Wiki & Infinite Whiteboard",
+                desc: "致力于打破传统文档与无限画板思维鸿沟的划时代协同空间，完全本地数据可控性，支持自托管部署。",
+                tags: ["Infinite Board", "Wiki Workspace", "Gorgeous", "Self-Hosted"]
+            },
+            {
+                id: "dev-act",
+                category: "dev_utils",
+                path: "resources/dev-utils/act/",
+                title: "act (本地调试 Actions 管道)",
+                subtitle: "Run GitHub Actions Locally",
+                desc: "允许开发者直接在本地 Docker 容器中拉取并百分百真实模拟运行 GitHub Actions CI 自动化编排管道的极客命令行利器。",
+                tags: ["CLI Utility", "CI/CD Debugger", "Github Actions"]
+            },
+            {
+                id: "dev-playwright",
+                category: "dev_utils",
+                path: "resources/dev-utils/playwright-browser-automation-testing/",
+                title: "Playwright",
+                subtitle: "Modern Browser Automation Test Kit",
+                desc: "由微软维护的新一代高速端到端浏览器自动化接口，拥有完美无瑕的元素等待重试机制，比传统 Selenium 稳定数十倍。",
+                tags: ["Microsoft", "E2E Testing", "Browser Auto", "Standard"]
+            },
+            {
+                id: "dev-supabase",
+                category: "dev_utils",
+                path: "resources/dev-utils/supabase-postgres-vector-ai-apps/",
+                title: "Supabase Vector",
+                subtitle: "The Open Source Firebase Alternative",
+                desc: "开源 Firebase 底层替代，围绕 PostgreSQL 打造，自带高性能认证、实时数据库监听及原生的 pgvector 向量支持。",
+                tags: ["Database BaaS", "Postgres", "Real-Time DB", "Standard"]
+            },
+            {
+                id: "dev-meilisearch",
+                category: "dev_utils",
+                path: "resources/dev-utils/meilisearch-fast-search-engine/",
+                title: "Meilisearch",
+                subtitle: "Ultra-Fast Open Source Search Engine",
+                desc: "开箱即用、以超高速的打字响应（Typo Tolerance）著称的超美轻量搜索引擎，完美取代极其笨重的 Elasticsearch。",
+                tags: ["Search Engine", "Rust Core", "Lightweight", "Amazing"]
+            },
+            {
+                id: "dev-docker-genai",
+                category: "dev_utils",
+                path: "resources/dev-utils/docker-genai-stack-local-development/",
+                title: "Docker GenAI Stack",
+                subtitle: "Dockerized Local GenAI Workspace",
+                desc: "针对本地大模型与 RAG 应用的微服务容器堆栈一键编排脚本，内置 Ollama、Neo4j 及 LangChain API 环境。",
+                tags: ["Docker", "GenAI Stack", "Microservices"]
+            },
+            {
+                id: "dev-activepieces",
+                category: "dev_utils",
+                path: "resources/dev-utils/activepieces-workflow-automation/",
+                title: "Activepieces",
+                subtitle: "Open Source Zapier Alternative",
+                desc: "完全开源且极易拓展的 Zapier 替代方案，内置上百个面向 AI 的第三方 API 自动连线脚本，极大提效营销流程。",
+                tags: ["Workflow Auto", "Zapier Alt", "API Connect"]
+            },
+            {
+                id: "dev-aiohttp",
+                category: "dev_utils",
+                path: "resources/dev-utils/aiohttp-async-web-scraping/",
+                title: "aiohttp (Python 异步网络库)",
+                subtitle: "Python Async HTTP Client & Server",
+                desc: "支持高并发异步网络爬虫、网络服务器编写的核心 Python 基础库，几乎是大型数据爬虫流必配的依赖项。",
+                tags: ["Python Lib", "Async Core", "Web Scraper"]
+            },
+            {
+                id: "dev-appwrite",
+                category: "dev_utils",
+                path: "resources/dev-utils/appwrite-backend-as-service/",
+                title: "Appwrite",
+                subtitle: "Developer-Friendly Backend Server",
+                desc: "专为前端及移动端极客定制的、极其易部署的后端即服务系统，内置丰富好用的多语言 API 拦截验证器。",
+                tags: ["BaaS", "Docker Deploy", "Easy API"]
+            },
+            {
+                id: "dev-atuin",
+                category: "dev_utils",
+                path: "resources/dev-utils/atuin/",
+                title: "Atuin",
+                subtitle: "Encrypted Shell History SQLite Hub",
+                desc: "为您的终端历史配置端到端加密 SQLite 记录引擎的炫酷软件，助您在多台极客工作站间无痛同步 Shell 输入指令。",
+                tags: ["Shell History", "SQLite Hub", "Encrypted Sync"]
+            },
+            {
+                id: "dev-bat",
+                category: "dev_utils",
+                path: "resources/dev-utils/bat/",
+                title: "bat (带高亮折行的高级 cat)",
+                subtitle: "Cat Command Clone with Wings",
+                desc: "终端中打印文件的绝对提效神器，带有出色的语言语法高亮、Git 修改标记显示以及极具辨识度的行数边框。",
+                tags: ["CLI Tool", "Cat Clone", "Rust Core", "Must-Have"]
+            },
+            {
+                id: "dev-bookstack",
+                category: "dev_utils",
+                path: "resources/dev-utils/bookstack-documentation-wiki/",
+                title: "BookStack Wiki",
+                subtitle: "Simple documentation platform",
+                desc: "采用书本-章节结构组织的团队 Wiki 系统，拥有极为简易上手的操作界面和完善的权限控制层级。",
+                tags: ["Team Wiki", "Documentation", "PHP Core"]
+            },
+            {
+                id: "dev-caddy",
+                category: "dev_utils",
+                path: "resources/dev-utils/caddy/",
+                title: "Caddy",
+                subtitle: "Zero-Config Production HTTPS Server",
+                desc: "零繁琐配置的现代化 HTTP/2 Web 服务器，开箱即用，后台默默以秒速级全自动帮您申请与续签极具安全性的 SSL 证书。",
+                tags: ["Web Server", "Auto SSL", "Go Core", "Highly Rated"]
+            },
+            {
+                id: "dev-ccswitch",
+                category: "dev_utils",
+                path: "resources/dev-utils/cc-switch-unified-ai-cli-control-center-2026/",
+                title: "cc-switch",
+                subtitle: "Unified AI CLI Control Center",
+                desc: "在终端中一键自动来回快速无痛切换管理不同大模型 API 凭证、会话请求上下文状态的极简 CLI 控制器。",
+                tags: ["CLI Tool", "Credential Switch", "Developer Utility"]
+            },
+            {
+                id: "dev-chatwoot",
+                category: "dev_utils",
+                path: "resources/dev-utils/chatwoot-open-source-customer-support-ai/",
+                title: "Chatwoot",
+                subtitle: "Open Source Intercom Alternative",
+                desc: "完全开源且集成了 AI 功能的客服对话中台，原生支持接入门槛极低的多语言网站悬浮客服框以及 Telegram 管道。",
+                tags: ["Customer Support", "AI Assistant", "E2E Platform"]
+            },
+            {
+                id: "dev-colly",
+                category: "dev_utils",
+                path: "resources/dev-utils/colly/",
+                title: "Colly (Golang 高速爬虫)",
+                subtitle: "Lightning-Fast Golang Scraping Framework",
+                desc: "基于 Go 语言的高速分布式爬虫框架，拥有极佳的多线程抓取效率、自动请求速率限制以及完美的代理池轮转。",
+                tags: ["Golang Scraper", "High Performance", "Data Scraping"]
+            },
+            {
+                id: "dev-dagger",
+                category: "dev_utils",
+                path: "resources/dev-utils/dagger/",
+                title: "Dagger (可编程容器化 CI 管道)",
+                subtitle: "Programmable CI/CD Engine",
+                desc: "允许开发者使用 Python、TS、Go 语言直接编写容器化流水线测试发布流程的新型 CI 框架，彻底摒弃烦人的 YAML 语法。",
+                tags: ["CI/CD", "Programmable CI", "Docker Hub"]
+            },
+            {
+                id: "dev-devtoys",
+                category: "dev_utils",
+                path: "resources/dev-utils/devtoys/",
+                title: "DevToys (开发者瑞士军刀)",
+                subtitle: "Swiss Army Knife for Developers",
+                desc: "汇聚了 JWT 校验、JSON 规整化、正则表达式匹配测试等日常编程微型小工具的一体化极美离线客户端。",
+                tags: ["Developer Toolkit", "Offline Studio", "Gorgeous GUI", "Amazing"]
+            },
+            {
+                id: "dev-directus",
+                category: "dev_utils",
+                path: "resources/dev-utils/directus-headless-cms-ai-content/",
+                title: "Directus",
+                subtitle: "Headless CMS & SQL Data Hub",
+                desc: "将任意关系型数据库瞬间包装发布为带鉴权的高性能 REST/GraphQL API 引擎的超级 Headless CMS 数据大脑系统。",
+                tags: ["Headless CMS", "Data Wrapper", "REST/GraphQL"]
+            },
+            {
+                id: "dev-docmost",
+                category: "dev_utils",
+                path: "resources/dev-utils/docmost-team-docs-collaboration/",
+                title: "Docmost (团队协作文档)",
+                subtitle: "Modern Team Docs Workspace",
+                desc: "又一款设计感极强、支持多用户实时协同编辑的开源小团队文档系统，旨在作为 Notion 协同板块的私有替代。",
+                tags: ["Collaborative Docs", "Notion Alt", "Self-Hosted"]
+            },
+            {
+                id: "dev-grafana",
+                category: "dev_utils",
+                path: "resources/dev-utils/grafana/",
+                title: "Grafana",
+                subtitle: "The ultimate visualization dashboard",
+                desc: "系统监控、大屏可视化的绝对行业标准，能将 Prometheus 及各类时序数据库中的指标提炼出极其炫酷的可视化看板。",
+                tags: ["Monitoring", "Dashboard", "BI Analysis", "Standard"]
+            },
+            {
+                id: "dev-hoppscotch",
+                category: "dev_utils",
+                path: "resources/dev-utils/hoppscotch/",
+                title: "Hoppscotch",
+                subtitle: "Fast Open Source API Debugger",
+                desc: "基于 Web 的极速轻量 API 调试客户端，完全摒弃了 Postman 商业化的烦人强制登录，响应在毫秒级内瞬间触发。",
+                tags: ["API Debugger", "Postman Alt", "Web App", "Highly Rated"]
+            },
+            {
+                id: "dev-httpie",
+                category: "dev_utils",
+                path: "resources/dev-utils/httpie/",
+                title: "HTTPie",
+                subtitle: "Command-line HTTP client with styling",
+                desc: "比标准 curl 命令友好百倍的命令行 HTTP 调试客户端，内置格式极悦目的请求体语法高亮和优雅参数缩写规范。",
+                tags: ["CLI Tool", "curl alternative", "Elegant Design"]
+            },
+            {
+                id: "dev-lazydocker",
+                category: "dev_utils",
+                path: "resources/dev-utils/lazydocker/",
+                title: "Lazydocker",
+                subtitle: "Minimalistic Terminal UI for Docker",
+                desc: "极受极客推崇的、无需手打漫长 Docker 指令的极简终端 TUI 状态控制面板，只需方向键和回车键即可优雅操纵一切容器。",
+                tags: ["TUI Tool", "Docker Helper", "Go Core", "Amazing"]
+            },
+            {
+                id: "dev-netdata",
+                category: "dev_utils",
+                path: "resources/dev-utils/netdata/",
+                title: "Netdata",
+                subtitle: "Real-time performance monitoring",
+                desc: "服务器性能实时监视的黑科技引擎，能以高达每秒的采样率提供精细到 CPU 单个硬件温度的高保真炫酷网页控制面板。",
+                tags: ["Monitoring", "Real-Time Panel", "High Frequency"]
+            },
+            {
+                id: "dev-nocodb",
+                category: "dev_utils",
+                path: "resources/dev-utils/noco-db-airtable-alternative/",
+                title: "NocoDB",
+                subtitle: "Open Source Airtable Alternative",
+                desc: "将原生 SQL 数据库转换发布为带可视化协作、带公式计算表格的新型无代码数据表格平台，完美的 Airtable 替代。",
+                tags: ["No-Code Table", "Airtable Alt", "Database Admin"]
+            },
+            {
+                id: "dev-plausible",
+                category: "dev_utils",
+                path: "resources/dev-utils/plausible-analytics-privacy-google/",
+                title: "Plausible",
+                subtitle: "Privacy-first Analytics platform",
+                desc: "隐私优先、仅有 1KB 极微包体积的轻量化网站统计组件，能秒速加载，百分百符合 GDPR 规范并不搜集用户指纹隐私。",
+                tags: ["Web Analytics", "GDPR Compliant", "Lightweight"]
+            },
+            {
+                id: "dev-prometheus",
+                category: "dev_utils",
+                path: "resources/dev-utils/prometheus/",
+                title: "Prometheus",
+                subtitle: "Metrics monitoring & Alerting database",
+                desc: "云原生指标监控的绝对核心基础设施，采用抓取（Pull）模型，提供极富表现力的 PromQL 时间序列数据查询查询语言。",
+                tags: ["Time-Series DB", "PromQL", "Monitoring Core", "Standard"]
+            },
+            {
+                id: "dev-puppeteer",
+                category: "dev_utils",
+                path: "resources/dev-utils/puppeteer/",
+                title: "Puppeteer (Node.js 浏览器驱动)",
+                subtitle: "NodeJS headless browser library API",
+                desc: "由 Google 官方主导的经典 Node.js 浏览器自动化驱动，原生提供出色的 PDF 页面生成及精细度极高的屏幕快照捕获API。",
+                tags: ["Headless Chrome", "NodeJS", "Google Core"]
+            },
+            {
+                id: "dev-scrapy",
+                category: "dev_utils",
+                path: "resources/dev-utils/scrapy/",
+                title: "Scrapy",
+                subtitle: "The standard Python Crawler framework",
+                desc: "大名鼎鼎的 Python 爬虫界标准工业级框架，自带功能极为强劲的数据清洗中间件管道和强大的多并发引擎机制。",
+                tags: ["Python Scraper", "Heavyweight", "Data Pipeline", "Standard"]
+            },
+            {
+                id: "dev-shellcheck",
+                category: "dev_utils",
+                path: "resources/dev-utils/shellcheck/",
+                title: "ShellCheck (Shell 脚本排毒利器)",
+                subtitle: "Static Analysis Tool for Shell Scripts",
+                desc: "运行在命令行中的 Shell 脚本静态语法分析引擎，能瞬间自动纠正脚本中的常见语法漏洞及容易导致宕机崩溃的不规范写法。",
+                tags: ["CLI Tool", "Static Analysis", "Shell Debugger", "Highly Rated"]
+            },
+            {
+                id: "dev-signoz",
+                category: "dev_utils",
+                path: "resources/dev-utils/signoz-apm-observability-open-source/",
+                title: "SigNoz APM",
+                subtitle: "Open Source Datadog Alternative",
+                desc: "完全开源的全能级应用性能监控（APM）可观测中台，能极其炫酷地关联诊断请求延时、链路追踪及分布式异常崩溃栈。",
+                tags: ["APM Monitor", "Datadog Alt", "Telemetry"]
+            },
+            {
+                id: "dev-traefik",
+                category: "dev_utils",
+                path: "resources/dev-utils/traefik/",
+                title: "Traefik (云原生反向代理)",
+                subtitle: "Modern cloud-native reverse proxy gateway",
+                desc: "专为容器服务设计的反向代理网关，完美兼容 Docker 标签驱动，能在容器生命周期变动时自动实现无感动态路由加载。",
+                tags: ["Reverse Proxy", "Docker Aware", "Dynamic Routing"]
+            },
+            {
+                id: "dev-typesense",
+                category: "dev_utils",
+                path: "resources/dev-utils/typesense-instant-search-api/",
+                title: "Typesense",
+                subtitle: "Fast Typo-Tolerant Search Engine",
+                desc: "以超低 CPU 耗损、强内存级存储加速机制著称的极速开源搜索引擎，是快速制作打字即搜功能的顶尖首选。",
+                tags: ["Search API", "In-Memory Rust", "Fast Speed"]
+            },
+            {
+                id: "dev-zoxide",
+                category: "dev_utils",
+                path: "resources/dev-utils/zoxide/",
+                title: "zoxide (智能路径快捷跳转 cd)",
+                subtitle: "Smarter cd command for Terminal",
+                desc: "基于 Rust 编写的高效智能 cd 跳转命令克星，能自动记忆您的 Shell 跳转频率权重，输入一两个字母即可瞬间秒速跨目录跳转。",
+                tags: ["CLI Utility", "Rust Core", "Smart cd", "Must-Have"]
+            },
+            {
+                id: "dev-iac",
+                category: "dev_utils",
+                path: "resources/dev-utils/infrastructure-as-code-tools-comparison/",
+                title: "IaC 基础设施即代码工具指南",
+                subtitle: "IaC Tools Compared",
+                desc: "系统对比 Terraform、Pulumi、Ansible 在应对中大型容器及云服务器自动化部署、统一网络划分场景下的技术路线抉择。",
+                tags: ["IaC", "Terraform/Pulumi", "DevOps"]
+            },
+            {
+                id: "dev-vscode-ai",
+                category: "dev_utils",
+                path: "resources/dev-utils/vs-code-ai-extensions-developers/",
+                title: "VS Code 前沿 AI 插件集锦",
+                subtitle: "VS Code AI Extensions Complete Guide",
+                desc: "盘点能够深度融入开发者核心编码流的 Copilot、Continue.dev 等顶尖 AI 赋能插件与本地快捷指令配置技巧。",
+                tags: ["VSCode", "Continue", "AI Extension"]
+            },
+            {
+                id: "dev-apidoc",
+                category: "dev_utils",
+                path: "resources/dev-utils/api-documentation-generation-tools/",
+                title: "自动 API 接口文档生成器",
+                subtitle: "API Documentation Automation Tools",
+                desc: "汇聚根据代码注释直接秒级自动渲染精美 OpenAPI/Swagger 调试文档界面的优秀语言级辅助包。",
+                tags: ["API Docs", "OpenAPI/Swagger", "Developer Toolkit"]
+            },
+            {
+                id: "dev-gateway",
+                category: "dev_utils",
+                path: "resources/dev-utils/developer-api-gateway-tools/",
+                title: "主流开发者 API 网关选型对比",
+                subtitle: "Developer API Gateway Tools Compared",
+                desc: "横向比对 Kong、APISIX、Tyk 在路由速率限制、动态认证中间件挂载、鉴权插件拓展效率维度的真实性能报告。",
+                tags: ["API Gateway", "Kong/APISIX", "Benchmark"]
+            },
+            {
+                id: "dev-cicd-vs",
+                category: "dev_utils",
+                path: "resources/dev-utils/cicd-tools-github-actions-vs-gitlab-ci-vs-jenkins/",
+                title: "CI/CD 自动化流水线终极抉择",
+                subtitle: "CI/CD Platforms Compared",
+                desc: "从私有化控制复杂度、云端执行并发成本等层面，系统级对比 GitLab-CI、Jenkins 以及云原生 Dagger 框架的抉择路线。",
+                tags: ["CI/CD", "GitLab/Jenkins", "DevOps"]
+            },
+            {
+                id: "dev-docker-best",
+                category: "dev_utils",
+                path: "resources/dev-utils/docker-development-environment-best-practices/",
+                title: "Docker 本地开发环境最佳实践",
+                subtitle: "Docker Best Practices Guide",
+                desc: "重点讲解如何在本地 Docker 环境下避免挂载盘 IO 阻塞（针对 macOS）、如何缩减构建缓存体积并保障微服务通信畅通。",
+                tags: ["Docker", "Performance Tuning", "Microservices"]
+            },
+            {
+                id: "dev-git-workflow",
+                category: "dev_utils",
+                path: "resources/dev-utils/git-workflow-team-collaboration-tools/",
+                title: "团队敏捷开发 Git 工作流指南",
+                subtitle: "Git Workflow & Team Collaboration",
+                desc: "解构主分支保护机制、约定式提交规范（Conventional Commits）、自动化 CR 工作流触发要点及高级变基合并技巧。",
+                tags: ["Git Flow", "Agile Collaboration", "CI Integration"]
+            },
+            {
+                id: "dev-api-test-vs",
+                category: "dev_utils",
+                path: "resources/dev-utils/api-testing-tools-postman-vs-insomnia-vs-bruno/",
+                title: "API 调试与测试工具三剑客对比",
+                subtitle: "API Testing Tools Compared",
+                desc: "针对 Postman、Insomnia 及主打本地离线纯 Git 同步的轻量级后起之秀 Bruno 展开详细可用性与隐私防护性能横评。",
+                tags: ["API Testing", "Postman", "Bruno", "Insomnia"]
+            },
+            {
+                id: "dev-search-vs",
+                category: "dev_utils",
+                path: "resources/dev-utils/code-search-replace-tools-grep-modern-alternatives/",
+                title: "代码深度搜索与重构现代替代方案",
+                subtitle: "Modern Code Search & Replace Tools",
+                desc: "评测对比经典 grep 与现代高速替代品 ripgrep、fd-find 及交互式模糊查找工具 fzf 在上百万行大型代码库下的搜索奇迹。",
+                tags: ["Code Search", "ripgrep/fzf", "CLI Tool"]
+            },
+            {
+                id: "dev-quality",
+                category: "dev_utils",
+                path: "resources/dev-utils/code-quality-tools-eslint-prettier-black-ruff/",
+                title: "代码静态合规与风格清洗体系",
+                subtitle: "Code Quality & Formatting Stack",
+                desc: "指导团队如何利用 ESLint、Prettier 以及 Python 极速静态分析器 Ruff 快速搭建无缝集成的 IDE 自动风格格式化校验体系。",
+                tags: ["Code Linting", "Ruff/Prettier", "ESLint"]
+            },
+            {
+                id: "dev-log-monitoring",
+                category: "dev_utils",
+                path: "resources/dev-utils/log-monitoring-observability-tools-developers/",
+                title: "日志实时搜集监控与可观测指标",
+                subtitle: "Log Monitoring & Observability Hub",
+                desc: "探讨如何在轻量级开发及生产架构中快速拼装 Vector、Promtail 以及 Loki 轻量级日志收集流水线以规避传统大厂昂贵资费。",
+                tags: ["Loki/Grafana", "Log Monitoring", "APM stack"]
+            },
+            {
+                id: "dev-db-admin",
+                category: "dev_utils",
+                path: "resources/dev-utils/database-management-tools-comparison/",
+                title: "经典数据库治理桌面客户端横评",
+                subtitle: "Database Management GUI Comparison",
+                desc: "对比 DataGrip、DBeaver、TablePlus 以及开源极速网页端 pgAdmin4、Adminer 在执行大规模 SQL 性能剖析方面的易用性表现。",
+                tags: ["Database Client", "SQL Analyzer", "DataGrip/DBeaver"]
+            },
+            {
+                id: "dev-terminal-stack",
+                category: "dev_utils",
+                path: "resources/dev-utils/terminal-command-line-tools-tmux-zsh-fzf-ripgrep/",
+                title: "极客终端提效全家桶配置",
+                subtitle: "Geek Terminal Tools Setup",
+                desc: "手把手指导如何整合配置 Zsh 主题插件（zsh-autosuggestions）、Tmux 终端多路复用组件以及模糊搜索器 fzf，让终端飞速运转。",
+                tags: ["Zsh/Tmux", "fzf", "Terminal Optimization"]
+            },
+            {
+                id: "dev-ai-directory",
+                category: "dev_utils",
+                path: "resources/dev-utils/ai-tools-directory/",
+                title: "全站 AI 与极客开发工具总索引",
+                subtitle: "Master AI & Dev Tools Index",
+                desc: "全面索引 Dibi8 推荐的所有微型 AI 小组件、自动化调试辅助库和极客开发辅助插件，支持快速跳转阅览。",
+                tags: ["Master Index", "Dev Tools", "AI Stack"]
+            },
+
+            // ================== ONLINE TOOLS ==================
+            {
+                id: "tool-cron",
+                category: "online_tools",
+                path: "tools/cron-generator/",
+                title: "Cron 表达式生成器",
+                subtitle: "Cron Job Expression Generator",
+                desc: "在线将日常自然语言转换为准确无误的 Linux crontab 定时任务表达式的精美工具，完美带时间轴预测显示。",
+                tags: ["Cron Job", "Linux Utility", "Web Utility"]
+            },
+            {
+                id: "tool-jwt",
+                category: "online_tools",
+                path: "tools/jwt-decoder/",
+                title: "JWT 解码器",
+                subtitle: "JSON Web Token Decoder",
+                desc: "在本地浏览器中安全离线解析、校验与调试 JSON Web Token（JWT）头部及载荷特征，绝不上传统端隐私数据。",
+                tags: ["JWT Decoder", "Auth tool", "Security", "Offline Ready"]
+            },
+            {
+                id: "tool-recommender",
+                category: "online_tools",
+                path: "tools/llm-recommender/",
+                title: "大模型选型推荐器",
+                subtitle: "LLM Model Recommender Engine",
+                desc: "根据您输入的开发场景、可接受的价格范围及参数级别诉求，为您智能推荐最适合的本地或云端大模型选型。",
+                tags: ["LLM Selector", "Model Wizard", "Cost Calculation"]
+            },
+            {
+                id: "tool-mcp",
+                category: "online_tools",
+                path: "tools/mcp-tool-builder/",
+                title: "MCP 工具构建器",
+                subtitle: "MCP Server Tool Creator Studio",
+                desc: "为大语言模型一键可视化组装、调试标准 MCP 服务端调用端点（Tools/Resources）并导出 JSON 配置的在线工坊。",
+                tags: ["MCP Builder", "Model Context", "Developer Studio"]
+            },
+            {
+                id: "tool-prompt",
+                category: "online_tools",
+                path: "tools/prompt-optimizer/",
+                title: "大模型提示词优化器",
+                subtitle: "System Prompt Optimizer Kit",
+                desc: "基于前沿思维链（CoT）及少样本（Few-shot）范式，自动对用户输入的口语化大模型指令进行系统级扩充和润色的工具。",
+                tags: ["Prompt Builder", "CoT Engine", "Interaction Tuning"]
+            },
+            {
+                id: "tool-stack-builder",
+                category: "online_tools",
+                path: "tools/ai-stack-builder/",
+                title: "AI 技术栈自动构建器",
+                subtitle: "AI Tech Stack Auto Architect",
+                desc: "根据具体 RAG 或多智能体团队项目构想，一键自动组装并打包导出 Docker Compose 快速运行环境的在线辅助台。",
+                tags: ["Architect", "Docker Export", "Interactive System"]
+            },
+            {
+                id: "tool-json",
+                category: "online_tools",
+                path: "tools/json-formatter/",
+                title: "JSON 极速格式化工具",
+                subtitle: "Strict JSON Formatter & Validator",
+                desc: "支持严格语法高亮、大体积文本折叠、坏死嵌套自动诊断的浏览器内极速 JSON 美化格式化与校验引擎。",
+                tags: ["JSON Beautify", "Strict Validator", "Web Utility"]
+            },
+            {
+                id: "tool-cost",
+                category: "online_tools",
+                path: "tools/llm-cost-calculator/",
+                title: "大模型 API 成本计算器",
+                subtitle: "Universal LLM API Cost Calculator",
+                desc: "实时同步各大主流 API 服务商最新单价，方便您快捷核算在处理千万级 Token 时不同模型的精确账单走势。",
+                tags: ["Cost Calculation", "Price Audit", "SaaS Utility"]
+            },
+            {
+                id: "tool-token",
+                category: "online_tools",
+                path: "tools/llm-token-counter/",
+                title: "LLM Token 在线计数器",
+                subtitle: "Universal LLM Token Counter (tiktoken)",
+                desc: "完美兼容 GPT 及主流大模型 tiktoken 分词器算法的在线分词计算器，支持精确估算输入文本所消耗的 Token 确切数。",
+                tags: ["tiktoken", "Tokenizer", "Context Count"]
+            },
+            {
+                id: "tool-md",
+                category: "online_tools",
+                path: "tools/markdown-converter/",
+                title: "Markdown 格式转换预览器",
+                subtitle: "Advanced Markdown Editor & Converter",
+                desc: "支持将纯文本、网页链接自动剥离提取转换生成精美 GitHub 规范 Markdown 文件并支持高级渲染预览的工具。",
+                tags: ["Markdown Builder", "Converter", "Web Utility"]
+            },
+            {
+                id: "tool-og",
+                category: "online_tools",
+                path: "tools/og-card-preview/",
+                title: "OG 网页分享卡片预览",
+                subtitle: "Open Graph Meta Card Previewer",
+                desc: "提取网页 Open Graph 元标签数据并实时渲染出在 Telegram、X、Discord 等社交软件中预览展示效果的在线测试台。",
+                tags: ["Social Card", "SEO Engine", "Meta Graph"]
+            },
+            {
+                id: "tool-schema",
+                category: "online_tools",
+                path: "tools/schema-generator/",
+                title: "结构化数据 Schema 生成器",
+                subtitle: "JSON-LD structured schema generator",
+                desc: "支持为谷歌搜索引擎优化自动生成 JSON-LD 结构化数据 Schema 代码段的优秀站长提效在线组件。",
+                tags: ["Google Schema", "SEO Optimization", "JSON-LD"]
+            },
+            {
+                id: "tool-devcombo",
+                category: "online_tools",
+                path: "tools/dev-combo/",
+                title: "开发者瑞士军刀合集",
+                subtitle: "Developers Universal Web Sandbox",
+                desc: "包含 Base64 自动转换、URL 强制转义、Unix 精准时间戳相互转换等开发必备微型沙盒功能的单页工具箱。",
+                tags: ["Universal Sandbox", "Developer Utility", "Easy Tools", "Outstanding"]
+            },
+            {
+                id: "tool-regex",
+                category: "online_tools",
+                path: "tools/regex-tester/",
+                title: "正则表达式在线测试仪",
+                subtitle: "Regular Expression Online Sandbox",
+                desc: "支持多引擎语法、带正则表达式断点高亮匹配捕获组、带极易理解的英文匹配逻辑树解说的离线即时测试台。",
+                tags: ["Regex Engine", "Syntax Highlighter", "Match Sandbox"]
+            }
+        ];
+
+        // GLOBAL CONFIG & STATES
+        let currentLang = "zh";
+        let activeCategory = "all";
+        let bookmarks = JSON.parse(localStorage.getItem("dibi8_bookmarks")) || [];
+
+        // INITIALIZE APP
+        document.addEventListener("DOMContentLoaded", () => {
+            // Render Nav Sidebar
+            renderNavigation();
+            // Load and Render resources catalog
+            renderCatalog();
+            // Handle active stats
+            updateStats();
+            // Trigger Lucide icons init
+            lucide.createIcons();
+
+            // Set up search bar listener
+            const searchInput = document.getElementById("searchInput");
+            searchInput.addEventListener("input", filterResources);
+
+            // Set up hotkeys (press '/' to focus search, 'Esc' to clear)
+            window.addEventListener("keydown", (e) => {
+                if (e.key === "/" && document.activeElement !== searchInput) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    searchInput.select();
+                } else if (e.key === "Escape" && document.activeElement === searchInput) {
+                    searchInput.value = "";
+                    filterResources();
+                    searchInput.blur();
+                }
+            });
+
+            // Set up back to top listener
+            const backToTopBtn = document.getElementById("backToTopBtn");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.add("visible");
+                } else {
+                    backToTopBtn.classList.remove("visible");
+                }
+                
+                // Track active navigation scrollingspy
+                spyNavigationScroll();
+            });
+
+            backToTopBtn.addEventListener("click", () => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+        });
+
+        // RENDER NAV SIDEBAR
+        function renderNavigation() {
+            const navMenu = document.getElementById("navMenu");
+            const cats = TRANSLATIONS[currentLang].categories;
+            
+            let html = `
+                <li class="nav-item active" id="nav-all">
+                    <a href="#all" onclick="filterCategory(event, 'all')">
+                        <span class="nav-icon-text">
+                            <i data-lucide="layout-grid" style="width: 1.1rem; height: 1.1rem;"></i>
+                            <span>${currentLang === 'zh' ? '查看全部' : currentLang === 'en' ? 'View All' : currentLang === 'kr' ? '전체 보기' : 'Tất Cả'}</span>
+                        </span>
+                        <span class="nav-badge">${RESOURCES.length}</span>
+                    </a>
+                </li>
+            `;
+
+            for (const [key, label] of Object.entries(cats)) {
+                const count = RESOURCES.filter(r => r.category === key).length;
+                let iconName = "compass";
+                if (key === "collections") iconName = "layers";
+                else if (key === "frameworks") iconName = "cpu";
+                else if (key === "ai_tools") iconName = "sparkles";
+                else if (key === "ai_trading") iconName = "trending-up";
+                else if (key === "data_science") iconName = "database";
+                else if (key === "dev_utils") iconName = "terminal";
+                else if (key === "online_tools") iconName = "tool";
+
+                html += `
+                    <li class="nav-item" id="nav-${key}">
+                        <a href="#${key}" onclick="filterCategory(event, '${key}')">
+                            <span class="nav-icon-text">
+                                <i data-lucide="${iconName}" style="width: 1.1rem; height: 1.1rem;"></i>
+                                <span>${label}</span>
+                            </span>
+                            <span class="nav-badge">${count}</span>
+                        </a>
+                    </li>
+                `;
+            }
+            navMenu.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // RENDER CATALOG
+        function renderCatalog() {
+            const catalog = document.getElementById("directoryCatalog");
+            const cats = TRANSLATIONS[currentLang].categories;
+            let html = "";
+
+            // Render categories
+            for (const [catKey, catLabel] of Object.entries(cats)) {
+                const items = RESOURCES.filter(r => r.category === catKey);
+                if (items.length === 0) continue;
+
+                html += `
+                    <section class="directory-section" id="section-${catKey}">
+                        <div class="section-header">
+                            <div class="section-title">
+                                <i data-lucide="${getCategoryIcon(catKey)}" style="width: 1.15rem; height: 1.15rem; color: var(--color-cyan);"></i>
+                                <span>${catLabel}</span>
+                            </div>
+                            <span class="section-tag-counter">${items.length} ${currentLang === 'zh' ? '个项目' : currentLang === 'en' ? 'Items' : currentLang === 'kr' ? '개' : 'Mục'}</span>
+                        </div>
+                        <div class="cards-grid">
+                            ${items.map(item => renderCardHtml(item)).join('')}
+                        </div>
+                    </section>
+                `;
+            }
+            catalog.innerHTML = html;
+            
+            // Re-render favorites shelf
+            renderFavorites();
+            
+            // Re-attach card hover mouse track dynamics
+            attachCardMouseMovement();
+        }
+
+        // RENDER DYNAMIC CARD HTML
+        function renderCardHtml(item) {
+            const isFav = bookmarks.includes(item.id);
+            const favClass = isFav ? "active" : "";
+            const dict = TRANSLATIONS[currentLang];
+            
+            // Rewrite URL path depending on language switcher dynamically!
+            const languagePrefix = currentLang === "zh" ? "zh/" : currentLang === "en" ? "" : currentLang === "kr" ? "kr/" : "vi/";
+            const targetUrl = `https://dibi8.com/${languagePrefix}${item.path}`;
+
+            return `
+                <div class="resource-card" data-id="${item.id}" data-category="${item.category}" data-searchable="${item.title.toLowerCase()} ${item.subtitle.toLowerCase()} ${item.desc.toLowerCase()} ${item.tags.join(' ').toLowerCase()}">
+                    <div class="card-top">
+                        <div class="card-title-area">
+                            <a href="${targetUrl}" target="_blank" class="card-title">${item.title}</a>
+                            <span class="card-subtitle">${item.subtitle}</span>
+                        </div>
+                        <button class="card-favorite-btn ${favClass}" onclick="toggleBookmark(event, '${item.id}')" aria-label="收藏">
+                            <i data-lucide="star" style="width: 1.1rem; height: 1.1rem;"></i>
+                        </button>
+                    </div>
+                    
+                    <p class="card-description">${item.desc}</p>
+                    
+                    <div class="card-tags">
+                        ${item.tags.map(tag => `<span class="card-tag">#${tag}</span>`).join('')}
+                    </div>
+                    
+                    <div class="card-actions">
+                        <button class="card-action-btn btn-copy" onclick="copyCardUrl(event, '${targetUrl}')">
+                            <i data-lucide="copy" style="width: 0.8rem; height: 0.8rem;"></i>
+                            <span>${dict.btnCopy}</span>
+                        </button>
+                        <a href="${targetUrl}" target="_blank" class="card-action-btn btn-visit">
+                            <span>${dict.btnVisit}</span>
+                            <i data-lucide="arrow-up-right" style="width: 0.8rem; height: 0.8rem;"></i>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // RENDER FAVORITES
+        function renderFavorites() {
+            const section = document.getElementById("favoritesSection");
+            const grid = document.getElementById("favoritesGrid");
+            const countBadge = document.getElementById("favoritesCount");
+
+            if (bookmarks.length === 0) {
+                section.style.display = "none";
+                return;
+            }
+
+            section.style.display = "flex";
+            countBadge.innerText = bookmarks.length;
+
+            const favItems = bookmarks.map(id => RESOURCES.find(r => r.id === id)).filter(Boolean);
+            grid.innerHTML = favItems.map(item => renderCardHtml(item)).join('');
+            
+            // Re-apply Lucide rendering
+            lucide.createIcons();
+            // Re-apply hover script
+            attachCardMouseMovement();
+        }
+
+        // UTILS: CATEGORY ICONS
+        function getCategoryIcon(catKey) {
+            if (catKey === "collections") return "layers";
+            if (catKey === "frameworks") return "cpu";
+            if (catKey === "ai_tools") return "sparkles";
+            if (catKey === "ai_trading") return "trending-up";
+            if (catKey === "data_science") return "database";
+            if (catKey === "dev_utils") return "terminal";
+            return "tool";
+        }
+
+        // FILTER BY CATEGORY (SIDEBAR CLICK)
+        function filterCategory(event, catKey) {
+            if (event) event.preventDefault();
+            activeCategory = catKey;
+
+            // Manage nav active indicators
+            document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+            document.getElementById(`nav-${catKey}`).classList.add("active");
+
+            const sections = document.querySelectorAll(".directory-section");
+            const favorites = document.getElementById("favoritesSection");
+
+            if (catKey === "all") {
+                sections.forEach(sec => sec.style.display = "flex");
+                if (bookmarks.length > 0) favorites.style.display = "flex";
+            } else {
+                sections.forEach(sec => {
+                    if (sec.id === `section-${catKey}`) sec.style.display = "flex";
+                    else sec.style.display = "none";
+                });
+                // Hide favorites when filtering specific categories to declutter
+                favorites.style.display = "none";
+            }
+
+            // Reset search bar on category filter to prevent confusion
+            document.getElementById("searchInput").value = "";
+            document.getElementById("noResultsPanel").style.display = "none";
+
+            // Smooth scroll to the target category
+            if (catKey !== "all") {
+                const targetSec = document.getElementById(`section-${catKey}`);
+                if (targetSec) {
+                    targetSec.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+            } else {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+        }
+
+        // GLOBAL DYNAMIC FILTER (SEARCH BAR)
+        function filterResources() {
+            const query = document.getElementById("searchInput").value.toLowerCase().trim();
+            const sections = document.querySelectorAll(".directory-section");
+            const favorites = document.getElementById("favoritesSection");
+            const noResults = document.getElementById("noResultsPanel");
+
+            if (!query) {
+                // Restore catalog states depending on active category selection
+                filterCategory(null, activeCategory);
+                noResults.style.display = "none";
+                return;
+            }
+
+            // Hide favorites shelf during search to reduce clutter
+            favorites.style.display = "none";
+            let totalMatchCount = 0;
+
+            sections.forEach(section => {
+                const cards = section.querySelectorAll(".resource-card");
+                let sectionMatchCount = 0;
+
+                cards.forEach(card => {
+                    const searchIndex = card.getAttribute("data-searchable");
+                    if (searchIndex.includes(query)) {
+                        card.style.display = "flex";
+                        sectionMatchCount++;
+                        totalMatchCount++;
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+
+                if (sectionMatchCount > 0) {
+                    section.style.display = "flex";
+                    // Update category card badge indicator dynamically during query
+                    section.querySelector(".section-tag-counter").innerText = `${sectionMatchCount} matched`;
+                } else {
+                    section.style.display = "none";
+                }
+            });
+
+            if (totalMatchCount === 0) {
+                noResults.style.display = "flex";
+            } else {
+                noResults.style.display = "none";
+            }
+        }
+
+        // SCROLLSPY NAVIGATION
+        function spyNavigationScroll() {
+            if (activeCategory !== "all") return; // Do not trigger spy if user is intentionally viewing a single category
+
+            const sections = document.querySelectorAll(".directory-section");
+            let activeId = "all";
+            const scrollPos = window.scrollY + 100;
+
+            sections.forEach(sec => {
+                const top = sec.offsetTop;
+                const height = sec.offsetHeight;
+                if (scrollPos >= top && scrollPos < top + height) {
+                    activeId = sec.id.replace("section-", "");
+                }
+            });
+
+            document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+            document.getElementById(`nav-${activeId}`).classList.add("active");
+        }
+
+        // MANAGE BOOKMARKS / FAVORITES SYSTEM
+        function toggleBookmark(event, id) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            const dict = TRANSLATIONS[currentLang];
+            const idx = bookmarks.indexOf(id);
+            if (idx === -1) {
+                bookmarks.push(id);
+                showToast(dict.bookmarkAdded, "amber", "star");
+            } else {
+                bookmarks.splice(idx, 1);
+                showToast(dict.bookmarkRemoved, "default", "star-off");
+            }
+
+            // Persist to local storage
+            localStorage.setItem("dibi8_bookmarks", JSON.stringify(bookmarks));
+
+            // Sync visual states instantly
+            updateStats();
+            renderCatalog();
+        }
+
+        // SYNCHRONIZE STATS
+        function updateStats() {
+            document.getElementById("statTotalCount").innerText = RESOURCES.length;
+            document.getElementById("statBookmarksCount").innerText = bookmarks.length;
+        }
+
+        // COPY URL CLIPBOARD UTILITY
+        function copyCardUrl(event, url) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            navigator.clipboard.writeText(url).then(() => {
+                const dict = TRANSLATIONS[currentLang];
+                showToast(dict.copiedToast, "cyan", "copy-check");
+            }).catch(err => {
+                console.error("Clipboard copy failed:", err);
+            });
+        }
+
+        // COSMIC TOAST CONTROLLER
+        function showToast(message, type = "cyan", icon = "info") {
+            const container = document.getElementById("toastContainer");
+            const toast = document.createElement("div");
+            toast.className = `toast-alert ${type === 'amber' ? 'amber' : ''}`;
+            
+            toast.innerHTML = `
+                <i data-lucide="${icon}" style="width: 1.1rem; height: 1.1rem; color: ${type === 'amber' ? 'var(--color-amber)' : 'var(--color-cyan)'};"></i>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            // Slide out and remove toast after 3 seconds
+            setTimeout(() => {
+                toast.style.transition = "all 0.4s ease";
+                toast.style.opacity = "0";
+                toast.style.transform = "translateX(50px)";
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        // SET LANGUAGE ACTION
+        function setLanguage(lang) {
+            currentLang = lang;
+
+            // Update language switcher active buttons
+            document.querySelectorAll(".lang-btn").forEach(btn => {
+                if (btn.getAttribute("data-lang") === lang) btn.classList.add("active");
+                else btn.classList.remove("active");
+            });
+
+            // Translate static elements
+            const dict = TRANSLATIONS[lang];
+            document.getElementById("searchInput").placeholder = dict.searchPlaceholder;
+            document.getElementById("heroTitle").innerText = dict.heroTitle;
+            document.getElementById("heroDescription").innerHTML = dict.heroDescription;
+            document.getElementById("heroBtnTxt").innerText = dict.heroBtnTxt;
+            document.getElementById("favTitleText").innerText = dict.favTitleText;
+            document.getElementById("noResultsTitle").innerText = dict.noResultsTitle;
+            document.getElementById("noResultsDesc").innerText = dict.noResultsDesc;
+            document.getElementById("footerText").innerText = dict.footerText;
+
+            // Re-render UI menus and directories catalog data in real time!
+            renderNavigation();
+            renderCatalog();
+        }
+
+        // HOVER DYNAMIC NEON MOUSE-FOLLOWING TRACK (CSS variables)
+        function attachCardMouseMovement() {
+            const cards = document.querySelectorAll(".resource-card");
+            cards.forEach(card => {
+                card.onmousemove = e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty("--mouse-x", `${x}px`);
+                    card.style.setProperty("--mouse-y", `${y}px`);
+                };
+            });
+        }
+    </script>
+</body>
+</html>
