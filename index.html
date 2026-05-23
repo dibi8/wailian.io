@@ -163,30 +163,15 @@
         .brand {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
             margin-bottom: 0.5rem;
         }
 
         .brand-logo {
-            width: 2.25rem;
-            height: 2.25rem;
-            background: var(--gradient-primary);
-            border-radius: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
-            color: #07080d;
-        }
-
-        .brand h1 {
-            font-family: var(--font-display);
-            font-size: 1.35rem;
-            font-weight: 800;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 0.05em;
+            display: block;
+            width: clamp(7.5rem, 11vw, 10rem);
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.28));
         }
 
         .brand-subtitle {
@@ -1010,10 +995,7 @@
         <aside class="sidebar glass-panel" role="complementary">
             <div>
                 <div class="brand">
-                    <div class="brand-logo">
-                        <i data-lucide="compass" style="width: 1.25rem; height: 1.25rem;"></i>
-                    </div>
-                    <h1>DIBI8 NAV</h1>
+                    <img class="brand-logo" src="./image__1_-removebg-preview.png" alt="DIBI8" />
                 </div>
                 <div class="brand-subtitle" id="asideSubtitle">全站资源分类索引黄页</div>
             </div>
