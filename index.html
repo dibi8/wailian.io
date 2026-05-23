@@ -6,9 +6,10 @@
     <title>Dibi8 开发者资源导航黄页 | Dibi8 Developer Resource Hub Yellow Pages</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Dibi8 开发者资源导航黄页，收录整理了 dibi8.com 全站大模型框架、AI 工具、数据科学、开发辅助及在线工具。支持多语言链接切换（中英韩越）、即时模糊搜索及本地化常用收藏。">
-    <meta name="keywords" content="dibi8, AI Agent, LLM, 大模型框架, AI 交易, 数据科学, 开发者工具, 导航黄页, GitHub Pages">
+    <meta name="description" content="Dibi8 开发者资源导航黄页，整合 262 个 AI Agent、LLM、量化交易、数据科学与开发工具资源，支持中英韩越多语言切换、国家关键词长尾搜索、即时筛选与本地收藏，并同步至 2026 年 5 月 23 日。">
+    <meta name="keywords" content="dibi8, AI Agent tools USA, best LLM frameworks UK, Japan AI automation stack, Korea AI tools, Vietnam AI workflow, Singapore AI startup tools, India quant trading AI, Germany data science tools, UAE crypto AI trading, 中国AI工具导航, 日本LLM框架, 韩国AI开发工具, 越南自动化AI, 长尾关键词, developer resource hub">
     <meta name="author" content="Dibi8 Community">
+    <link rel="canonical" href="https://dibi8.com/">
     
     <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,6 +18,18 @@
     
     <!-- Modern Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Dibi8 Developer Resource Hub Yellow Pages",
+      "description": "Dibi8 resource hub for AI agents, LLM frameworks, AI tools, quant trading, data science and developer utilities with multilingual search.",
+      "url": "https://dibi8.com/",
+      "numberOfItems": 262,
+      "inLanguage": ["zh-CN", "en", "ko", "vi"]
+    }
+    </script>
 
     <style>
         /* CSS RESET & CUSTOM PROPERTIES */
@@ -470,6 +483,87 @@
             color: #fff;
         }
 
+        .hero-status-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.9rem;
+        }
+
+        .hero-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.48rem 0.8rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            background: rgba(0, 242, 254, 0.08);
+            color: var(--text-primary);
+            font-size: 0.76rem;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .keyword-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .keyword-section-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .keyword-section-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            max-width: 860px;
+        }
+
+        .keyword-section-copy h3 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .keyword-section-copy p {
+            font-size: 0.82rem;
+            line-height: 1.55;
+            color: var(--text-secondary);
+        }
+
+        .keyword-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+        }
+
+        .keyword-chip {
+            font-family: var(--font-sans);
+            font-size: 0.76rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 999px;
+            padding: 0.55rem 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .keyword-chip:hover {
+            transform: translateY(-2px);
+            color: var(--color-cyan);
+            border-color: rgba(0, 242, 254, 0.25);
+            background: rgba(0, 242, 254, 0.08);
+        }
+
         /* FAVORITES SECTION (COLLAPSED IF EMPTY) */
         .favorites-section {
             display: none; /* Controlled dynamically by JS */
@@ -913,7 +1007,7 @@
     <div class="app-container">
         
         <!-- SIDEBAR -->
-        <aside class="sidebar glass-panel">
+        <aside class="sidebar glass-panel" role="complementary">
             <div>
                 <div class="brand">
                     <div class="brand-logo">
@@ -921,7 +1015,7 @@
                     </div>
                     <h1>DIBI8 NAV</h1>
                 </div>
-                <div class="brand-subtitle">全站资源分类索引黄页</div>
+                <div class="brand-subtitle" id="asideSubtitle">全站资源分类索引黄页</div>
             </div>
             
             <nav style="flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; margin-top: 1rem;">
@@ -933,17 +1027,17 @@
             <div class="sidebar-stats">
                 <div class="stat-box">
                     <div class="stat-val" id="statTotalCount">0</div>
-                    <div class="stat-lbl">全站条目</div>
+                    <div class="stat-lbl" id="lblTotalItems">全站条目</div>
                 </div>
                 <div class="stat-box">
                     <div class="stat-val" id="statBookmarksCount">0</div>
-                    <div class="stat-lbl">常用收藏</div>
+                    <div class="stat-lbl" id="lblFavCount">常用收藏</div>
                 </div>
             </div>
         </aside>
 
         <!-- MAIN LAYOUT -->
-        <main class="main-content">
+        <main class="main-content" role="main">
             
             <!-- HEADER -->
             <header class="dashboard-header">
@@ -954,7 +1048,7 @@
                         <span class="search-hotkey-hint">/</span>
                     </div>
                     
-                    <div class="language-switcher">
+                    <div class="language-switcher" role="radiogroup" aria-label="语言切换器">
                         <button class="lang-btn active" data-lang="zh" onclick="setLanguage('zh')">中文</button>
                         <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
                         <button class="lang-btn" data-lang="kr" onclick="setLanguage('kr')">KR</button>
@@ -966,16 +1060,31 @@
                     <div class="hero-content">
                         <h2 id="heroTitle">Dibi8 极客黄页目录</h2>
                         <p id="heroDescription">本站将 <b>dibi8.com</b> 官方资源进行了整理，按照技术合集、大模型框架、AI生图音视工具、量化交易、数据科学与底层开发设施等核心领域做了清晰分类。你可以在这里快捷搜索，收藏常用项目，并一键跳转。</p>
+                        <div class="hero-status-row">
+                            <span class="hero-status-pill" id="syncStatusBadge">已同步至 2026 年 5 月 23 日</span>
+                            <span class="hero-status-pill" id="resourceCountBadge">262 条有效资源</span>
+                        </div>
                     </div>
-                    <a href="https://dibi8.com" target="_blank" class="hero-badge-link" id="heroBtn">
+                    <a href="https://dibi8.com" target="_blank" class="hero-badge-link" id="heroBtn" rel="noopener noreferrer">
                         <span id="heroBtnTxt">访问 Dibi8 官网</span>
                         <i data-lucide="external-link" style="width: 0.9rem; height: 0.9rem;"></i>
                     </a>
                 </div>
             </header>
 
+            <section class="keyword-section glass-panel" id="keywordSection" aria-label="国家关键词与长尾搜索">
+                <div class="keyword-section-header">
+                    <div class="keyword-section-copy">
+                        <h3 id="keywordTitle">国家关键词与长尾入口</h3>
+                        <p id="keywordDescription">围绕美国、英国、日本、韩国、越南、新加坡、印度、德国、阿联酋等国家市场整理高频搜索短语。点击任意关键词即可直接筛选对应资源，用于 SEO 和站内发现。</p>
+                    </div>
+                    <span class="section-tag-counter" id="keywordCount">0</span>
+                </div>
+                <div class="keyword-grid" id="keywordGrid"></div>
+            </section>
+
             <!-- FAVORITES (COLLAPSIBLE) -->
-            <section class="favorites-section" id="favoritesSection">
+            <section class="favorites-section" id="favoritesSection" aria-label="收藏夹">
                 <div class="section-header">
                     <div class="section-title">
                         <i data-lucide="star" class="section-title-icon" style="width: 1.15rem; height: 1.15rem;"></i>
@@ -1002,7 +1111,7 @@
     </div>
 
     <!-- SEO FOOTER -->
-    <footer class="dashboard-footer">
+    <footer class="dashboard-footer" role="contentinfo">
         <div class="footer-content">
             <div class="footer-logo">Dibi8 Resource Indexer</div>
             <div class="footer-tagline" id="footerText">极客黄页导航系统已对 Dibi8 官网所有目录完成语义映射，本页支持快速过滤与多语言路由适配，专为技术发烧友及 AI 开发者量身打造。</div>
@@ -1015,16 +1124,24 @@
         // MULTI-LINGUAL UI DICTIONARIES
         const TRANSLATIONS = {
             zh: {
+                asideSubtitle: "全站资源分类索引黄页",
+                lblTotalItems: "全站条目",
+                lblFavCount: "常用收藏",
                 searchPlaceholder: "搜索大模型、AI工具、开发库、快捷指令...",
                 heroTitle: "Dibi8 极客黄页目录",
                 heroDescription: "本站将 <b>dibi8.com</b> 官方资源进行了整理，按照技术合集、大模型框架、AI生图音视工具、量化交易、数据科学与底层开发设施等核心领域做了清晰分类。你可以在这里快捷搜索，收藏常用项目，并一键跳转。",
                 heroBtnTxt: "访问 Dibi8 官网",
+                syncStatusBadge: "已同步至 2026 年 5 月 23 日",
+                resourceCountBadge: "条有效资源",
+                keywordTitle: "国家关键词与长尾入口",
+                keywordDescription: "围绕美国、英国、日本、韩国、越南、新加坡、印度、德国、阿联酋等国家市场整理高频搜索短语。点击任意关键词即可直接筛选对应资源，用于 SEO 和站内发现。",
                 favTitleText: "常用推荐 & 收藏夹",
                 noResultsTitle: "未找到匹配的极客资源",
                 noResultsDesc: "请尝试使用其他关键词，或在上方切换不同的目录进行手动筛选。",
                 footerText: "极客黄页导航系统已对 Dibi8 官网所有目录完成语义映射，本页支持快速过滤与多语言路由适配，专为技术发烧友及 AI 开发者量身打造。",
                 btnVisit: "直达官网",
                 btnCopy: "复制链接",
+                matchedSuffix: "个匹配",
                 copiedToast: "链接已成功复制到剪贴板！",
                 bookmarkAdded: "已加入您的常用收藏夹！",
                 bookmarkRemoved: "已从您的收藏夹中移除！",
@@ -1039,16 +1156,24 @@
                 }
             },
             en: {
+                asideSubtitle: "Structured Index of the Full Resource Site",
+                lblTotalItems: "Total Items",
+                lblFavCount: "Bookmarks",
                 searchPlaceholder: "Search LLMs, AI Tools, Developer Kits, Prompt shortcuts...",
                 heroTitle: "Dibi8 Geek Yellow Pages",
                 heroDescription: "All high-value resources and guides from <b>dibi8.com</b> have been meticulously compiled here. Easily browse through LLM frameworks, AI creative stacks, quant trading frameworks, data science workflows, and dev tools. Type to search, save favorites, and jump instantly.",
                 heroBtnTxt: "Visit Dibi8 Official",
+                syncStatusBadge: "Synced through May 23, 2026",
+                resourceCountBadge: "live resources",
+                keywordTitle: "Country Keyword Clusters",
+                keywordDescription: "Long-tail search prompts are organized around the US, UK, Japan, Korea, Vietnam, Singapore, India, Germany, and UAE. Click a keyword to instantly filter matching AI and developer resources.",
                 favTitleText: "My Bookmark Toolbox",
                 noResultsTitle: "No Geek Resources Found",
                 noResultsDesc: "Try adjusting your search terms or filter directories manually using the categories sidebar.",
                 footerText: "The developer yellow page directory successfully maps the content architecture of Dibi8. Equipped with instant fuzzy filtering and multi-lingual path routing (EN/ZH/KR/VI).",
                 btnVisit: "Visit Site",
                 btnCopy: "Copy URL",
+                matchedSuffix: "matched",
                 copiedToast: "Link copied to clipboard successfully!",
                 bookmarkAdded: "Added to your favorite shelf!",
                 bookmarkRemoved: "Removed from your bookmarks!",
@@ -1063,16 +1188,24 @@
                 }
             },
             kr: {
+                asideSubtitle: "전체 리소스 분류 인덱스",
+                lblTotalItems: "전체 항목",
+                lblFavCount: "즐겨찾기",
                 searchPlaceholder: "대규모 언어 모델, AI 도구, 개발자 유틸리티 검색...",
                 heroTitle: "Dibi8 개발자 옐로우 페이지",
                 heroDescription: "<b>dibi8.com</b>의 모든 고가치 리소스가 깔끔하게 분류되어 있습니다. LLM 프레임워크, AI 이미지/음성 생성기, 퀀트 투자 봇, 데이터 과학 아키텍처 및 개발용 툴킷을 검색하고 나만의 대시보드에 즐겨찾기 해보세요.",
                 heroBtnTxt: "Dibi8 사이트 방문",
+                syncStatusBadge: "2026년 5월 23일까지 동기화",
+                resourceCountBadge: "개 실시간 리소스",
+                keywordTitle: "국가별 롱테일 키워드",
+                keywordDescription: "미국, 영국, 일본, 한국, 베트남, 싱가포르, 인도, 독일, UAE 시장을 중심으로 정리한 검색 문구입니다. 키워드를 누르면 관련 리소스를 바로 필터링할 수 있습니다.",
                 favTitleText: "즐겨찾기 보관함",
                 noResultsTitle: "리소스 매칭 실패",
                 noResultsDesc: "검색어를 수정하시거나 왼쪽의 카테고리 탭을 통해 수동으로 찾아보세요.",
                 footerText: "Dibi8 웹사이트의 모든 디렉토리가 완벽히 분석되어 다국어(한/중/영/베) 라우팅을 제공하며 빠른 인덱싱 검색을 제공합니다.",
                 btnVisit: "사이트 이동",
                 btnCopy: "링크 복사",
+                matchedSuffix: "개 일치",
                 copiedToast: "클립보드에 링크가 복사되었습니다!",
                 bookmarkAdded: "즐겨찾기에 등록되었습니다!",
                 bookmarkRemoved: "즐겨찾기에서 해제되었습니다!",
@@ -1087,16 +1220,24 @@
                 }
             },
             vi: {
+                asideSubtitle: "Chỉ mục tài nguyên toàn trang",
+                lblTotalItems: "Tổng mục",
+                lblFavCount: "Yêu thích",
                 searchPlaceholder: "Tìm kiếm LLM, công cụ AI, bộ thư viện lập trình...",
                 heroTitle: "Dibi8 Danh Bạ Geek Chuyên Sâu",
                 heroDescription: "Tất cả tài liệu hướng dẫn và liên kết giá trị cao từ <b>dibi8.com</b> đã được chọn lọc và phân loại khoa học. Hỗ trợ tìm kiếm nhanh, lưu trữ liên kết thường dùng và chuyển đổi đa ngôn ngữ (ZH, EN, KR, VI).",
                 heroBtnTxt: "Truy cập Dibi8",
+                syncStatusBadge: "Da dong bo den ngay 23 thang 5 nam 2026",
+                resourceCountBadge: "tai nguyen hien hanh",
+                keywordTitle: "Cum tu khoa theo quoc gia",
+                keywordDescription: "Tap hop cac truy van duoi dai cho thi truong My, Anh, Nhat Ban, Han Quoc, Viet Nam, Singapore, An Do, Duc va UAE. Bam vao tu khoa de loc ngay cac tai nguyen phu hop.",
                 favTitleText: "Hộp Công Cụ Cá Nhân",
                 noResultsTitle: "Không tìm thấy kết quả phù hợp",
                 noResultsDesc: "Vui lòng thay đổi từ khóa hoặc tìm kiếm thủ công trong danh sách phân loại.",
                 footerText: "Hệ thống danh bạ lập trình viên ánh xạ toàn bộ kiến trúc tài nguyên của Dibi8, tối ưu hóa công nghệ tìm kiếm tức thời và tương thích địa chỉ đa ngôn ngữ.",
                 btnVisit: "Truy cập",
                 btnCopy: "Sao chép",
+                matchedSuffix: "ket qua",
                 copiedToast: "Đã sao chép liên kết vào bộ nhớ tạm!",
                 bookmarkAdded: "Đã thêm vào hộp công cụ yêu thích!",
                 bookmarkRemoved: "Đã gỡ khỏi hộp công cụ yêu thích!",
@@ -1111,6 +1252,76 @@
                 }
             }
         };
+
+        const KEYWORD_CLUSTERS = {
+            zh: [
+                { label: "美国 AI Agent 工具", query: "美国 ai agent tools usa autonomous workflow" },
+                { label: "英国 LLM 框架", query: "英国 llm frameworks uk enterprise ai stack" },
+                { label: "日本 AI 自动化", query: "日本 ai automation japan workflow llm stack" },
+                { label: "韩国 AI 开发工具", query: "韩国 ai developer tools korea prompt agent" },
+                { label: "越南 AI 工作流", query: "越南 ai workflow vietnam automation tools" },
+                { label: "新加坡 AI 创业", query: "新加坡 ai startup tools singapore llm stack" },
+                { label: "印度量化交易 AI", query: "印度 quant trading ai india crypto bot" },
+                { label: "德国数据科学", query: "德国 data science tools germany ml analytics" },
+                { label: "阿联酋加密交易 AI", query: "阿联酋 uae crypto ai trading perp dex" },
+                { label: "多语言 Prompt 工具", query: "multilingual prompt tools zh en kr vi localization" }
+            ],
+            en: [
+                { label: "USA AI Agent Tools", query: "usa ai agent tools autonomous workflow" },
+                { label: "UK LLM Frameworks", query: "uk llm frameworks enterprise ai stack" },
+                { label: "Japan AI Automation", query: "japan ai automation workflow llm stack" },
+                { label: "Korea AI Dev Tools", query: "korea ai developer tools prompt agent" },
+                { label: "Vietnam AI Workflow", query: "vietnam ai workflow automation tools" },
+                { label: "Singapore AI Startup", query: "singapore ai startup tools llm stack" },
+                { label: "India Quant AI", query: "india quant trading ai crypto bot" },
+                { label: "Germany Data Science", query: "germany data science tools ml analytics" },
+                { label: "UAE Crypto AI", query: "uae crypto ai trading perp dex" },
+                { label: "Multilingual Prompting", query: "multilingual prompt tools zh en kr vi localization" }
+            ],
+            kr: [
+                { label: "미국 AI Agent", query: "usa ai agent tools autonomous workflow" },
+                { label: "영국 LLM", query: "uk llm frameworks enterprise ai stack" },
+                { label: "일본 AI 자동화", query: "japan ai automation workflow llm stack" },
+                { label: "한국 개발 도구", query: "korea ai developer tools prompt agent" },
+                { label: "베트남 워크플로우", query: "vietnam ai workflow automation tools" },
+                { label: "싱가포르 스타트업", query: "singapore ai startup tools llm stack" },
+                { label: "인도 퀀트 AI", query: "india quant trading ai crypto bot" },
+                { label: "독일 데이터 과학", query: "germany data science tools ml analytics" },
+                { label: "UAE 크립토 AI", query: "uae crypto ai trading perp dex" },
+                { label: "다국어 프롬프트", query: "multilingual prompt tools zh en kr vi localization" }
+            ],
+            vi: [
+                { label: "AI Agent My", query: "usa ai agent tools autonomous workflow" },
+                { label: "LLM Anh", query: "uk llm frameworks enterprise ai stack" },
+                { label: "Tu dong hoa Nhat", query: "japan ai automation workflow llm stack" },
+                { label: "Cong cu Han Quoc", query: "korea ai developer tools prompt agent" },
+                { label: "Quy trinh Viet Nam", query: "vietnam ai workflow automation tools" },
+                { label: "Startup Singapore", query: "singapore ai startup tools llm stack" },
+                { label: "Quant AI An Do", query: "india quant trading ai crypto bot" },
+                { label: "Data Science Duc", query: "germany data science tools ml analytics" },
+                { label: "Crypto AI UAE", query: "uae crypto ai trading perp dex" },
+                { label: "Prompt da ngon ngu", query: "multilingual prompt tools zh en kr vi localization" }
+            }
+        };
+
+        const CATEGORY_LONGTAILS = {
+            collections: ["ai agent stack", "global ai toolkit", "country keyword cluster", "best ai resources by market"],
+            frameworks: ["llm framework comparison", "rag framework", "agent orchestration sdk", "enterprise llm deployment"],
+            ai_tools: ["ai image video tools", "text to speech workflow", "prompt engineering tools", "creative ai suite"],
+            ai_trading: ["crypto ai trading bot", "quant trading workflow", "perp dex automation", "algorithmic trading ai"],
+            data_science: ["machine learning pipeline", "data analysis toolkit", "feature engineering stack", "ml ops workflow"],
+            dev_utils: ["developer productivity tools", "api testing toolkit", "cli automation workflow", "coding infrastructure"],
+            online_tools: ["online developer utilities", "browser based tools", "free web toolkit", "instant conversion tools"]
+        };
+
+        const COUNTRY_LONGTAILS = [
+            "usa ai tools", "uk llm frameworks", "japan ai workflow", "korea ai tools", "vietnam automation ai",
+            "singapore startup ai", "india quant ai", "germany data science", "uae crypto ai", "global multilingual ai",
+            "美国 英国 日本 韩国 越南 新加坡 印度 德国 阿联酋 中国 全球 多语言",
+            "open source claude code alternative", "mcp server guide", "local deep research tool", "product hunt alternatives",
+            "ai job search workbench", "browser automation ai agent", "ai memory framework", "deepseek local inference",
+            "stable diffusion webui setup", "comfyui workflow", "prediction market trading bot", "cybersecurity tools collection"
+        ];
 
         // CORE 110+ RESOURCE DATA STRUCT
         const RESOURCES = [
@@ -2205,8 +2416,8 @@
             },
             {
                 id: "data-rag-architecture",
-                category: "data_science",
-                path: "resources/data-science/rag-architecture-implementation-guide/",
+                category: "frameworks",
+                path: "resources/llm-frameworks/rag-architecture-implementation-guide/",
                 title: "企业级生产 RAG 架构设计指南",
                 subtitle: "Enterprise RAG Architecture Guide",
                 desc: "面向生产场景解构混合检索（Keyword+Vector）、重排模型（Reranker）、重构查询机制（Query Rewriting）等尖端 RAG 组件部署。",
@@ -2830,56 +3041,860 @@
             }
         ];
 
+        const EXTRA_RESOURCES = [
+            {
+                id: "tool-ai-data-analysis-tools-2025",
+                category: "ai_tools",
+                path: "resources/ai-tools/ai-data-analysis-tools-2025/",
+                title: "Best AI Data Analysis Tools 2025: ChatGPT, Julius, Tableau AI & More",
+                subtitle: "AI Data Analysis Tools 2025",
+                desc: "Discover the best AI data analysis tools of 2025 — ChatGPT Advanced Data Analysis, Julius AI, Tableau Einstein, Copilot in Excel, and more. Compare features, pricing, and use",
+                tags: ["AI", "DATA", "Analysis", "AI Tool"]
+            },
+            {
+                id: "tool-aitoearn-guide",
+                category: "ai_tools",
+                path: "resources/ai-tools/aitoearn-guide/",
+                title: "Best Open Source Alternative to Buffer (2026): AiToEarn vs Hootsuite Comparison",
+                subtitle: "Aitoearn Guide",
+                desc: "Best Open Source Alternative to Buffer (2026): AiToEarn vs Hootsuite",
+                tags: ["Aitoearn", "AI Tool", "Workflow"]
+            },
+            {
+                id: "tool-aiwind-ai-prompt-library-generator",
+                category: "ai_tools",
+                path: "resources/ai-tools/aiwind-ai-prompt-library-generator/",
+                title: "AiWind：1000+ AI 绘画提示词宝库，让 GPT-Image 2 和 Nanobanana 产出惊艳作品",
+                subtitle: "Aiwind AI Prompt Library Generator",
+                desc: "AiWind 是一个免费 AI 提示词库，收录 1000+ 针对 GPT-Image 2、Nanobanana、Stable Diffusion、Midjourney 等主流模型的专业提示词，覆盖写实肖像、赛博朋克、3D",
+                tags: ["AI", "Prompt Engineering", "Aiwind", "Prompt"]
+            },
+            {
+                id: "tool-bitcoin-classic-btcc-cpu-mining-bitcoin-fork",
+                category: "ai_tools",
+                path: "resources/ai-tools/bitcoin-classic-btcc-cpu-mining-bitcoin-fork/",
+                title: "Bitcoin-Classic (BTCC): A Bitcoin Fork That Lets Ordinary People Mine with CPU",
+                subtitle: "Bitcoin Classic Btcc CPU Mining Bitcoin Fork",
+                desc: "Bitcoin-Classic (BTCC) is a decentralized digital currency rebuilt from Bitcoin Core v28.1. It supports CPU mining with a built-in graphical miner, letting ordinary users experience early Bitcoin",
+                tags: ["Bitcoin", "Classic", "BTCC", "CPU"]
+            },
+            {
+                id: "tool-caveman",
+                category: "ai_tools",
+                path: "resources/ai-tools/caveman/",
+                title: "Cut Claude Code Token Usage by 65% With Caveman — Same Quality, Fewer Tokens",
+                subtitle: "Caveman",
+                desc: "Learn how Caveman, a Claude Code skill with 57K GitHub stars, reduces token usage by 65% without losing quality. Includes installation, usage, real benchmarks, and code",
+                tags: ["Caveman", "AI Tool", "Workflow"]
+            },
+            {
+                id: "tool-chattts",
+                category: "ai_tools",
+                path: "resources/ai-tools/chattts/",
+                title: "ChatTTS: 39.3K+ Stars — Benchmark Conversational TTS Comparison vs Coqui, MeloTTS in 2026",
+                subtitle: "Chattts",
+                desc: "ChatTTS (AGPL-3.0) is a generative speech model for dialogue scenarios. Compatible with Coqui TTS, MeloTTS, GPT-SoVITS. Covers setup, benchmarks, production deployment, and comparison",
+                tags: ["ChatTTS", "Chattts", "AI Tool", "Workflow"]
+            },
+            {
+                id: "tool-cloakbrowser-stealth-browser-2026",
+                category: "ai_tools",
+                path: "resources/ai-tools/cloakbrowser-stealth-browser-2026/",
+                title: "CloakBrowser Review 2026: The Open-Source Stealth Browser That Passes Every Bot Detection Test — A Playwright Replacement in 3 Lines",
+                subtitle: "Cloakbrowser Stealth Browser 2026",
+                desc: "CloakBrowser is the fastest-growing GitHub repo of May 2026: 49 C++ source-level patches, reCAPTCHA v3 score 0.9, passes 30+ detection services. Free, open-source replacement for $299/month anti-detect",
+                tags: ["Browser", "Cloakbrowser", "Stealth", "AI Tool"]
+            },
+            {
+                id: "tool-comfyui-vs-midjourney",
+                category: "ai_tools",
+                path: "resources/ai-tools/comfyui-vs-midjourney/",
+                title: "Midjourney Alternative (2026): Why ComfyUI is the Free, Open-Source Standard",
+                subtitle: "Comfyui Vs Midjourney",
+                desc: "Midjourney Alternative (2026): Why ComfyUI is the Free, Open-Source",
+                tags: ["ComfyUI", "Comfyui", "Midjourney", "AI Tool"]
+            },
+            {
+                id: "tool-comfyui",
+                category: "ai_tools",
+                path: "resources/ai-tools/comfyui/",
+                title: "ComfyUI: 87K+ Stars — Node-Based Stable Diffusion Setup Guide 2026",
+                subtitle: "Comfyui",
+                desc: "ComfyUI tutorial and setup guide for node-based image generation. ComfyUI Docker deployment, custom nodes, API integration, comfyui vs automatic1111 benchmarks for",
+                tags: ["ComfyUI", "Comfyui", "AI Tool", "Workflow"]
+            },
+            {
+                id: "tool-docuseal-open-source-docusign-alternative",
+                category: "ai_tools",
+                path: "resources/ai-tools/docuseal-open-source-docusign-alternative/",
+                title: "DocuSeal Review: Cut Document Signing Costs by 90% with This Open-Source DocuSign Alternative",
+                subtitle: "Docuseal Open Source Docusign Alternative",
+                desc: "DocuSeal is a 15.7k-star open-source platform that replaces DocuSign with self-hosted digital document signing, PDF form building, and white-label eSignature",
+                tags: ["Docuseal", "Docusign", "Alternative", "AI Tool"]
+            },
+            {
+                id: "tool-ds4-deepseek-flash-local-inference",
+                category: "ai_tools",
+                path: "resources/ai-tools/ds4-deepseek-flash-local-inference/",
+                title: "DS4 vs Ollama vs llama.cpp: DeepSeek V4 Flash Local Inference Benchmark on 128GB Mac",
+                subtitle: "Ds4 Deepseek Flash Local Inference",
+                desc: "Discover DS4 by antirez (Redis creator) — a native inference engine for DeepSeek V4 Flash. Learn installation, benchmarks vs Ollama/llama.cpp, code examples, and how to run a 1M-context LLM locally on macOS and",
+                tags: ["DeepSeek", "DS4", "Deepseek", "Flash"]
+            },
+            {
+                id: "tool-facefusion-architecture-onnx-video-face-swap",
+                category: "ai_tools",
+                path: "resources/ai-tools/facefusion-architecture-onnx-video-face-swap/",
+                title: "Why Did the Classic 'Roop' Die?",
+                subtitle: "Facefusion Architecture ONNX Video Face Swap",
+                desc: "Why Did the Classic 'Roop'",
+                tags: ["Video AI", "Facefusion", "Architecture", "ONNX"]
+            },
+            {
+                id: "tool-free-claude-code-open-source-proxy",
+                category: "ai_tools",
+                path: "resources/ai-tools/free-claude-code-open-source-proxy/",
+                title: "Free Claude Code: Use Claude Code CLI for Free with Any AI Provider",
+                subtitle: "Free Claude Code Open Source Proxy",
+                desc: "Free Claude Code is an open-source proxy that lets you use Claude Code CLI with free AI providers like NVIDIA NIM, OpenRouter, DeepSeek, LM Studio, llama.cpp, and",
+                tags: ["Claude", "Proxy", "CODE", "AI Tool"]
+            },
+            {
+                id: "tool-howtocook-programmer-open-source-cookbook",
+                category: "ai_tools",
+                path: "resources/ai-tools/howtocook-programmer-open-source-cookbook/",
+                title: "HowToCook: 297 Recipes for Programmers - The Open Source Cookbook",
+                subtitle: "Howtocook Programmer Open Source Cookbook",
+                desc: "Discover HowToCook - an open-source cookbook with 297 recipes designed for programmers. Clear, precise cooking instructions like",
+                tags: ["Howtocook", "Programmer", "Cookbook", "AI Tool"]
+            },
+            {
+                id: "tool-justhireme-ai-job-search-workbench",
+                category: "ai_tools",
+                path: "resources/ai-tools/justhireme-ai-job-search-workbench/",
+                title: "JustHireMe：AI 帮你自动找工作，从投递到拿到 Offer",
+                subtitle: "Justhireme AI Job Search Workbench",
+                desc: "JustHireMe 开源 AI 求职工作台评测。本地优先的求职情报系统，自动抓取职位、AI",
+                tags: ["AI", "Justhireme", "JOB", "Search"]
+            },
+            {
+                id: "tool-ladybird-independent-web-browser",
+                category: "ai_tools",
+                path: "resources/ai-tools/ladybird-independent-web-browser/",
+                title: "Ladybird: Truly Independent Web Browser — A New Era of Browser Independence",
+                subtitle: "Ladybird Independent Web Browser",
+                desc: "Discover Ladybird, the truly independent web browser built from scratch. No Chrome dependencies, no corporate influence, pure open",
+                tags: ["Browser", "Ladybird", "Independent", "WEB"]
+            },
+            {
+                id: "tool-mempalace-guide",
+                category: "ai_tools",
+                path: "resources/ai-tools/mempalace-guide/",
+                title: "Claude Code Session Memory: How to Integrate MemPalace for 96.6% Recall (2026 Guide)",
+                subtitle: "Mempalace Guide",
+                desc: "Claude Code Session Memory: How to Integrate MemPalace for 96.6% Recall (2026",
+                tags: ["Mempalace", "AI Tool", "Workflow"]
+            },
+            {
+                id: "tool-mempalace",
+                category: "ai_tools",
+                path: "resources/ai-tools/mempalace/",
+                title: "MemPalace vs Mem0: 96.6% Recall Benchmark & Best AI Memory Framework (2026)",
+                subtitle: "Mempalace",
+                desc: "MemPalace is the best-benchmarked open-source AI memory system. Learn how to install it, mine your project history, and retrieve context with semantic search so your AI assistant never forgets",
+                tags: ["Mempalace", "AI Tool", "Workflow"]
+            },
+            {
+                id: "tool-ml-systems-book-mit-press-textbook",
+                category: "ai_tools",
+                path: "resources/ai-tools/ml-systems-book-mit-press-textbook/",
+                title: "ML Systems Book: MIT Press Textbook on Machine Learning Systems Engineering",
+                subtitle: "Ml Systems Book MIT Press Textbook",
+                desc: "The ML Systems Book is an MIT Press textbook covering distributed training, model serving, hardware acceleration, and ML infrastructure. Essential reading for ML",
+                tags: ["ML", "Systems", "BOOK", "MIT"]
+            },
+            {
+                id: "tool-pixelle-video-ai-short-video-generator",
+                category: "ai_tools",
+                path: "resources/ai-tools/pixelle-video-ai-short-video-generator/",
+                title: "Pixelle-Video Review: AI Auto Short Video Generator — One Topic to Full Video",
+                subtitle: "Pixelle Video AI Short Video Generator",
+                desc: "Pixelle-Video is an AI-powered automatic short video engine. Input a topic and get a complete video with script, AI images, voiceover, and",
+                tags: ["Video AI", "AI", "Pixelle", "Video"]
+            },
+            {
+                id: "tool-product-hunt-alternatives",
+                category: "ai_tools",
+                path: "resources/ai-tools/product-hunt-alternatives/",
+                title: "Top 15 Product Hunt Alternatives to Launch Your Startup in 2026",
+                subtitle: "Product Hunt Alternatives",
+                desc: "Discover the best Product Hunt alternatives for launching your startup in 2026. Compare 15 platforms by audience, cost, SEO value, and launch strategy. Find the perfect platform for developers, founders, and indie...",
+                tags: ["Product", "HUNT", "Alternatives", "AI Tool"]
+            },
+            {
+                id: "tool-python-context-managers-the-three-cases-you-actually-need",
+                category: "ai_tools",
+                path: "resources/ai-tools/python-context-managers-the-three-cases-you-actually-need/",
+                title: "Python Context Managers: The Three Cases You Actually Need",
+                subtitle: "Python Context Managers The Three Cases You Actually Need",
+                desc: "Python context managers: the three cases you actually need. Master with statements, contextlib and custom context managers for better resource",
+                tags: ["Python", "Context", "Managers", "Three"]
+            },
+            {
+                id: "tool-reading-explain-analyze-postgres",
+                category: "ai_tools",
+                path: "resources/ai-tools/reading-explain-analyze-postgres/",
+                title: "Reading EXPLAIN ANALYZE in Postgres Without Getting Lost",
+                subtitle: "Reading Explain Analyze Postgres",
+                desc: "Reading EXPLAIN ANALYZE in PostgreSQL without getting lost. Learn to interpret query plans, identify bottlenecks and optimize database",
+                tags: ["Postgres", "Reading", "Explain", "Analyze"]
+            },
+            {
+                id: "tool-stable-diffusion-webui",
+                category: "ai_tools",
+                path: "resources/ai-tools/stable-diffusion-webui/",
+                title: "Stable Diffusion WebUI: 159K+ Stars — The Complete Setup Guide 2026",
+                subtitle: "Stable Diffusion Webui",
+                desc: "Stable Diffusion WebUI (AUTOMATIC1111) is the most popular web interface for local AI image generation. Compatible with ControlNet, LoRA, ComfyUI workflows. Covers Windows, Linux, Docker install, extension setup...",
+                tags: ["Diffusion", "Stable", "Webui", "AI Tool"]
+            },
+            {
+                id: "tool-tabpfn-foundation-model-tabular-data",
+                category: "ai_tools",
+                path: "resources/ai-tools/tabpfn-foundation-model-tabular-data/",
+                title: "TabPFN: Foundation Model for Tabular Data — AI Breakthrough for Structured Data",
+                subtitle: "Tabpfn Foundation Model Tabular Data",
+                desc: "Discover TabPFN, the foundation model for tabular data that outperforms traditional ML methods. No hyperparameter tuning needed, works in",
+                tags: ["Tabpfn", "Foundation", "Model", "Tabular"]
+            },
+            {
+                id: "tool-terax-ai-lightweight-ai-terminal",
+                category: "ai_tools",
+                path: "resources/ai-tools/terax-ai-lightweight-ai-terminal/",
+                title: "Terax AI: The Lightweight AI Terminal Emulator That Understands You",
+                subtitle: "Terax AI Lightweight AI Terminal",
+                desc: "Discover Terax AI, a 7 MB AI-native terminal emulator built on Tauri 2 + Rust. Features natural language commands, inline AI assistance, smart autocomplete, and cross-shell support for bash, zsh, fish, and",
+                tags: ["AI", "Terminal", "Terax", "Lightweight"]
+            },
+            {
+                id: "tool-toprank",
+                category: "ai_tools",
+                path: "resources/ai-tools/toprank/",
+                title: "Toprank: Open-Source Claude Code Skills That Automate SEO, GEO, and Ad Campaign Optimization",
+                subtitle: "Toprank",
+                desc: "Toprank is a trending open-source Claude Code skills suite for SEO audits, GEO optimization, Google Ads management, and Meta Ads automation. Install once, get automatic updates, and let AI handle your marketing",
+                tags: ["Toprank", "AI Tool", "Workflow"]
+            },
+            {
+                id: "tool-wifi-forge-safe-wifi-hacking-lab",
+                category: "ai_tools",
+                path: "resources/ai-tools/wifi-forge-safe-wifi-hacking-lab/",
+                title: "WiFi-Forge — A Safe, Legal Sandbox for Learning WiFi Hacking",
+                subtitle: "Wifi Forge Safe Wifi Hacking Lab",
+                desc: "WiFi Forge: safe WiFi hacking lab for security research. Learn penetration testing, wireless security and ethical hacking in a controlled",
+                tags: ["WIFI", "Forge", "SAFE", "Hacking"]
+            },
+            {
+                id: "data-accept-payments-all-currencies",
+                category: "data_science",
+                path: "resources/data-science/accept-payments-all-currencies/",
+                title: "Accept Payments in All Currencies with NowPayments",
+                subtitle: "Accept Payments All Currencies",
+                desc: "Accept payments in all currencies with NowPayments. Support 100+ cryptocurrencies and fiat currencies with low fees and instant",
+                tags: ["Payments", "Accept", "Currencies", "Data Science"]
+            },
+            {
+                id: "data-billions-wallet-promotion",
+                category: "data_science",
+                path: "resources/data-science/billions-wallet-promotion/",
+                title: "Discover Billions Wallet - Your Ultimate Crypto Companion",
+                subtitle: "Billions Wallet Promotion",
+                desc: "Billions Wallet promotion: secure crypto wallet with advanced features. Manage Bitcoin, Ethereum and 100+ cryptocurrencies",
+                tags: ["Billions", "Wallet", "Promotion", "Data Science"]
+            },
+            {
+                id: "data-discover-tikchain-your-gateway-to-social-media-blockchain",
+                category: "data_science",
+                path: "resources/data-science/discover-tikchain-your-gateway-to-social-media-blockchain/",
+                title: "Discover TikChain - Your Gateway to Social Media Blockchain",
+                subtitle: "Discover Tikchain Your Gateway To Social Media Blockchain",
+                desc: "Discover TikChain: your gateway to social media blockchain. Earn rewards by creating content and engaging with the decentralized social",
+                tags: ["Discover", "Tikchain", "Gateway", "Social"]
+            },
+            {
+                id: "dev-open-codesign-claude-design-alternative",
+                category: "dev_utils",
+                path: "resources/dev-utils/open-codesign-claude-design-alternative/",
+                title: "Open Codesign: The Open-Source Claude Design Alternative with 5,790+ Stars",
+                subtitle: "Open Codesign Claude Design Alternative",
+                desc: "Discover Open Codesign, the MIT-licensed open-source alternative to Claude Design. Multi-model AI design tool with BYOK, local-first architecture, and instant prototype generation from natural language",
+                tags: ["Claude", "Design Tool", "Codesign", "Design"]
+            },
+            {
+                id: "dev-open-design-local-first-ai-design-tool",
+                category: "dev_utils",
+                path: "resources/dev-utils/open-design-local-first-ai-design-tool/",
+                title: "Open Design: The Ultimate Local-First AI Design Tool Replacing Claude Design",
+                subtitle: "Open Design Local First AI Design Tool",
+                desc: "Discover Open Design, the open-source local-first alternative to Claude Design with 19 AI skills, 71 design systems, and multi-format export. Build prototypes, slides, videos &",
+                tags: ["Design Tool", "AI", "Design", "Local"]
+            },
+            {
+                id: "dev-polymarket-trading-bot-stack",
+                category: "dev_utils",
+                path: "resources/dev-utils/polymarket-trading-bot-stack/",
+                title: "28 Tools Behind a $1M Polymarket Trading Bot: Full Stack Breakdown",
+                subtitle: "Polymarket Trading Bot Stack",
+                desc: "Deep dive into 28 tools and 6 layers powering a Polymarket bot that made $1M. Learn latency arbitrage, AI reasoning, and the complete tech stack for prediction market",
+                tags: ["Trading", "Polymarket", "BOT", "Stack"]
+            },
+            {
+                id: "dev-rtk-rust-cli-proxy-ai-token-saver",
+                category: "dev_utils",
+                path: "resources/dev-utils/rtk-rust-cli-proxy-ai-token-saver/",
+                title: "RTK: The Open-Source Rust CLI Proxy That Slashes AI Coding Agent Token Costs by 60-90% — A Practical Setup Guide",
+                subtitle: "Rtk Rust Cli Proxy AI Token Saver",
+                desc: "RTK (Rust Token Killer) is an open-source CLI proxy written in Rust that reduces LLM token consumption by 60-90% for Claude Code, Cursor, Copilot, Codex, and Gemini CLI. Single binary, zero dependencies, install in one...",
+                tags: ["Proxy", "AI", "RTK", "RUST"]
+            },
+            {
+                id: "dev-scanners-box-cybersecurity-tools-collection",
+                category: "dev_utils",
+                path: "resources/dev-utils/scanners-box-cybersecurity-tools-collection/",
+                title: "Scanners-Box: 200+ Cybersecurity Tools Collection for Security Professionals",
+                subtitle: "Scanners Box Cybersecurity Tools Collection",
+                desc: "Discover Scanners-Box - a comprehensive collection of 200+ open-source cybersecurity tools for penetration testing, vulnerability scanning, and security",
+                tags: ["Scanners", "BOX", "Cybersecurity", "Collection"]
+            },
+            {
+                id: "dev-scrapling-python-stealthy-web-scraping-review",
+                category: "dev_utils",
+                path: "resources/dev-utils/scrapling-python-stealthy-web-scraping-review/",
+                title: "Scrapling Reviewed: A Faster, Stealthier Take on Python Scraping",
+                subtitle: "Scrapling Python Stealthy Web Scraping Review",
+                desc: "Scrapling review: Python stealthy web scraping library. Bypass anti-bot measures, handle dynamic content and scrape at scale with",
+                tags: ["Web Scraping", "Scrapling", "Python", "Stealthy"]
+            },
+            {
+                id: "fw-9router-smart-llm-proxy-token-saver-free-coding",
+                category: "frameworks",
+                path: "resources/llm-frameworks/9router-smart-llm-proxy-token-saver-free-coding/",
+                title: "9Router: Smart LLM Proxy with Token Saver — Cut AI Costs by 60%, Never Hit Rate Limits Again",
+                subtitle: "9router Smart LLM Proxy Token Saver Free Coding",
+                desc: "Discover 9Router — an open-source smart proxy that saves 20-40% tokens via RTK compression, auto-fallback across 40+ providers, and zero-cost coding",
+                tags: ["LLM", "Proxy", "9router", "Smart"]
+            },
+            {
+                id: "fw-agent-reach-ai-agent-internet-access",
+                category: "frameworks",
+                path: "resources/llm-frameworks/agent-reach-ai-agent-internet-access/",
+                title: "Agent Reach: Give Your AI Agent Internet Superpowers",
+                subtitle: "Agent Reach AI Agent Internet Access",
+                desc: "Agent Reach is an open-source scaffolding tool that gives AI agents instant access to YouTube, Twitter, Reddit, Xiaohongshu, Bilibili and 15+ platforms with one",
+                tags: ["AI Agent", "AI", "Agent", "Reach"]
+            },
+            {
+                id: "fw-agent-skills-production-grade-ai-coding",
+                category: "frameworks",
+                path: "resources/llm-frameworks/agent-skills-production-grade-ai-coding/",
+                title: "Agent Skills: How Development Teams Can Ship Production-Ready Code 5x Faster",
+                subtitle: "Agent Skills Production Grade AI Coding",
+                desc: "Agent Skills by Addy Osmani delivers 20 production-grade engineering skills and 7 slash commands that turn AI coding agents into senior software",
+                tags: ["AI Agent", "AI", "Agent", "Skills"]
+            },
+            {
+                id: "fw-ai-agent-memory-systems-2026",
+                category: "frameworks",
+                path: "resources/llm-frameworks/ai-agent-memory-systems-2026/",
+                title: "AI Agent Memory Systems 2026: Mem0 vs agentmemory vs Hindsight vs MemPalace (Open-Source Compared)",
+                subtitle: "AI Agent Memory Systems 2026",
+                desc: "Stateless AI agents forget everything between sessions — fatal for production use. Compare the 4 leading open-source memory layers in May 2026: Mem0 (48K+ stars, 21 framework integrations), agentmemory (MCP-native for...",
+                tags: ["AI", "AI Agent", "Memory", "Agent"]
+            },
+            {
+                id: "fw-ai-agent-skills-2026-developer-guide",
+                category: "frameworks",
+                path: "resources/llm-frameworks/ai-agent-skills-2026-developer-guide/",
+                title: "AI Agent Skills Explained: The 2026 Developer's Guide to Production-Grade Agent Workflows",
+                subtitle: "AI Agent Skills 2026 Developer Guide",
+                desc: "AI Agent Skills Explained: The 2026 Developer''s Guide to Production-Grade Agent",
+                tags: ["AI", "AI Agent", "Agent", "Skills"]
+            },
+            {
+                id: "fw-ai-agent-skills-framework-spec-driven-development-2026",
+                category: "frameworks",
+                path: "resources/llm-frameworks/ai-agent-skills-framework-spec-driven-development-2026/",
+                title: "AI Agent Skills Framework Explained 2026: Matt Pocock Skills + GitHub Spec-Kit + Spec-Driven Development",
+                subtitle: "AI Agent Skills Framework Spec Driven Development 2026",
+                desc: "AI Agent Skills are the new paradigm replacing 'naive prompting'. Deep dive into Matt Pocock's personal .claude skills (+1,618 stars/week), GitHub Spec-Kit (Spec-Driven Development standard), NousResearch Hermes Agent...",
+                tags: ["AI", "AI Agent", "Agent", "Skills"]
+            },
+            {
+                id: "fw-ai-coding-tools-cursor-alternatives-2026",
+                category: "frameworks",
+                path: "resources/llm-frameworks/ai-coding-tools-cursor-alternatives-2026/",
+                title: "Best Cursor Alternatives 2026: 7 AI Coding Tools Compared (Claude Code, Cline, Copilot, Windsurf, Continue.dev, Zed)",
+                subtitle: "AI Coding Tools Cursor Alternatives 2026",
+                desc: "Cursor switched to credit pricing and lost user trust. Compare the 7 strongest alternatives in 2026 across price, SWE-bench performance, agent mode, and real workflows. Includes free options (Cline 5M+ installs)...",
+                tags: ["AI", "Coding", "Cursor", "Alternatives"]
+            },
+            {
+                id: "fw-ai-trader",
+                category: "frameworks",
+                path: "resources/llm-frameworks/ai-trader/",
+                title: "AI-Trader: 14K⭐ Fully Automated AI Trading Agent — Let AI Trade for You 24/7",
+                subtitle: "AI Trader",
+                desc: "AI-Trader is an open-source fully automated AI trading agent system by HKUDS with 14K+ Stars. Supports stocks, crypto, and forex with reinforcement learning and multi-agent",
+                tags: ["AI", "Trader", "Framework", "Open Source"]
+            },
+            {
+                id: "fw-aitoearn-ai-monetization",
+                category: "frameworks",
+                path: "resources/llm-frameworks/aitoearn-ai-monetization/",
+                title: "AiToEarn: Open-Source AI Content Monetization — Turn Your GPT Conversations into Passive Income",
+                subtitle: "Aitoearn AI Monetization",
+                desc: "AiToEarn is an open-source AI content monetization platform that helps creators turn AI-generated content into profitable products. Supports multi-platform distribution, subscription payments, and ad",
+                tags: ["AI", "Aitoearn", "Monetization", "Framework"]
+            },
+            {
+                id: "fw-anthropic-financial-services-ai-finance-automation",
+                category: "frameworks",
+                path: "resources/llm-frameworks/anthropic-financial-services-ai-finance-automation/",
+                title: "Anthropic Financial Services: How Financial Teams Can Automate Analysis & Boost ROI by 300%",
+                subtitle: "Anthropic Financial Services AI Finance Automation",
+                desc: "Discover how Anthropic Financial Services helps investment banks, equity research, and wealth management teams automate pitch decks, DCF models, and KYC screening with Claude AI",
+                tags: ["AI", "Anthropic", "Financial", "Services"]
+            },
+            {
+                id: "fw-anythingllm-architecture-local-rag",
+                category: "frameworks",
+                path: "resources/llm-frameworks/anythingllm-architecture-local-rag/",
+                title: "Why Do Enterprises Fear ChatGPT?",
+                subtitle: "Anythingllm Architecture Local RAG",
+                desc: "Why Do Enterprises Fear",
+                tags: ["RAG", "Anythingllm", "Architecture", "Local"]
+            },
+            {
+                id: "fw-awesome-openclaw-usecases-ai-agent-daily-life",
+                category: "frameworks",
+                path: "resources/llm-frameworks/awesome-openclaw-usecases-ai-agent-daily-life/",
+                title: "42 Real-World OpenClaw Use Cases: How People Use AI Agents in Daily Life",
+                subtitle: "Awesome Openclaw Usecases AI Agent Daily Life",
+                desc: "Discover 42 real-world use cases for OpenClaw AI agents — from social media automation to game development, podcast production, and autonomous",
+                tags: ["AI", "AI Agent", "Awesome", "Openclaw"]
+            },
+            {
+                id: "fw-beyond-chatbots-four-pillars-autonomous-ai-systems-2026",
+                category: "frameworks",
+                path: "resources/llm-frameworks/beyond-chatbots-four-pillars-autonomous-ai-systems-2026/",
+                title: "Beyond Chatbots: The 4 Pillars of Autonomous AI Systems in 2026",
+                subtitle: "Beyond Chatbots Four Pillars Autonomous AI Systems 2026",
+                desc: "How Local Deep Research, InsForge, Agent Skills, and Karpathy Principles form the complete stack for truly autonomous AI agents — from deep research to production",
+                tags: ["AI", "Beyond", "Chatbots", "FOUR"]
+            },
+            {
+                id: "fw-browser-harness-self-healing-llm-web-automation",
+                category: "frameworks",
+                path: "resources/llm-frameworks/browser-harness-self-healing-llm-web-automation/",
+                title: "Browser Harness：让 LLM 自主操控浏览器的自愈型神器",
+                subtitle: "Browser Harness Self Healing LLM Web Automation",
+                desc: "Browser Harness 是一个自愈合型浏览器控制框架，让 LLM 能够自主完成任何网页任务。11K+ Stars，Python 编写，支持 Playwright 和",
+                tags: ["Browser", "LLM", "Harness", "SELF"]
+            },
+            {
+                id: "fw-claude-code",
+                category: "frameworks",
+                path: "resources/llm-frameworks/claude-code/",
+                title: "Claude Code: 125K+ Stars — The Terminal AI Coding Agent Complete Comparison vs Alternatives 2026",
+                subtitle: "Claude Code",
+                desc: "Claude Code is Anthropic agentic coding tool that lives in your terminal. Supports VS Code, Cursor, GitHub, GitLab. Covers installation, benchmarks, and comparison with Aider, OpenHands, and Codex",
+                tags: ["Claude", "CODE", "Framework", "Open Source"]
+            },
+            {
+                id: "fw-continue",
+                category: "frameworks",
+                path: "resources/llm-frameworks/continue/",
+                title: "Continue.dev: 33K+ Stars — Open-Source AI Code Assistant vs Copilot, Cursor 2026",
+                subtitle: "Continue",
+                desc: "Continue.dev (open-source AI code assistant) VS Code/JetBrains plugin. Supports any LLM: Ollama, OpenAI, Anthropic, Gemini. Comparison vs GitHub Copilot, Cursor, Tabby. Setup tutorial, config examples",
+                tags: ["Continue", "Framework", "Open Source"]
+            },
+            {
+                id: "fw-copilotkit",
+                category: "frameworks",
+                path: "resources/llm-frameworks/copilotkit/",
+                title: "CopilotKit: 31K+ Stars — Add AI Copilots to Any React or Angular App — Complete Setup Guide for 2026",
+                subtitle: "Copilotkit",
+                desc: "CopilotKit is the open-source frontend stack for in-app AI copilots and generative UI. Build React Angular AI assistants with prebuilt components, useCopilotAction hooks, and production-ready deployment. Covers...",
+                tags: ["Copilotkit", "Framework", "Open Source"]
+            },
+            {
+                id: "fw-deepseek-ds4-vs-openai-api",
+                category: "frameworks",
+                path: "resources/llm-frameworks/deepseek-ds4-vs-openai-api/",
+                title: "Stop Paying OpenAI: Local Inference with DeepSeek (DS4) vs API Costs",
+                subtitle: "Deepseek Ds4 Vs Openai API",
+                desc: "Stop Paying OpenAI: Local Inference with DeepSeek (DS4) vs API",
+                tags: ["DeepSeek", "Deepseek", "DS4", "Openai"]
+            },
+            {
+                id: "fw-ds4-open-source-deepseek-alternative-2026",
+                category: "frameworks",
+                path: "resources/llm-frameworks/ds4-open-source-deepseek-alternative-2026/",
+                title: "ds4 Review 2026: The Open-Source DeepSeek Developers Are Switching To",
+                subtitle: "Ds4 Open Source Deepseek Alternative 2026",
+                desc: "ds4 is the fastest-growing open-source DeepSeek-compatible LLM runtime in 2026. Apache-2.0 licensed, OpenAI API compatible, runs DeepSeek V3 / V3.1 / V4 weights with 40% lower latency than vLLM. Full setup guide...",
+                tags: ["DeepSeek", "DS4", "Deepseek", "Alternative"]
+            },
+            {
+                id: "fw-free-llm-api-resources-ai-development",
+                category: "frameworks",
+                path: "resources/llm-frameworks/free-llm-api-resources-ai-development/",
+                title: "Free LLM API Resources: Access AI Models Without Breaking the Bank",
+                subtitle: "Free LLM API Resources AI Development",
+                desc: "A curated list of free LLM inference resources accessible via API. Build AI applications without API costs using these community-maintained free",
+                tags: ["LLM", "AI", "API", "Resources"]
+            },
+            {
+                id: "fw-github-trending-projects-may-2026",
+                category: "frameworks",
+                path: "resources/llm-frameworks/github-trending-projects-may-2026/",
+                title: "DeepSeek TUI + Anthropic Financial Agents: Top Trending GitHub Projects That Actually Pay Off",
+                subtitle: "Github Trending Projects May 2026",
+                desc: "Discover the hottest open-source AI projects on GitHub right now — a terminal-based coding agent that grew 5,800 stars overnight and Anthropic's first vertical-specific financial services",
+                tags: ["Github", "Trending", "Projects", "MAY"]
+            },
+            {
+                id: "fw-goose-ai-agent-open-source-automation",
+                category: "frameworks",
+                path: "resources/llm-frameworks/goose-ai-agent-open-source-automation/",
+                title: "Goose AI Agent: Open-Source Automation by Linux Foundation AAIF",
+                subtitle: "Goose AI Agent Open Source Automation",
+                desc: "Goose is a general-purpose open-source AI Agent developed by the Linux Foundation Agentic AI Foundation (AAIF). Automate coding, research, and daily",
+                tags: ["AI", "AI Agent", "Goose", "Agent"]
+            },
+            {
+                id: "fw-hello-agents-ai-agent-building-tutorial",
+                category: "frameworks",
+                path: "resources/llm-frameworks/hello-agents-ai-agent-building-tutorial/",
+                title: "Hello-Agents: How Datawhale's Open-Source AI Agent Tutorial Helps You Build Production-Grade Agents from Scratch",
+                subtitle: "Hello Agents AI Agent Building Tutorial",
+                desc: "Datawhale Hello-Agents is the top open-source AI agent tutorial covering ReAct, AutoGen, LangGraph, MCP, Agentic RL and real-world projects with 45,600+ GitHub",
+                tags: ["AI Agent", "AI", "Hello", "Agents"]
+            },
+            {
+                id: "fw-hermes-agent-self-improving-ai-agent",
+                category: "frameworks",
+                path: "resources/llm-frameworks/hermes-agent-self-improving-ai-agent/",
+                title: "Hermes Agent：Self-Improving AI Agent That Evolves With You",
+                subtitle: "Hermes Agent Self Improving AI Agent",
+                desc: "Hermes Agent is an open-source AI agent from Nous Research with a self-learning loop — creates skills from experience, continuously improves, remembers your preferences, and gets better the more you use",
+                tags: ["AI Agent", "AI", "Hermes", "Agent"]
+            },
+            {
+                id: "fw-llm-gateway-portkey-litellm-openrouter-comparison-2026",
+                category: "frameworks",
+                path: "resources/llm-frameworks/llm-gateway-portkey-litellm-openrouter-comparison-2026/",
+                title: "Portkey vs LiteLLM vs OpenRouter 2026: The Honest LLM Gateway Decision Guide (Latency, Cost & Self-Hosting)",
+                subtitle: "LLM Gateway Portkey Litellm Openrouter Comparison 2026",
+                desc: "Direct comparison of the three biggest LLM gateways in 2026. Real numbers: Portkey adds <1ms latency, LiteLLM 8ms P95, OpenRouter 100-150ms. Decision tree by use case, cost breakdown at $1K/mo spend, and when 9Router...",
+                tags: ["LLM", "Gateway", "Portkey", "Litellm"]
+            },
+            {
+                id: "fw-local-deep-research-local-first-ai-deep-research-tool",
+                category: "frameworks",
+                path: "resources/llm-frameworks/local-deep-research-local-first-ai-deep-research-tool/",
+                title: "Local Deep Research: The Ultimate Local-First AI Deep Research Tool",
+                subtitle: "Local Deep Research Local First AI Deep Research Tool",
+                desc: "Master Local Deep Research (LDR) — the local-first AI research assistant. Learn how to perform deep, iterative research with Ollama and SearXNG while maintaining 100%",
+                tags: ["AI", "Local", "DEEP", "Research"]
+            },
+            {
+                id: "fw-local-llm-runner-comparison-2026",
+                category: "frameworks",
+                path: "resources/llm-frameworks/local-llm-runner-comparison-2026/",
+                title: "Ollama vs LM Studio vs llama.cpp vs vLLM 2026: The Honest Local LLM Runner Decision Guide",
+                subtitle: "Local LLM Runner Comparison 2026",
+                desc: "Direct comparison of the four local LLM runners that matter in 2026. Real numbers: Ollama (137k stars) easiest, LM Studio prettiest UI, llama.cpp (112k) the engine underneath, vLLM (80.7k) the production throughput...",
+                tags: ["LLM", "Local", "Runner", "Comparison"]
+            },
+            {
+                id: "fw-mcp-deep-dive-definitive-2026-guide",
+                category: "frameworks",
+                path: "resources/llm-frameworks/mcp-deep-dive-definitive-2026-guide/",
+                title: "Model Context Protocol (MCP) Deep Dive: The Definitive 2026 Guide to Building Production-Ready MCP Servers",
+                subtitle: "MCP Deep Dive Definitive 2026 Guide",
+                desc: "Build your first MCP server from scratch. Learn Anthropic's Model Context Protocol with hands-on Python & TypeScript examples. Connect AI agents to real APIs, databases, and tools using the open standard adopted by...",
+                tags: ["MCP", "DEEP", "DIVE", "Definitive"]
+            },
+            {
+                id: "fw-n8n",
+                category: "frameworks",
+                path: "resources/llm-frameworks/n8n/",
+                title: "n8n AI Workflow Automation: Self-Hosted Setup with 188K+ Stars — Save 70% vs Zapier in 2026",
+                subtitle: "N8n",
+                desc: "n8n (fair-code) is a workflow automation platform with native AI capabilities and 400+ integrations. Compatible with Claude Code, OpenAI, Anthropic, Slack, Discord, Telegram. Covers Docker setup, AI node configuration...",
+                tags: ["n8n", "N8N", "Framework", "Open Source"]
+            },
+            {
+                id: "fw-open-codesign-vs-vercel-v0",
+                category: "frameworks",
+                path: "resources/llm-frameworks/open-codesign-vs-vercel-v0/",
+                title: "Vercel v0 Open Source Alternative: Build UIs Locally with Open Codesign",
+                subtitle: "Open Codesign Vs Vercel V0",
+                desc: "Vercel v0 Open Source Alternative: Build UIs Locally with Open",
+                tags: ["Codesign", "Vercel", "V0", "Framework"]
+            },
+            {
+                id: "fw-pageindex-vectorless-reasoning-rag",
+                category: "frameworks",
+                path: "resources/llm-frameworks/pageindex-vectorless-reasoning-rag/",
+                title: "PageIndex：29K⭐Vectorless RAG System — Document Retrieval Without Vector Database",
+                subtitle: "Pageindex Vectorless Reasoning RAG",
+                desc: "PageIndex is a vectorless, reasoning-driven RAG system open-sourced by VectifyAI. 29K+ Stars, achieves human-like retrieval through document tree structures, reaching 98.7% accuracy on",
+                tags: ["RAG", "Pageindex", "Vectorless", "Reasoning"]
+            },
+            {
+                id: "fw-polymarket-agents-ai-trading-bot-framework",
+                category: "frameworks",
+                path: "resources/llm-frameworks/polymarket-agents-ai-trading-bot-framework/",
+                title: "Polymarket Agents: Build AI Trading Bots for Prediction Markets",
+                subtitle: "Polymarket Agents AI Trading Bot Framework",
+                desc: "Polymarket Agents is an open-source developer framework for building AI agents that trade autonomously on Polymarket prediction",
+                tags: ["AI Agent", "AI", "Trading", "Polymarket"]
+            },
+            {
+                id: "fw-ragflow",
+                category: "frameworks",
+                path: "resources/llm-frameworks/ragflow/",
+                title: "RAGFlow: Deploy a Production-Ready RAG Engine with 80K+ Stars — Docker Setup and Benchmarks for 2026",
+                subtitle: "Ragflow",
+                desc: "RAGFlow is an open-source retrieval-augmented generation (RAG) engine with deep document understanding and built-in agent capabilities. Compatible with Ollama, OpenAI, Qdrant, Elasticsearch, and Redis. Covers Docker...",
+                tags: ["Ragflow", "Framework", "Open Source"]
+            },
+            {
+                id: "fw-rtk-rust-cli-proxy-llm-token-savings-2026",
+                category: "frameworks",
+                path: "resources/llm-frameworks/rtk-rust-cli-proxy-llm-token-savings-2026/",
+                title: "rtk Review: The Rust CLI Proxy That Cuts AI Coding Bills by 80% (2026)",
+                subtitle: "Rtk Rust Cli Proxy LLM Token Savings 2026",
+                desc: "rtk is a zero-dependency Rust binary that intercepts and compresses CLI output before it hits your LLM context. 60–90% token savings across 100+ commands and 13 AI coding tools (Claude Code, Cursor, Copilot, Codex...",
+                tags: ["Proxy", "LLM", "RTK", "RUST"]
+            },
+            {
+                id: "fw-top-10-open-source-ai-tools-2026",
+                category: "frameworks",
+                path: "resources/llm-frameworks/top-10-open-source-ai-tools-2026/",
+                title: "Top 10 Open-Source AI Tools for Developers in 2026 (Free Alternatives)",
+                subtitle: "Top 10 Open Source AI Tools 2026",
+                desc: "Top 10 Open-Source AI Tools for Developers in 2026 (Free",
+                tags: ["AI", "TOP", "10", "Framework"]
+            },
+            {
+                id: "fw-toprank-guide",
+                category: "frameworks",
+                path: "resources/llm-frameworks/toprank-guide/",
+                title: "GEO Optimization Checklist: Make ChatGPT Cite You Using Toprank (Free AI SEO Agent)",
+                subtitle: "Toprank Guide",
+                desc: "GEO Optimization Checklist: Make ChatGPT Cite You Using Toprank (Free AI SEO",
+                tags: ["Toprank", "Framework", "Open Source"]
+            }
+        ];
+
+        RESOURCES.push(...EXTRA_RESOURCES);
+
         // GLOBAL CONFIG & STATES
         let currentLang = "zh";
         let activeCategory = "all";
-        let bookmarks = JSON.parse(localStorage.getItem("dibi8_bookmarks")) || [];
+        const storage = {
+            get(key, fallback = null) {
+                try {
+                    const value = window.localStorage.getItem(key);
+                    return value === null ? fallback : value;
+                } catch (error) {
+                    console.warn(`Storage get failed for ${key}:`, error);
+                    return fallback;
+                }
+            },
+            set(key, value) {
+                try {
+                    window.localStorage.setItem(key, value);
+                } catch (error) {
+                    console.warn(`Storage set failed for ${key}:`, error);
+                }
+            }
+        };
+        let bookmarks = (() => {
+            try {
+                return JSON.parse(storage.get("dibi8_bookmarks", "[]")) || [];
+            } catch (error) {
+                console.warn("Bookmark state parse failed:", error);
+                return [];
+            }
+        })();
 
         // INITIALIZE APP
         document.addEventListener("DOMContentLoaded", () => {
-            // Render Nav Sidebar
-            renderNavigation();
-            // Load and Render resources catalog
-            renderCatalog();
-            // Handle active stats
-            updateStats();
-            // Trigger Lucide icons init
-            lucide.createIcons();
+            try {
+                initializeLanguage();
+                applyStaticTranslations();
+                document.querySelectorAll(".lang-btn").forEach(btn => {
+                    btn.classList.toggle("active", btn.getAttribute("data-lang") === currentLang);
+                });
+                renderNavigation();
+                renderCatalog();
+                renderKeywordClusters();
+                updateStats();
+                refreshDynamicUi();
 
-            // Set up search bar listener
-            const searchInput = document.getElementById("searchInput");
-            searchInput.addEventListener("input", filterResources);
+                const searchInput = document.getElementById("searchInput");
+                searchInput.addEventListener("input", filterResources);
 
-            // Set up hotkeys (press '/' to focus search, 'Esc' to clear)
-            window.addEventListener("keydown", (e) => {
-                if (e.key === "/" && document.activeElement !== searchInput) {
-                    e.preventDefault();
-                    searchInput.focus();
-                    searchInput.select();
-                } else if (e.key === "Escape" && document.activeElement === searchInput) {
-                    searchInput.value = "";
-                    filterResources();
-                    searchInput.blur();
-                }
-            });
+                window.addEventListener("keydown", (e) => {
+                    if (e.key === "/" && document.activeElement !== searchInput) {
+                        e.preventDefault();
+                        searchInput.focus();
+                        searchInput.select();
+                    } else if (e.key === "Escape" && document.activeElement === searchInput) {
+                        searchInput.value = "";
+                        filterResources();
+                        searchInput.blur();
+                    }
+                });
 
-            // Set up back to top listener
-            const backToTopBtn = document.getElementById("backToTopBtn");
-            window.addEventListener("scroll", () => {
-                if (window.scrollY > 300) {
-                    backToTopBtn.classList.add("visible");
-                } else {
-                    backToTopBtn.classList.remove("visible");
-                }
-                
-                // Track active navigation scrollingspy
-                spyNavigationScroll();
-            });
+                const backToTopBtn = document.getElementById("backToTopBtn");
+                window.addEventListener("scroll", () => {
+                    if (window.scrollY > 300) {
+                        backToTopBtn.classList.add("visible");
+                    } else {
+                        backToTopBtn.classList.remove("visible");
+                    }
 
-            backToTopBtn.addEventListener("click", () => {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-            });
+                    spyNavigationScroll();
+                });
+
+                backToTopBtn.addEventListener("click", () => {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                });
+            } catch (error) {
+                console.error("App initialization failed:", error);
+                showStartupError(error);
+            }
         });
+
+        function initializeLanguage() {
+            const hash = window.location.hash.replace("#", "").toLowerCase();
+            if (TRANSLATIONS[hash]) {
+                currentLang = hash;
+                return;
+            }
+
+            const savedLang = storage.get("dibi8_lang");
+            if (savedLang && TRANSLATIONS[savedLang]) {
+                currentLang = savedLang;
+                return;
+            }
+
+            const browserLang = (navigator.language || navigator.userLanguage || "zh").toLowerCase();
+            if (browserLang.startsWith("ko")) currentLang = "kr";
+            else if (browserLang.startsWith("vi")) currentLang = "vi";
+            else if (browserLang.startsWith("en")) currentLang = "en";
+            else currentLang = "zh";
+        }
+
+        function applyStaticTranslations() {
+            const dict = TRANSLATIONS[currentLang];
+            document.documentElement.lang = currentLang === "kr" ? "ko" : currentLang;
+            document.getElementById("asideSubtitle").innerText = dict.asideSubtitle;
+            document.getElementById("lblTotalItems").innerText = dict.lblTotalItems;
+            document.getElementById("lblFavCount").innerText = dict.lblFavCount;
+            document.getElementById("searchInput").placeholder = dict.searchPlaceholder;
+            document.getElementById("heroTitle").innerText = dict.heroTitle;
+            document.getElementById("heroDescription").innerHTML = dict.heroDescription;
+            document.getElementById("heroBtnTxt").innerText = dict.heroBtnTxt;
+            document.getElementById("syncStatusBadge").innerText = dict.syncStatusBadge;
+            document.getElementById("resourceCountBadge").innerText = currentLang === "kr"
+                ? `${RESOURCES.length}${dict.resourceCountBadge}`
+                : `${RESOURCES.length} ${dict.resourceCountBadge}`.trim();
+            document.getElementById("keywordTitle").innerText = dict.keywordTitle;
+            document.getElementById("keywordDescription").innerText = dict.keywordDescription;
+            document.getElementById("favTitleText").innerText = dict.favTitleText;
+            document.getElementById("noResultsTitle").innerText = dict.noResultsTitle;
+            document.getElementById("noResultsDesc").innerText = dict.noResultsDesc;
+            document.getElementById("footerText").innerText = dict.footerText;
+        }
+
+        function refreshDynamicUi() {
+            if (window.lucide && typeof window.lucide.createIcons === "function") {
+                window.lucide.createIcons();
+            }
+            attachCardMouseMovement();
+        }
+
+        function showStartupError(error) {
+            const catalog = document.getElementById("directoryCatalog");
+            if (!catalog) return;
+
+            catalog.innerHTML = `
+                <section class="glass-panel" style="display:flex; flex-direction:column; gap:0.75rem;">
+                    <h3 style="font-family: var(--font-display); color: var(--color-amber);">页面初始化失败</h3>
+                    <p style="color: var(--text-secondary); line-height:1.6;">
+                        页面脚本没有正常完成启动。请优先通过本地 HTTP 服务或 GitHub Pages 打开，而不是直接使用 <code>file://</code>。
+                    </p>
+                    <p style="color: var(--text-muted); font-family: var(--font-mono); font-size:0.78rem;">
+                        ${String(error && error.message ? error.message : error)}
+                    </p>
+                </section>
+            `;
+        }
+
+        function getLocalizedValue(value, lang = currentLang) {
+            if (value && typeof value === "object") {
+                return value[lang] || value.zh || value.en || Object.values(value)[0] || "";
+            }
+            return value || "";
+        }
+
+        function getSectionCountLabel(count, matched = false) {
+            const dict = TRANSLATIONS[currentLang];
+            if (matched) return `${count} ${dict.matchedSuffix}`;
+            if (currentLang === "zh") return `${count} 个项目`;
+            if (currentLang === "en") return `${count} Items`;
+            if (currentLang === "kr") return `${count} 개`;
+            return `${count} Muc`;
+        }
+
+        function buildSearchIndex(item) {
+            const title = getLocalizedValue(item.title);
+            const subtitle = getLocalizedValue(item.subtitle);
+            const desc = getLocalizedValue(item.desc);
+            const localizedTerms = [title, subtitle, desc].join(" ").toLowerCase();
+            const allLangTerms = [item.title, item.subtitle, item.desc]
+                .flatMap(value => typeof value === "object" ? Object.values(value) : [value])
+                .join(" ")
+                .toLowerCase();
+            const categoryTerms = (CATEGORY_LONGTAILS[item.category] || []).join(" ").toLowerCase();
+            const tagTerms = item.tags.join(" ").toLowerCase();
+            const countryTerms = COUNTRY_LONGTAILS.join(" ").toLowerCase();
+            return `${localizedTerms} ${allLangTerms} ${tagTerms} ${categoryTerms} ${countryTerms} dibi8 developer resource hub long tail keywords`.trim();
+        }
+
+        function renderKeywordClusters() {
+            const keywords = KEYWORD_CLUSTERS[currentLang] || KEYWORD_CLUSTERS.zh;
+            const grid = document.getElementById("keywordGrid");
+            const count = document.getElementById("keywordCount");
+            grid.innerHTML = keywords.map(item => `
+                <button class="keyword-chip" type="button" onclick="applyKeywordCluster('${item.query.replace(/'/g, "\\'")}')">${item.label}</button>
+            `).join("");
+            count.innerText = keywords.length;
+        }
+
+        function applyKeywordCluster(query) {
+            const input = document.getElementById("searchInput");
+            input.value = query;
+            filterResources();
+            input.focus();
+        }
 
         // RENDER NAV SIDEBAR
         function renderNavigation() {
@@ -2922,7 +3937,7 @@
                 `;
             }
             navMenu.innerHTML = html;
-            lucide.createIcons();
+            refreshDynamicUi();
         }
 
         // RENDER CATALOG
@@ -2943,7 +3958,7 @@
                                 <i data-lucide="${getCategoryIcon(catKey)}" style="width: 1.15rem; height: 1.15rem; color: var(--color-cyan);"></i>
                                 <span>${catLabel}</span>
                             </div>
-                            <span class="section-tag-counter">${items.length} ${currentLang === 'zh' ? '个项目' : currentLang === 'en' ? 'Items' : currentLang === 'kr' ? '개' : 'Mục'}</span>
+                            <span class="section-tag-counter">${getSectionCountLabel(items.length)}</span>
                         </div>
                         <div class="cards-grid">
                             ${items.map(item => renderCardHtml(item)).join('')}
@@ -2955,9 +3970,7 @@
             
             // Re-render favorites shelf
             renderFavorites();
-            
-            // Re-attach card hover mouse track dynamics
-            attachCardMouseMovement();
+            refreshDynamicUi();
         }
 
         // RENDER DYNAMIC CARD HTML
@@ -2965,24 +3978,28 @@
             const isFav = bookmarks.includes(item.id);
             const favClass = isFav ? "active" : "";
             const dict = TRANSLATIONS[currentLang];
-            
-            // Rewrite URL path depending on language switcher dynamically!
-            const languagePrefix = currentLang === "zh" ? "zh/" : currentLang === "en" ? "" : currentLang === "kr" ? "kr/" : "vi/";
+            const itemTitle = getLocalizedValue(item.title);
+            const itemSubtitle = getLocalizedValue(item.subtitle);
+            const itemDesc = getLocalizedValue(item.desc);
+            const searchIndex = buildSearchIndex(item);
+
+            // Rewrite URL path depending on language switcher dynamically
+            const languagePrefix = currentLang === "zh" ? "" : `${currentLang}/`;
             const targetUrl = `https://dibi8.com/${languagePrefix}${item.path}`;
 
             return `
-                <div class="resource-card" data-id="${item.id}" data-category="${item.category}" data-searchable="${item.title.toLowerCase()} ${item.subtitle.toLowerCase()} ${item.desc.toLowerCase()} ${item.tags.join(' ').toLowerCase()}">
+                <article class="resource-card" data-id="${item.id}" data-category="${item.category}" data-searchable="${searchIndex}">
                     <div class="card-top">
                         <div class="card-title-area">
-                            <a href="${targetUrl}" target="_blank" class="card-title">${item.title}</a>
-                            <span class="card-subtitle">${item.subtitle}</span>
+                            <a href="${targetUrl}" target="_blank" class="card-title" rel="noopener noreferrer">${itemTitle}</a>
+                            <span class="card-subtitle">${itemSubtitle}</span>
                         </div>
                         <button class="card-favorite-btn ${favClass}" onclick="toggleBookmark(event, '${item.id}')" aria-label="收藏">
                             <i data-lucide="star" style="width: 1.1rem; height: 1.1rem;"></i>
                         </button>
                     </div>
                     
-                    <p class="card-description">${item.desc}</p>
+                    <p class="card-description">${itemDesc}</p>
                     
                     <div class="card-tags">
                         ${item.tags.map(tag => `<span class="card-tag">#${tag}</span>`).join('')}
@@ -2993,12 +4010,12 @@
                             <i data-lucide="copy" style="width: 0.8rem; height: 0.8rem;"></i>
                             <span>${dict.btnCopy}</span>
                         </button>
-                        <a href="${targetUrl}" target="_blank" class="card-action-btn btn-visit">
+                        <a href="${targetUrl}" target="_blank" class="card-action-btn btn-visit" rel="noopener noreferrer">
                             <span>${dict.btnVisit}</span>
                             <i data-lucide="arrow-up-right" style="width: 0.8rem; height: 0.8rem;"></i>
                         </a>
                     </div>
-                </div>
+                </article>
             `;
         }
 
@@ -3018,11 +4035,7 @@
 
             const favItems = bookmarks.map(id => RESOURCES.find(r => r.id === id)).filter(Boolean);
             grid.innerHTML = favItems.map(item => renderCardHtml(item)).join('');
-            
-            // Re-apply Lucide rendering
-            lucide.createIcons();
-            // Re-apply hover script
-            attachCardMouseMovement();
+            refreshDynamicUi();
         }
 
         // UTILS: CATEGORY ICONS
@@ -3078,6 +4091,7 @@
         // GLOBAL DYNAMIC FILTER (SEARCH BAR)
         function filterResources() {
             const query = document.getElementById("searchInput").value.toLowerCase().trim();
+            const queryTerms = query.split(/\s+/).filter(Boolean);
             const sections = document.querySelectorAll(".directory-section");
             const favorites = document.getElementById("favoritesSection");
             const noResults = document.getElementById("noResultsPanel");
@@ -3099,7 +4113,8 @@
 
                 cards.forEach(card => {
                     const searchIndex = card.getAttribute("data-searchable");
-                    if (searchIndex.includes(query)) {
+                    const matched = queryTerms.every(term => searchIndex.includes(term));
+                    if (matched) {
                         card.style.display = "flex";
                         sectionMatchCount++;
                         totalMatchCount++;
@@ -3110,8 +4125,7 @@
 
                 if (sectionMatchCount > 0) {
                     section.style.display = "flex";
-                    // Update category card badge indicator dynamically during query
-                    section.querySelector(".section-tag-counter").innerText = `${sectionMatchCount} matched`;
+                    section.querySelector(".section-tag-counter").innerText = getSectionCountLabel(sectionMatchCount, true);
                 } else {
                     section.style.display = "none";
                 }
@@ -3162,7 +4176,7 @@
             }
 
             // Persist to local storage
-            localStorage.setItem("dibi8_bookmarks", JSON.stringify(bookmarks));
+            storage.set("dibi8_bookmarks", JSON.stringify(bookmarks));
 
             // Sync visual states instantly
             updateStats();
@@ -3201,7 +4215,9 @@
                 <span>${message}</span>
             `;
             container.appendChild(toast);
-            lucide.createIcons();
+            if (window.lucide && typeof window.lucide.createIcons === "function") {
+                window.lucide.createIcons();
+            }
 
             // Slide out and remove toast after 3 seconds
             setTimeout(() => {
@@ -3215,6 +4231,8 @@
         // SET LANGUAGE ACTION
         function setLanguage(lang) {
             currentLang = lang;
+            window.location.hash = lang;
+            storage.set("dibi8_lang", lang);
 
             // Update language switcher active buttons
             document.querySelectorAll(".lang-btn").forEach(btn => {
@@ -3222,20 +4240,15 @@
                 else btn.classList.remove("active");
             });
 
-            // Translate static elements
-            const dict = TRANSLATIONS[lang];
-            document.getElementById("searchInput").placeholder = dict.searchPlaceholder;
-            document.getElementById("heroTitle").innerText = dict.heroTitle;
-            document.getElementById("heroDescription").innerHTML = dict.heroDescription;
-            document.getElementById("heroBtnTxt").innerText = dict.heroBtnTxt;
-            document.getElementById("favTitleText").innerText = dict.favTitleText;
-            document.getElementById("noResultsTitle").innerText = dict.noResultsTitle;
-            document.getElementById("noResultsDesc").innerText = dict.noResultsDesc;
-            document.getElementById("footerText").innerText = dict.footerText;
+            applyStaticTranslations();
 
-            // Re-render UI menus and directories catalog data in real time!
+            renderKeywordClusters();
             renderNavigation();
             renderCatalog();
+
+            const query = document.getElementById("searchInput").value.trim();
+            if (query) filterResources();
+            else filterCategory(null, activeCategory);
         }
 
         // HOVER DYNAMIC NEON MOUSE-FOLLOWING TRACK (CSS variables)
